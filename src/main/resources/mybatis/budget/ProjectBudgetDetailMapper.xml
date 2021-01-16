@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.budget.detail.mapper.ProjectBudgetDetailMapper">
+    
+    <resultMap type="ProjectBudgetDetail" id="ProjectBudgetDetailResult">
+        <result property="id"    column="id"    />
+        <result property="projectCode"    column="project_code"    />
+        <result property="constitute"    column="constitute"    />
+        <result property="subject"    column="subject"    />
+        <result property="amount"    column="amount"    />
+        <result property="type"    column="type"    />
+        <result property="detail"    column="detail"    />
+        <result property="source"    column="source"    />
+        <result property="specification"    column="specification"    />
+        <result property="funds"    column="funds"    />
+        <result property="ecmSubjects"    column="ecm_subjects"    />
+        <result property="govEconomy"    column="gov_economy"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectProjectBudgetDetailVo">
+        select id, project_code, constitute, subject, amount, type, detail, source, specification, funds, ecm_subjects, gov_economy, create_by, create_time, update_by, update_time, remark, del_flag from project_budget_detail
+    </sql>
+
+    <select id="selectProjectBudgetDetailList" parameterType="ProjectBudgetDetail" resultMap="ProjectBudgetDetailResult">
+        <include refid="selectProjectBudgetDetailVo"/>
+        <where>  
+            <if test="projectCode != null  and projectCode != ''"> and project_code = #{projectCode}</if>
+            <if test="constitute != null  and constitute != ''"> and constitute = #{constitute}</if>
+            <if test="subject != null  and subject != ''"> and subject = #{subject}</if>
+            <if test="amount != null "> and amount = #{amount}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="detail != null  and detail != ''"> and detail = #{detail}</if>
+            <if test="source != null  and source != ''"> and source = #{source}</if>
+            <if test="specification != null "> and specification = #{specification}</if>
+            <if test="funds != null "> and funds = #{funds}</if>
+            <if test="ecmSubjects != null "> and ecm_subjects = #{ecmSubjects}</if>
+            <if test="govEconomy != null  and govEconomy != ''"> and gov_economy = #{govEconomy}</if>
+        </where>
+    </select>
+    
+    <select id="selectProjectBudgetDetailById" parameterType="Long" resultMap="ProjectBudgetDetailResult">
+        <include refid="selectProjectBudgetDetailVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProjectBudgetDetail" parameterType="ProjectBudgetDetail" useGeneratedKeys="true" keyProperty="id">
+        insert into project_budget_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectCode != null">project_code,</if>
+            <if test="constitute != null">constitute,</if>
+            <if test="subject != null">subject,</if>
+            <if test="amount != null">amount,</if>
+            <if test="type != null">type,</if>
+            <if test="detail != null">detail,</if>
+            <if test="source != null">source,</if>
+            <if test="specification != null">specification,</if>
+            <if test="funds != null">funds,</if>
+            <if test="ecmSubjects != null">ecm_subjects,</if>
+            <if test="govEconomy != null">gov_economy,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectCode != null">#{projectCode},</if>
+            <if test="constitute != null">#{constitute},</if>
+            <if test="subject != null">#{subject},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="type != null">#{type},</if>
+            <if test="detail != null">#{detail},</if>
+            <if test="source != null">#{source},</if>
+            <if test="specification != null">#{specification},</if>
+            <if test="funds != null">#{funds},</if>
+            <if test="ecmSubjects != null">#{ecmSubjects},</if>
+            <if test="govEconomy != null">#{govEconomy},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProjectBudgetDetail" parameterType="ProjectBudgetDetail">
+        update project_budget_detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectCode != null">project_code = #{projectCode},</if>
+            <if test="constitute != null">constitute = #{constitute},</if>
+            <if test="subject != null">subject = #{subject},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="detail != null">detail = #{detail},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="specification != null">specification = #{specification},</if>
+            <if test="funds != null">funds = #{funds},</if>
+            <if test="ecmSubjects != null">ecm_subjects = #{ecmSubjects},</if>
+            <if test="govEconomy != null">gov_economy = #{govEconomy},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProjectBudgetDetailById" parameterType="Long">
+        delete from project_budget_detail where id = #{id}
+    </delete>
+
+    <delete id="deleteProjectBudgetDetailByIds" parameterType="String">
+        delete from project_budget_detail where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

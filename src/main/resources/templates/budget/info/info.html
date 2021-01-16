@@ -51,19 +51,9 @@
                                     <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
                                 </select>
                             </li>
+
                             <li>
-                                <label>本年预算：</label>
-                                <select name="isBudget" th:with="type=${@dict.getType('is_select')}">
-                                    <option value="">所有</option>
-                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-                                </select>
-                            </li>
-                            <li>
-                                <label>总预算：</label>
-                                <input type="text" name="generalBudget"/>
-                            </li>
-                            <li>
-                                <label>状态通过：</label>
+                                <label>项目状态：</label>
                                 <select name="status" th:with="type=${@dict.getType('project_status')}">
                                     <option value="">所有</option>
                                     <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>

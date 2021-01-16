@@ -1,4 +1,4 @@
-package com.ruoyi.project.budget.info.domain;
+package com.ruoyi.project.budget.detail.domain;
 
 import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -66,120 +66,120 @@ public class ProjectBudgetDetail extends BaseEntity
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
 
-    public void setId(Long id) 
+    public void setId(Long id)
     {
         this.id = id;
     }
 
-    public Long getId() 
+    public Long getId()
     {
         return id;
     }
-    public void setProjectCode(String projectCode) 
+    public void setProjectCode(String projectCode)
     {
         this.projectCode = projectCode;
     }
 
-    public String getProjectCode() 
+    public String getProjectCode()
     {
         return projectCode;
     }
-    public void setConstitute(String constitute) 
+    public void setConstitute(String constitute)
     {
         this.constitute = constitute;
     }
 
-    public String getConstitute() 
+    public String getConstitute()
     {
         return constitute;
     }
-    public void setSubject(String subject) 
+    public void setSubject(String subject)
     {
         this.subject = subject;
     }
 
-    public String getSubject() 
+    public String getSubject()
     {
         return subject;
     }
-    public void setAmount(BigDecimal amount) 
+    public void setAmount(BigDecimal amount)
     {
         this.amount = amount;
     }
 
-    public BigDecimal getAmount() 
+    public BigDecimal getAmount()
     {
         return amount;
     }
-    public void setType(String type) 
+    public void setType(String type)
     {
         this.type = type;
     }
 
-    public String getType() 
+    public String getType()
     {
         return type;
     }
-    public void setDetail(String detail) 
+    public void setDetail(String detail)
     {
         this.detail = detail;
     }
 
-    public String getDetail() 
+    public String getDetail()
     {
         return detail;
     }
-    public void setSource(String source) 
+    public void setSource(String source)
     {
         this.source = source;
     }
 
-    public String getSource() 
+    public String getSource()
     {
         return source;
     }
-    public void setSpecification(Long specification) 
+    public void setSpecification(Long specification)
     {
         this.specification = specification;
     }
 
-    public Long getSpecification() 
+    public Long getSpecification()
     {
         return specification;
     }
-    public void setFunds(Long funds) 
+    public void setFunds(Long funds)
     {
         this.funds = funds;
     }
 
-    public Long getFunds() 
+    public Long getFunds()
     {
         return funds;
     }
-    public void setEcmSubjects(Long ecmSubjects) 
+    public void setEcmSubjects(Long ecmSubjects)
     {
         this.ecmSubjects = ecmSubjects;
     }
 
-    public Long getEcmSubjects() 
+    public Long getEcmSubjects()
     {
         return ecmSubjects;
     }
-    public void setGovEconomy(String govEconomy) 
+    public void setGovEconomy(String govEconomy)
     {
         this.govEconomy = govEconomy;
     }
 
-    public String getGovEconomy() 
+    public String getGovEconomy()
     {
         return govEconomy;
     }
-    public void setDelFlag(String delFlag) 
+    public void setDelFlag(String delFlag)
     {
         this.delFlag = delFlag;
     }
 
-    public String getDelFlag() 
+    public String getDelFlag()
     {
         return delFlag;
     }

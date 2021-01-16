@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ruoyi.project.budget.detail.domain.ProjectBudgetDetail;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.framework.aspectj.lang.annotation.Excel;
@@ -11,7 +12,7 @@ import com.ruoyi.framework.web.domain.BaseEntity;
 
 /**
  * 项目管理对象 project_budget_info
- * 
+ *
  * @author yueqiangu
  * @date 2021-01-10
  */

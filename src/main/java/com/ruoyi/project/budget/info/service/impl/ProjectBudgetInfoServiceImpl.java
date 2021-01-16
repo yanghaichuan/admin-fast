@@ -2,12 +2,13 @@ package com.ruoyi.project.budget.info.service.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.project.budget.detail.domain.ProjectBudgetDetail;
+import com.ruoyi.project.budget.detail.service.IProjectBudgetDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import com.ruoyi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
-import com.ruoyi.project.budget.info.domain.ProjectBudgetDetail;
 import com.ruoyi.project.budget.info.mapper.ProjectBudgetInfoMapper;
 import com.ruoyi.project.budget.info.domain.ProjectBudgetInfo;
 import com.ruoyi.project.budget.info.service.IProjectBudgetInfoService;
@@ -24,6 +25,9 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
 {
     @Autowired
     private ProjectBudgetInfoMapper projectBudgetInfoMapper;
+
+    @Autowired
+    private IProjectBudgetDetailService projectBudgetDetailService;
 
     /**
      * 查询项目管理
@@ -46,7 +50,14 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
     @Override
     public List<ProjectBudgetInfo> selectProjectBudgetInfoList(ProjectBudgetInfo projectBudgetInfo)
     {
-        return projectBudgetInfoMapper.selectProjectBudgetInfoList(projectBudgetInfo);
+        List<ProjectBudgetInfo>  projectBudgetInfoList = projectBudgetInfoMapper.selectProjectBudgetInfoList(projectBudgetInfo);
+        for(ProjectBudgetInfo projectBudgetInfo1:projectBudgetInfoList){
+            ProjectBudgetDetail projectBudgetDetail = new ProjectBudgetDetail();
+            projectBudgetDetail.setProjectCode(projectBudgetInfo1.getProjectCode());
+            List<ProjectBudgetDetail> projectBudgetDetailList =  projectBudgetDetailService.selectProjectBudgetDetailList(projectBudgetDetail);
+            projectBudgetInfo1.setProjectBudgetDetailList(projectBudgetDetailList);
+        }
+        return projectBudgetInfoList;
     }
 
     /**
