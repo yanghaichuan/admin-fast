@@ -72,6 +72,18 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
     {
         projectBudgetInfo.setCreateTime(DateUtils.getNowDate());
         int rows = projectBudgetInfoMapper.insertProjectBudgetInfo(projectBudgetInfo);
+        ;
+        if(StringUtils.isNotEmpty(projectBudgetInfo.getProjectBudgetDetailList())){
+            projectBudgetInfo.getProjectBudgetDetailList().forEach(data->{
+                data.setType("1");
+            });
+        }
+        if(StringUtils.isNotEmpty(projectBudgetInfo.getProjectBudgetDetailThreeList())){
+            projectBudgetInfo.getProjectBudgetDetailThreeList().forEach(data->{
+                data.setType("2");
+            });
+            projectBudgetInfo.getProjectBudgetDetailList().addAll(projectBudgetInfo.getProjectBudgetDetailThreeList());
+        }
         insertProjectBudgetDetail(projectBudgetInfo);
         return rows;
     }

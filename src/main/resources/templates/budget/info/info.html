@@ -118,10 +118,18 @@
                 {
                     field: 'projectCode',
                     title: '项目编码'
+                    ,
+                    formatter: function(value, row, index) {
+                        return $.table.tooltip(value);
+                    }
                 },
                 {
                     field: 'projectName',
                     title: '项目名称'
+                    ,
+                    formatter: function(value, row, index) {
+                        return $.table.tooltip(value);
+                    }
                 },
                 {
                     field: 'projectCategroy',
@@ -138,16 +146,20 @@
                     }
                 },
                 {
-                    field: 'projectContent',
-                    title: '项目说明'
-                },
-                {
                     field: 'startTime',
                     title: '开始时间'
+                    ,
+                    formatter: function(value, row, index) {
+                        return $.table.tooltip(value);
+                    }
                 },
                 {
                     field: 'finshTime',
                     title: '结束时间'
+                    ,
+                    formatter: function(value, row, index) {
+                        return $.table.tooltip(value);
+                    }
                 },
                 {
                     field: 'isKpi',

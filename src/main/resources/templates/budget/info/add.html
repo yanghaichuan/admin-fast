@@ -1,248 +1,363 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('新增项目管理')" />
-    <th:block th:include="include :: datetimepicker-css" />
-    <th:block th:include="include :: summernote-css" />
+    <th:block th:include="include :: header('新增项目管理')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
+    <th:block th:include="include :: summernote-css"/>
+    <link th:href="@{/css/layui/layui.css}" rel="stylesheet"/>
 </head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-info-add">
-            <h4 class="form-header h4">一级项目</h4>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-info-add">
+        <h4 class="form-header h4">一级项目</h4>
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label is-required">项目编码：</label>
-                        <div class="col-sm-8">
-                            <input name="projectCode" class="form-control" type="text" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label is-required">项目名称：</label>
-                        <div class="col-sm-8">
-                            <input name="projectName" class="form-control" type="text" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label is-required">项目类别：</label>
-                        <div class="col-sm-8">
-                            <select name="projectCategroy" class="form-control m-b" th:with="type=${@dict.getType('project_categroy')}" required>
-                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label is-required">项目类型：</label>
-                        <div class="col-sm-8">
-                            <select name="projectType" class="form-control m-b" th:with="type=${@dict.getType('project_type')}" required>
-                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label is-required">开始时间：</label>
-                        <div class="col-sm-8">
-                            <div class="input-group date">
-                                <input name="startTime" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label is-required">结束时间：</label>
-                        <div class="col-sm-8">
-                            <div class="input-group date">
-                                <input name="finshTime" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">是否参与绩效考核：</label>
-                        <div class="col-sm-7">
-                            <div class="radio-box" th:each="dict : ${@dict.getType('is_select')}">
-                                <input type="radio" th:id="${'isKpi_' + dict.dictCode}" name="isKpi" th:value="${dict.dictValue}" th:checked="${dict.default}">
-                                <label th:for="${'isKpi_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">是否专业评审：</label>
-                        <div class="col-sm-8">
-                            <div class="radio-box" th:each="dict : ${@dict.getType('is_select')}">
-                                <input type="radio" th:id="${'isReview_' + dict.dictCode}" name="isReview" th:value="${dict.dictValue}" th:checked="${dict.default}">
-                                <label th:for="${'isReview_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">是否纳入本年预算：</label>
-                        <div class="col-sm-7">
-                            <div class="radio-box" th:each="dict : ${@dict.getType('is_select')}">
-                                <input type="radio" th:id="${'isBudget_' + dict.dictCode}" name="isBudget" th:value="${dict.dictValue}" th:checked="${dict.default}">
-                                <label th:for="${'isBudget_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label is-required">总预算：</label>
-                        <div class="col-sm-8">
-                            <input name="generalBudget" class="form-control" type="text" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
+        <div class="row">
+            <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">状态通过：</label>
-                    <div class="col-sm-9">
-                        <div class="radio-box" th:each="dict : ${@dict.getType('project_status')}">
-                            <input type="radio" th:id="${'status_' + dict.dictCode}" name="status" th:value="${dict.dictValue}" th:checked="${dict.default}">
-                            <label th:for="${'status_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                    <label class="col-sm-3 control-label is-required">项目编码：</label>
+                    <div class="col-sm-8">
+                        <input name="projectCode" class="form-control" type="text" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">项目名称：</label>
+                    <div class="col-sm-8">
+                        <input name="projectName" class="form-control" type="text" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">项目类别：</label>
+                    <div class="col-sm-8">
+                        <select name="projectCategroy" class="form-control m-b"
+                                th:with="type=${@dict.getType('project_categroy')}" required>
+                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                    th:value="${dict.dictValue}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">项目类型：</label>
+                    <div class="col-sm-8">
+                        <select name="projectType" class="form-control m-b"
+                                th:with="type=${@dict.getType('project_type')}" required>
+                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                    th:value="${dict.dictValue}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">开始时间：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group date">
+                            <input name="startTime" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <h4 class="form-header h4">二级构成、三级明细</h4>
-            <div class="row">
-                <div class="col-sm-12">
-                    <button type="button" class="btn btn-white btn-sm" onclick="addColumn()"><i class="fa fa-plus"> 增加</i></button>
-                    <button type="button" class="btn btn-white btn-sm" onclick="sub.delColumn()"><i class="fa fa-minus"> 删除</i></button>
-                    <div class="col-sm-12 select-table table-striped">
-                        <table id="bootstrap-table"></table>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">结束时间：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group date">
+                            <input name="finshTime" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-offset-5 col-sm-10">
-            <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存</button>&nbsp;
-            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
         </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">是否参与绩效考核：</label>
+                    <div class="col-sm-7">
+                        <div class="radio-box" th:each="dict : ${@dict.getType('is_select')}">
+                            <input type="radio" th:id="${'isKpi_' + dict.dictCode}" name="isKpi"
+                                   th:value="${dict.dictValue}" th:checked="${dict.default}">
+                            <label th:for="${'isKpi_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">是否专业评审：</label>
+                    <div class="col-sm-8">
+                        <div class="radio-box" th:each="dict : ${@dict.getType('is_select')}">
+                            <input type="radio" th:id="${'isReview_' + dict.dictCode}" name="isReview"
+                                   th:value="${dict.dictValue}" th:checked="${dict.default}">
+                            <label th:for="${'isReview_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">是否纳入本年预算：</label>
+                    <div class="col-sm-7">
+                        <div class="radio-box" th:each="dict : ${@dict.getType('is_select')}">
+                            <input type="radio" th:id="${'isBudget_' + dict.dictCode}" name="isBudget"
+                                   th:value="${dict.dictValue}" th:checked="${dict.default}">
+                            <label th:for="${'isBudget_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label is-required">总预算：</label>
+                    <div class="col-sm-8">
+                        <input name="generalBudget" class="form-control" type="text" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--            <div class="row">-->
+        <!--                <div class="form-group">-->
+        <!--                    <label class="col-sm-2 control-label">状态通过：</label>-->
+        <!--                    <div class="col-sm-9">-->
+        <!--                        <div class="radio-box" th:each="dict : ${@dict.getType('project_status')}">-->
+        <!--                            <input type="radio" th:id="${'status_' + dict.dictCode}" name="status" th:value="${dict.dictValue}" th:checked="${dict.default}">-->
+        <!--                            <label th:for="${'status_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+
+        <h4 class="form-header h4"></h4>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">二级构成</a>
+                        </li>
+                        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">三级明细</a>
+                        </li>
+                        <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">项目描述、项目描述、变动原因说明</a>
+                        </li>
+                        <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">项目资料</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane active">
+                            <div class="panel-body">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-white btn-sm" onclick="addColumn()"><i
+                                            class="fa fa-plus"> 增加</i></button>
+                                    <button type="button" class="btn btn-white btn-sm" onclick="sub.delColumn()"><i
+                                            class="fa fa-minus"> 删除</i></button>
+                                    <div class="col-sm-12 select-table table-striped">
+                                        <table id="bootstrap-table"></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-2" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-white btn-sm" onclick="addColumn1()"><i
+                                            class="fa fa-plus"> 增加</i></button>
+                                    <button type="button" class="btn btn-white btn-sm" onclick="delColumn1()"><i
+                                            class="fa fa-minus"> 删除</i></button>
+                                    <div class="col-sm-12 select-table table-striped">
+                                        <table id="bootstrap-table1"></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-3" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label is-required">项目描述：</label>
+                                        <div class="col-sm-9">
+                                            <input type="hidden" class="form-control" name="projectContent">
+                                            <div class="summernote" id="projectContent"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">变更原因：</label>
+                                        <div class="col-sm-9">
+                                            <input type="hidden" class="form-control" name="remark">
+                                            <div class="summernote" id="remark"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-4" class="tab-pane">
+                            <div class="panel-body">
+                                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                                    <legend>项目资料：文件列表</legend>
+                                </fieldset>
+
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>
+                                    <div class="layui-upload-list">
+                                        <table class="layui-table">
+                                            <thead>
+                                            <tr><th>文件名</th>
+                                                <th>大小</th>
+                                                <th>状态</th>
+                                                <th>操作</th>
+                                            </tr></thead>
+                                            <tbody id="demoList"></tbody>
+                                        </table>
+                                    </div>
+                                    <button type="button" class="layui-btn" id="testListAction">开始上传</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-sm-offset-5 col-sm-10">
+        <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存
+        </button>&nbsp;
+        <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭
+        </button>
     </div>
-    <th:block th:include="include :: footer" />
-    <th:block th:include="include :: datetimepicker-js" />
-    <th:block th:include="include :: summernote-js" />
-    <script th:inline="javascript">
-        var prefix = ctx + "budget/info"
-        var typeDatas = [[${@dict.getType('project_detail_type')}]];
-        var sourceDatas = [[${@dict.getType('project_ecm_source')}]];
-        var specificationDatas = [[${@dict.getType('project_specification')}]];
-        var fundsDatas = [[${@dict.getType('project_specification')}]];
-        var ecmSubjectsDatas = [[${@dict.getType('project_subject')}]];
-        $("#form-info-add").validate({
-            focusCleanup: true
-        });
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<th:block th:include="include :: summernote-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "budget/info"
+    var typeDatas = [[${@dict.getType('project_detail_type')}]];
+    var sourceDatas = [[${@dict.getType('project_ecm_source')}]];
+    var specificationDatas = [[${@dict.getType('project_specification')}]];
+    var fundsDatas = [[${@dict.getType('project_funds')}]];
+    var ecmSubjectsDatas = [[${@dict.getType('project_subject')}]];
+    $("#form-info-add").validate({
+        focusCleanup: true
+    });
 
-        function submitHandler() {
-            if ($.validate.form()) {
-                $.operate.save(prefix + "/add", $('#form-info-add').serialize());
-            }
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-info-add').serialize());
         }
+    }
 
-        $("input[name='startTime']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
-        });
-
-        $("input[name='finshTime']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
-        });
-
-        $(function() {
-            $('.summernote').summernote({
-                lang: 'zh-CN',
-                callbacks: {
-                    onChange: function(contents, $edittable) {
-                        $("input[name='" + this.id + "']").val(contents);
-                    },
-                    onImageUpload: function(files) {
-                    	var obj = this;
-                    	var data = new FormData();
-                    	data.append("file", files[0]);
-                    	$.ajax({
-                            type: "post",
-                            url: ctx + "common/upload",
-                    		data: data,
-                    		cache: false,
-                    		contentType: false,
-                    		processData: false,
-                    		dataType: 'json',
-                    		success: function(result) {
-                    		    if (result.code == web_status.SUCCESS) {
-                    		        $('#' + obj.id).summernote('insertImage', result.url);
-                    		    } else {
-                    		        $.modal.alertError(result.msg);
-                    		    }
-                    		},
-                    		error: function(error) {
-                    		    $.modal.alertWarning("图片上传失败。");
-                    		}
-                    	});
+    /**
+     * 初始化  serializeObject
+     */
+    function initSerializeObject() {
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
                     }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
                 }
             });
-        });
+            return o;
+        };
+    }
 
-        $(function() {
-            var options = {
-                pagination: false,
-                showSearch: false,
-                showRefresh: false,
-                showToggle: false,
-                showColumns: false,
-                sidePagination: "client",
-                columns: [{
-                    checkbox: true
+    $("input[name='startTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    $("input[name='finshTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    $(function () {
+        $('.summernote').summernote({
+            lang: 'zh-CN',
+            callbacks: {
+                onChange: function (contents, $edittable) {
+                    $("input[name='" + this.id + "']").val(contents);
                 },
+                onImageUpload: function (files) {
+                    var obj = this;
+                    var data = new FormData();
+                    data.append("file", files[0]);
+                    $.ajax({
+                        type: "post",
+                        url: ctx + "common/upload",
+                        data: data,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        dataType: 'json',
+                        success: function (result) {
+                            if (result.code == web_status.SUCCESS) {
+                                $('#' + obj.id).summernote('insertImage', result.url);
+                            } else {
+                                $.modal.alertError(result.msg);
+                            }
+                        },
+                        error: function (error) {
+                            $.modal.alertWarning("图片上传失败。");
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    $(function () {
+        var options = {
+            pagination: false,
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            sidePagination: "client",
+            columns: [{
+                checkbox: true
+            },
                 {
                     field: 'index',
                     align: 'center',
                     title: "序号",
                     formatter: function (value, row, index) {
-                    	var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
-                    	return columnIndex + $.table.serialNumber(index);
+                        var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
+                        return columnIndex + $.table.serialNumber(index);
                     }
                 },
                 {
                     field: 'constitute',
                     align: 'center',
-                    title: '项目构成',
-                    formatter: function(value, row, index) {
+                    title: '构成内容',
+                    formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='text' name='projectBudgetDetailList[%s].constitute' value='%s'>", index, value);
                         return html;
                     }
@@ -250,8 +365,8 @@
                 {
                     field: 'subject',
                     align: 'center',
-                    title: '科目',
-                    formatter: function(value, row, index) {
+                    title: '功能科目',
+                    formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='text' name='projectBudgetDetailList[%s].subject' value='%s'>", index, value);
                         return html;
                     }
@@ -259,27 +374,9 @@
                 {
                     field: 'amount',
                     align: 'center',
-                    title: '金额',
-                    formatter: function(value, row, index) {
+                    title: '构成金额',
+                    formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='text' name='projectBudgetDetailList[%s].amount' value='%s'>", index, value);
-                        return html;
-                    }
-                },
-                {
-                    field: 'type',
-                    align: 'center',
-                    title: '类型',
-                    formatter: function(value, row, index) {
-                        var name = $.common.sprintf("projectBudgetDetailList[%s].type", index);
-                        return $.common.dictToSelect(typeDatas, value, name);
-                    }
-                },
-                {
-                    field: 'detail',
-                    align: 'center',
-                    title: '明细内容',
-                    formatter: function(value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='projectBudgetDetailList[%s].detail' value='%s'>", index, value);
                         return html;
                     }
                 },
@@ -287,26 +384,38 @@
                     field: 'source',
                     align: 'center',
                     title: '资金来源',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         var name = $.common.sprintf("projectBudgetDetailList[%s].source", index);
                         return $.common.dictToSelect(sourceDatas, value, name);
                     }
-                },
-                {
-                    field: 'specification',
+                },{
+                    field: 'type',
                     align: 'center',
-                    title: '规格类型',
-                    formatter: function(value, row, index) {
-                        var name = $.common.sprintf("projectBudgetDetailList[%s].specification", index);
-                        return $.common.dictToSelect(specificationDatas, value, name);
-                    }
-                },
+                    title: '类型 ',
+                    visible: false
+                }
+            ]
+        };
+        $.table.init(options);
+
+        $('#bootstrap-table1').bootstrapTable({
+            columns: [{
+                checkbox: true
+            }, {
+                field: 'specification',
+                align: 'center',
+                title: '规格类型',
+                formatter: function (value, row, index) {
+                    var name = $.common.sprintf("projectBudgetDetailThreeList[%s].specification", index);
+                    return $.common.dictToSelect(specificationDatas, value, name);
+                }
+            },
                 {
                     field: 'funds',
                     align: 'center',
                     title: '金额类别',
-                    formatter: function(value, row, index) {
-                        var name = $.common.sprintf("projectBudgetDetailList[%s].funds", index);
+                    formatter: function (value, row, index) {
+                        var name = $.common.sprintf("projectBudgetDetailThreeList[%s].funds", index);
                         return $.common.dictToSelect(fundsDatas, value, name);
                     }
                 },
@@ -314,8 +423,8 @@
                     field: 'ecmSubjects',
                     align: 'center',
                     title: '经济科目',
-                    formatter: function(value, row, index) {
-                        var name = $.common.sprintf("projectBudgetDetailList[%s].ecmSubjects", index);
+                    formatter: function (value, row, index) {
+                        var name = $.common.sprintf("projectBudgetDetailThreeList[%s].ecmSubjects", index);
                         return $.common.dictToSelect(ecmSubjectsDatas, value, name);
                     }
                 },
@@ -323,43 +432,128 @@
                     field: 'govEconomy',
                     align: 'center',
                     title: '政府经济科目',
-                    formatter: function(value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='projectBudgetDetailList[%s].govEconomy' value='%s'>", index, value);
+                    formatter: function (value, row, index) {
+                        var html = $.common.sprintf("<input class='form-control' type='text' name='projectBudgetDetailThreeList[%s].govEconomy' value='%s'>", index, value);
                         return html;
                     }
-                }
-                ]
-            };
-            $.table.init(options);
+                },{
+                    field: 'type',
+                    align: 'center',
+                    title: '类型 ',
+                    visible: false
+                }]
+
+    });
+
+    });
+
+    function addColumn() {
+        var count = $("#" + table.options.id).bootstrapTable('getData').length;
+        sub.editColumn();
+        $("#" + table.options.id).bootstrapTable('insertRow', {
+            index: count,
+            row: {
+                index: $.table.serialNumber(count),
+                constitute: "",
+                subject: "",
+                amount: "",
+                source: "",
+                type:"1"
+            }
         });
+    }
 
-        function addColumn() {
-            var count = $("#" + table.options.id).bootstrapTable('getData').length;
-            sub.editColumn();
+    function addColumn1() {
+        var count = $("#bootstrap-table1").bootstrapTable('getData').length;
 
-            $("#" + table.options.id).bootstrapTable('insertRow', {
-                index: count,
-                row: {
-                    index: $.table.serialNumber(count),
-                    constitute: "",
-                    subject: "",
-                    amount: "",
-                    type: "",
-                    detail: "",
-                    source: "",
-                    specification: "",
-                    funds: "",
-                    ecmSubjects: "",
-                    govEconomy: "",
-                    createBy: "",
-                    createTime: "",
-                    updateBy: "",
-                    updateTime: "",
-                    remark: "",
-                    delFlag: ""
-                }
-            });
+        $("#bootstrap-table1").bootstrapTable('insertRow', {
+            index: count,
+            row: {
+                index: $.table.serialNumber(count),
+                specification: "",
+                funds: "",
+                ecmSubjects: "",
+                govEconomy: "",
+                type:"2"
+            }
+        });
+    }
+
+    function delColumn1() {
+        var rows=$("#bootstrap-table1").bootstrapTable('getSelections');
+        if (rows.length == 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
         }
-    </script>
+        var ids = [];
+        rows.forEach(function (data,index) {
+            ids.push(data.index);
+        })
+        $("#bootstrap-table1").bootstrapTable('remove', { field: 'index', values: ids });
+    }
+
+
+    layui.use('upload', function(){
+        var $ = layui.jquery
+            ,upload = layui.upload;
+
+        //多文件列表示例
+        var demoListView = $('#demoList')
+            ,uploadListIns = upload.render({
+            elem: '#testList'
+            ,url: ctx + 'common/upload' //改成您自己的上传接口
+            ,accept: 'file'
+            ,multiple: true
+            ,auto: false
+            ,bindAction: '#testListAction'
+            ,choose: function(obj){
+                var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                //读取本地文件
+                obj.preview(function(index, file, result){
+                    var tr = $(['<tr id="upload-'+ index +'">'
+                        ,'<td>'+ file.name +'</td>'
+                        ,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
+                        ,'<td>等待上传</td>'
+                        ,'<td>'
+                        ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+                        ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+                        ,'</td>'
+                        ,'</tr>'].join(''));
+
+                    //单个重传
+                    tr.find('.demo-reload').on('click', function(){
+                        obj.upload(index, file);
+                    });
+
+                    //删除
+                    tr.find('.demo-delete').on('click', function(){
+                        delete files[index]; //删除对应的文件
+                        tr.remove();
+                        uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                    });
+
+                    demoListView.append(tr);
+                });
+            }
+            ,done: function(res, index, upload){
+                if(res.code === 0){ //上传成功
+                    var tr = demoListView.find('tr#upload-'+ index)
+                        ,tds = tr.children();
+                    tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                    tds.eq(3).html(''); //清空操作
+                    return delete this.files[index]; //删除文件队列已经上传成功的文件
+                }
+                this.error(index, upload);
+            }
+            ,error: function(index, upload){
+                var tr = demoListView.find('tr#upload-'+ index)
+                    ,tds = tr.children();
+                tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+                tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+            }
+        });
+    });
+
+</script>
 </body>
 </html>

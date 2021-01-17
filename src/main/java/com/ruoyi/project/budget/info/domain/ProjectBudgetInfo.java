@@ -78,6 +78,10 @@ public class ProjectBudgetInfo extends BaseEntity
 
     /** 项目明细信息 */
     private List<ProjectBudgetDetail> projectBudgetDetailList;
+    /**
+     * 三级明细
+     */
+    private List<ProjectBudgetDetail> projectBudgetDetailThreeList;
 
     public void setId(Long id)
     {
@@ -214,6 +218,14 @@ public class ProjectBudgetInfo extends BaseEntity
     public void setProjectBudgetDetailList(List<ProjectBudgetDetail> projectBudgetDetailList)
     {
         this.projectBudgetDetailList = projectBudgetDetailList;
+    }
+
+    public List<ProjectBudgetDetail> getProjectBudgetDetailThreeList() {
+        return projectBudgetDetailThreeList;
+    }
+
+    public void setProjectBudgetDetailThreeList(List<ProjectBudgetDetail> projectBudgetDetailThreeList) {
+        this.projectBudgetDetailThreeList = projectBudgetDetailThreeList;
     }
 
     @Override

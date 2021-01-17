@@ -1,9 +1,9 @@
 /**
  * 通用方法封装处理
- * Copyright (c) 2019 ruoyi 
+ * Copyright (c) 2019 ruoyi
  */
 $(function() {
-	
+
     //  layer扩展皮肤
     if (window.layer !== undefined) {
         layer.config({
@@ -11,12 +11,12 @@ $(function() {
             skin: 'layer-ext-moon'
         });
     }
-	
+
     // 回到顶部绑定
     if ($.fn.toTop !== undefined) {
         $('#scroll-up').toTop();
     }
-	
+
     // select2复选框事件绑定
     if ($.fn.select2 !== undefined) {
         $.fn.select2.defaults.set( "theme", "bootstrap" );
@@ -26,7 +26,7 @@ $(function() {
             })
         })
     }
-	
+
     // iCheck单选框及复选框事件绑定
     if ($.fn.iCheck !== undefined) {
         $(".check-box:not(.noicheck),.radio-box:not(.noicheck)").each(function() {
@@ -36,7 +36,7 @@ $(function() {
             })
         })
     }
-	
+
     // 气泡弹出框特效（移到元素时）
     $(document).on("mouseenter", '.table [data-toggle="popover"]', function() {
         var _this = this;
@@ -53,14 +53,14 @@ $(function() {
             if (!$(".popover:hover").length) $(_this).popover("hide");
         }, 100);
     });
-	
+
     // 取消回车自动提交表单
     $(document).on("keypress", ":input:not(textarea):not([type=submit])", function(event) {
         if (event.keyCode == 13) {
             event.preventDefault();
         }
     });
-	 
+
     // laydate 时间控件绑定
     if ($(".select-time").length > 0) {
        layui.use('laydate', function() {
@@ -103,7 +103,7 @@ $(function() {
             });
         });
     }
-	
+
     // laydate time-input 时间控件绑定
     if ($(".time-input").length > 0) {
         layui.use('laydate', function () {
@@ -151,7 +151,7 @@ $(function() {
             });
         });
     }
-	
+
     // tree 关键字搜索绑定
     if ($("#keyword").length > 0) {
         $("#keyword").bind("focus", function focusKey(e) {
@@ -165,7 +165,7 @@ $(function() {
             $.tree.searchNode(e);
         }).bind("input propertychange", $.tree.searchNode);
     }
-	
+
     // tree表格树 展开/折叠
     var expandFlag;
     $("#expandAllBtn").click(function() {
@@ -178,7 +178,7 @@ $(function() {
         }
         expandFlag = expandFlag ? false: true;
     })
-	
+
     // 按下ESC按钮关闭弹层
     $('body', document).on('keyup', function(e) {
         if (e.which === 27) {
@@ -300,7 +300,7 @@ function createMenuItem(dataUrl, menuName, isRefresh) {
         // 添加选项卡对应的iframe
         var str1 = '<iframe class="RuoYi_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" data-panel="' + panelUrl + '" seamless></iframe>';
         $('.mainContent', topWindow).find('iframe.RuoYi_iframe').hide().parents('.mainContent').append(str1);
-        
+
         window.parent.$.modal.loading("数据加载中，请稍后...");
         $('.mainContent iframe:visible', topWindow).load(function () {
             window.parent.$.modal.closeLoading();
