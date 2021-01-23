@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ruoyi.project.budget.detail.domain.ProjectBudgetDetail;
+import com.ruoyi.project.system.attachment.domain.ProjectAttachment;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.framework.aspectj.lang.annotation.Excel;
@@ -82,6 +83,10 @@ public class ProjectBudgetInfo extends BaseEntity
      * 三级明细
      */
     private List<ProjectBudgetDetail> projectBudgetDetailThreeList;
+    /**
+     * 附件列表
+     */
+    private List<ProjectAttachment> attachmentList;
 
     public void setId(Long id)
     {
@@ -226,6 +231,14 @@ public class ProjectBudgetInfo extends BaseEntity
 
     public void setProjectBudgetDetailThreeList(List<ProjectBudgetDetail> projectBudgetDetailThreeList) {
         this.projectBudgetDetailThreeList = projectBudgetDetailThreeList;
+    }
+
+    public List<ProjectAttachment> getAttachmentList() {
+        return attachmentList;
+    }
+
+    public void setAttachmentList(List<ProjectAttachment> attachmentList) {
+        this.attachmentList = attachmentList;
     }
 
     @Override
