@@ -5,6 +5,7 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
+import com.ruoyi.common.enums.ProjectBudgetDetailEnum;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.project.budget.detail.domain.ProjectBudgetDetail;
 import com.ruoyi.project.budget.detail.service.IProjectBudgetDetailService;
@@ -13,6 +14,9 @@ import com.ruoyi.project.system.attachment.service.IProjectAttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.ruoyi.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import com.ruoyi.project.budget.info.mapper.ProjectBudgetInfoMapper;
@@ -47,7 +51,25 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
     @Override
     public ProjectBudgetInfo selectProjectBudgetInfoById(Long id)
     {
-        return projectBudgetInfoMapper.selectProjectBudgetInfoById(id);
+        ProjectBudgetInfo projectBudgetInfo = projectBudgetInfoMapper.selectProjectBudgetInfoById(id);
+        //查询详情
+        ProjectBudgetDetail projectBudgetDetail = new ProjectBudgetDetail();
+        projectBudgetDetail.setProjectCode(projectBudgetInfo.getProjectCode());
+        List<ProjectBudgetDetail> projectBudgetDetailList =  projectBudgetDetailService.selectProjectBudgetDetailList(projectBudgetDetail);
+
+        //分组
+        Map<String, List<ProjectBudgetDetail>> groupByType= projectBudgetDetailList.stream().collect(Collectors.groupingBy(ProjectBudgetDetail::getType));
+        //遍历分组
+        for (Map.Entry<String, List<ProjectBudgetDetail>> p: groupByType.entrySet()) {
+            String key = p.getKey();
+            List<ProjectBudgetDetail> projectBudgetDetailList1 = p.getValue();
+            if(ProjectBudgetDetailEnum.DETAIL_TYPE_TWO.getValue().equals(key)){
+                projectBudgetInfo.setProjectBudgetDetailList(projectBudgetDetailList1);
+            }else if(ProjectBudgetDetailEnum.DETAIL_TYPE_THREE.getValue().equals(key)){
+                projectBudgetInfo.setProjectBudgetDetailThreeList(projectBudgetDetailList1);
+            }
+        }
+        return projectBudgetInfo;
     }
 
     /**
@@ -64,7 +86,19 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
             ProjectBudgetDetail projectBudgetDetail = new ProjectBudgetDetail();
             projectBudgetDetail.setProjectCode(projectBudgetInfo1.getProjectCode());
             List<ProjectBudgetDetail> projectBudgetDetailList =  projectBudgetDetailService.selectProjectBudgetDetailList(projectBudgetDetail);
-            projectBudgetInfo1.setProjectBudgetDetailList(projectBudgetDetailList);
+
+            //分组
+            Map<String, List<ProjectBudgetDetail>> groupByType= projectBudgetDetailList.stream().collect(Collectors.groupingBy(ProjectBudgetDetail::getType));
+            //遍历分组
+            for (Map.Entry<String, List<ProjectBudgetDetail>> p: groupByType.entrySet()) {
+                String key = p.getKey();
+                List<ProjectBudgetDetail> projectBudgetDetailList1 = p.getValue();
+                if(ProjectBudgetDetailEnum.DETAIL_TYPE_TWO.getValue().equals(key)){
+                    projectBudgetInfo1.setProjectBudgetDetailList(projectBudgetDetailList1);
+                }else if(ProjectBudgetDetailEnum.DETAIL_TYPE_THREE.getValue().equals(key)){
+                    projectBudgetInfo1.setProjectBudgetDetailThreeList(projectBudgetDetailList1);
+                }
+            }
         }
         return projectBudgetInfoList;
     }
@@ -84,12 +118,12 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
         ;
         if(StringUtils.isNotEmpty(projectBudgetInfo.getProjectBudgetDetailList())){
             projectBudgetInfo.getProjectBudgetDetailList().forEach(data->{
-                data.setType("1");
+                data.setType(ProjectBudgetDetailEnum.DETAIL_TYPE_TWO.getValue());
             });
         }
         if(StringUtils.isNotEmpty(projectBudgetInfo.getProjectBudgetDetailThreeList())){
             projectBudgetInfo.getProjectBudgetDetailThreeList().forEach(data->{
-                data.setType("2");
+                data.setType(ProjectBudgetDetailEnum.DETAIL_TYPE_THREE.getValue());
             });
             projectBudgetInfo.getProjectBudgetDetailList().addAll(projectBudgetInfo.getProjectBudgetDetailThreeList());
         }
