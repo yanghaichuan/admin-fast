@@ -170,7 +170,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
-    <delete id="deleteProjectBudgetDetailByProjectCode" parameterType="Long">
+    <delete id="deleteProjectBudgetDetailByProjectCode" parameterType="String">
         delete from project_budget_detail where project_code = #{projectCode}
     </delete>
 

@@ -11,6 +11,7 @@
         <form class="form-horizontal m" id="form-info-edit" th:object="${projectBudgetInfo}">
             <h4 class="form-header h4">项目管理信息</h4>
             <input name="id" th:field="*{id}" type="hidden">
+            <input type="hidden" name="attachmentStr" id="attachmentStr">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -247,11 +248,24 @@
         var specificationDatas = [[${@dict.getType('project_specification')}]];
         var fundsDatas = [[${@dict.getType('project_specification')}]];
         var ecmSubjectsDatas = [[${@dict.getType('project_subject')}]];
+        var projectBudgetInfo = [[${projectBudgetInfo}]];
+        var attachmentList = projectBudgetInfo.attachmentList;
+
         $("#form-info-edit").validate({
             focusCleanup: true
         });
 
         function submitHandler() {
+            var attach =[];
+            attachmentList.forEach(function (value, index) {
+                if(value.delFlag == 0){
+                    delete value.id;
+                    attach.push(value);
+                }
+            })
+
+            var str = JSON.stringify(attach);
+            $("#attachmentStr").val(str);
             if ($.validate.form()) {
                 $.operate.save(prefix + "/edit", $('#form-info-edit').serialize());
             }
@@ -308,7 +322,7 @@
             })
         });
 
-        var projectBudgetInfo = [[${projectBudgetInfo}]];
+
         $(function () {
             var options = {
                 pagination: false,
@@ -471,6 +485,24 @@
         }
 
 
+        this.attachmentList.forEach(function (att,i) {
+            var tr = $(['<tr id="upload-'+ att.id +'">'
+                ,'<td>'+ att.attachment +'</td>'
+                ,'<td>'+ att.size +'kb</td>'
+                ,'<td></td>'
+                ,'<td>'
+                ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+                ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+                ,'</td>'
+                ,'</tr>'].join(''));
+
+            if(i==0){
+                $(".layui-table tr").after(tr);
+            }else{
+                $(".layui-table tr").eq(i).after(tr);
+            }
+
+        })
         layui.use('upload', function(){
             var $ = layui.jquery
                 ,upload = layui.upload;

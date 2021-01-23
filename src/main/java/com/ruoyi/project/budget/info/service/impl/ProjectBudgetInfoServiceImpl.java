@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
 import com.ruoyi.common.enums.ProjectBudgetDetailEnum;
+import com.ruoyi.common.enums.SysDelFlag;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.project.budget.detail.domain.ProjectBudgetDetail;
 import com.ruoyi.project.budget.detail.service.IProjectBudgetDetailService;
@@ -69,6 +70,13 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
                 projectBudgetInfo.setProjectBudgetDetailThreeList(projectBudgetDetailList1);
             }
         }
+
+        //查询附件
+        ProjectAttachment projectAttachment = new ProjectAttachment();
+        projectAttachment.setProjectId(id);
+        projectAttachment.setDelFlag(SysDelFlag.NORMAL.getCode());
+        List<ProjectAttachment>  projectAttachmentList =  projectAttachmentService.selectProjectAttachmentList(projectAttachment);
+        projectBudgetInfo.setAttachmentList(projectAttachmentList);
         return projectBudgetInfo;
     }
 
@@ -109,7 +117,7 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
      * @param projectBudgetInfo 项目管理
      * @return 结果
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int insertProjectBudgetInfo(ProjectBudgetInfo projectBudgetInfo)
     {
@@ -147,13 +155,37 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
      * @param projectBudgetInfo 项目管理
      * @return 结果
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int updateProjectBudgetInfo(ProjectBudgetInfo projectBudgetInfo)
     {
         projectBudgetInfo.setUpdateTime(DateUtils.getNowDate());
-        projectBudgetInfoMapper.deleteProjectBudgetDetailByProjectCode(projectBudgetInfo.getId());
+        if(StringUtils.isNotEmpty(projectBudgetInfo.getProjectBudgetDetailList())){
+            projectBudgetInfo.getProjectBudgetDetailList().forEach(data->{
+                data.setType(ProjectBudgetDetailEnum.DETAIL_TYPE_TWO.getValue());
+            });
+        }
+        if(StringUtils.isNotEmpty(projectBudgetInfo.getProjectBudgetDetailThreeList())){
+            projectBudgetInfo.getProjectBudgetDetailThreeList().forEach(data->{
+                data.setType(ProjectBudgetDetailEnum.DETAIL_TYPE_THREE.getValue());
+            });
+            projectBudgetInfo.getProjectBudgetDetailList().addAll(projectBudgetInfo.getProjectBudgetDetailThreeList());
+        }
+        projectBudgetInfoMapper.deleteProjectBudgetDetailByProjectCode(projectBudgetInfo.getProjectCode());
         insertProjectBudgetDetail(projectBudgetInfo);
+        //删除附件
+        projectAttachmentService.deleteByProjectId(projectBudgetInfo.getId());
+        //保存附件
+        if(StringUtils.isNotEmpty(projectBudgetInfo.getAttachmentStr())){
+            List<ProjectAttachment> projectAttachmentList = JSON.parseObject(projectBudgetInfo.getAttachmentStr(),new TypeReference<List<ProjectAttachment>>(){});
+            if(StringUtils.isNotEmpty(projectAttachmentList)){
+                projectAttachmentList.forEach(data->{
+                    data.setProjectId(projectBudgetInfo.getId());
+                    data.setId(null);
+                    projectAttachmentService.insertProjectAttachment(data);
+                });
+            }
+        }
         return projectBudgetInfoMapper.updateProjectBudgetInfo(projectBudgetInfo);
     }
 
@@ -163,7 +195,7 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
      * @param ids 需要删除的数据ID
      * @return 结果
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int deleteProjectBudgetInfoByIds(String ids)
     {
@@ -180,7 +212,8 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
     @Override
     public int deleteProjectBudgetInfoById(Long id)
     {
-        projectBudgetInfoMapper.deleteProjectBudgetDetailByProjectCode(id);
+        ProjectBudgetInfo projectBudgetInfo= projectBudgetInfoMapper.selectProjectBudgetInfoById(id);
+        projectBudgetInfoMapper.deleteProjectBudgetDetailByProjectCode(projectBudgetInfo.getProjectCode());
         return projectBudgetInfoMapper.deleteProjectBudgetInfoById(id);
     }
 

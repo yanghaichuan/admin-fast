@@ -84,5 +84,5 @@ public interface ProjectBudgetInfoMapper
      * @param roleId 角色ID
      * @return 结果
      */
-    public int deleteProjectBudgetDetailByProjectCode(Long id);
+    public int deleteProjectBudgetDetailByProjectCode(String id);
 }

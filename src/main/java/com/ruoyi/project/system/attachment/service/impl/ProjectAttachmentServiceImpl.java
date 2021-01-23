@@ -11,19 +11,19 @@ import com.ruoyi.common.utils.text.Convert;
 
 /**
  * 文件管理Service业务层处理
- * 
+ *
  * @author yueqiangu
  * @date 2021-01-23
  */
 @Service
-public class ProjectAttachmentServiceImpl implements IProjectAttachmentService 
+public class ProjectAttachmentServiceImpl implements IProjectAttachmentService
 {
     @Autowired
     private ProjectAttachmentMapper projectAttachmentMapper;
 
     /**
      * 查询文件管理
-     * 
+     *
      * @param id 文件管理ID
      * @return 文件管理
      */
@@ -35,7 +35,7 @@ public class ProjectAttachmentServiceImpl implements IProjectAttachmentService
 
     /**
      * 查询文件管理列表
-     * 
+     *
      * @param projectAttachment 文件管理
      * @return 文件管理
      */
@@ -47,7 +47,7 @@ public class ProjectAttachmentServiceImpl implements IProjectAttachmentService
 
     /**
      * 新增文件管理
-     * 
+     *
      * @param projectAttachment 文件管理
      * @return 结果
      */
@@ -60,7 +60,7 @@ public class ProjectAttachmentServiceImpl implements IProjectAttachmentService
 
     /**
      * 修改文件管理
-     * 
+     *
      * @param projectAttachment 文件管理
      * @return 结果
      */
@@ -73,7 +73,7 @@ public class ProjectAttachmentServiceImpl implements IProjectAttachmentService
 
     /**
      * 删除文件管理对象
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -85,7 +85,7 @@ public class ProjectAttachmentServiceImpl implements IProjectAttachmentService
 
     /**
      * 删除文件管理信息
-     * 
+     *
      * @param id 文件管理ID
      * @return 结果
      */
@@ -93,5 +93,10 @@ public class ProjectAttachmentServiceImpl implements IProjectAttachmentService
     public int deleteProjectAttachmentById(Long id)
     {
         return projectAttachmentMapper.deleteProjectAttachmentById(id);
+    }
+
+    @Override
+    public int deleteByProjectId(Long projectId) {
+        return projectAttachmentMapper.deleteByProjectId(projectId);
     }
 }
