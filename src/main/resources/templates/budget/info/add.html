@@ -9,6 +9,7 @@
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-info-add">
+        <input type="hidden" name="attachmentStr" id="attachmentStr">
         <h4 class="form-header h4">一级项目</h4>
         <div class="row">
             <div class="col-sm-6">
@@ -258,6 +259,16 @@
     });
 
     function submitHandler() {
+        var attach =[];
+        attachmentList.forEach(function (value, index) {
+            if(value.delFlag == 0){
+                delete value.id;
+                attach.push(value);
+            }
+        })
+
+        var str = JSON.stringify(attach);
+        $("#attachmentStr").val(str);
         if ($.validate.form()) {
             $.operate.save(prefix + "/add", $('#form-info-add').serialize());
         }

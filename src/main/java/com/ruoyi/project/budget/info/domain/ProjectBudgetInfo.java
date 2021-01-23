@@ -88,6 +88,8 @@ public class ProjectBudgetInfo extends BaseEntity
      */
     private List<ProjectAttachment> attachmentList;
 
+    private String attachmentStr;
+
     public void setId(Long id)
     {
         this.id = id;
@@ -239,6 +241,14 @@ public class ProjectBudgetInfo extends BaseEntity
 
     public void setAttachmentList(List<ProjectAttachment> attachmentList) {
         this.attachmentList = attachmentList;
+    }
+
+    public String getAttachmentStr() {
+        return attachmentStr;
+    }
+
+    public void setAttachmentStr(String attachmentStr) {
+        this.attachmentStr = attachmentStr;
     }
 
     @Override

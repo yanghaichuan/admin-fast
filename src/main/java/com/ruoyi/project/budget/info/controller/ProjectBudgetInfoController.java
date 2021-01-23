@@ -21,7 +21,7 @@ import com.ruoyi.framework.web.page.TableDataInfo;
 
 /**
  * 项目管理Controller
- * 
+ *
  * @author yueqiangu
  * @date 2021-01-10
  */
@@ -33,6 +33,7 @@ public class ProjectBudgetInfoController extends BaseController
 
     @Autowired
     private IProjectBudgetInfoService projectBudgetInfoService;
+
 
     @RequiresPermissions("budget:info:view")
     @GetMapping()
