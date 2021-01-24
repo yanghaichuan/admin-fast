@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.budget.mould.mapper.ProjectKpiMouldMapper">
+    
+    <resultMap type="ProjectKpiMould" id="ProjectKpiMouldResult">
+        <result property="id"    column="id"    />
+        <result property="kpiName"    column="kpi_name"    />
+        <result property="kpiContent"    column="kpi_content"    />
+        <result property="kpiLevel"    column="kpi_level"    />
+        <result property="kpiTarget"    column="kpi_target"    />
+        <result property="targetAmount"    column="target_amount"    />
+        <result property="targetRate"    column="target_rate"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="route"    column="route"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="parentName" column="parent_name" />
+    </resultMap>
+
+    <sql id="selectProjectKpiMouldVo">
+        select id, kpi_name, kpi_content, kpi_level, kpi_target, target_amount, target_rate, parent_id, route, create_by, create_time, update_by, update_time, remark, del_flag from project_kpi_mould
+    </sql>
+
+    <select id="selectProjectKpiMouldList" parameterType="ProjectKpiMould" resultMap="ProjectKpiMouldResult">
+        <include refid="selectProjectKpiMouldVo"/>
+        <where>  
+            <if test="kpiName != null  and kpiName != ''"> and kpi_name like concat('%', #{kpiName}, '%')</if>
+            <if test="kpiLevel != null  and kpiLevel != ''"> and kpi_level = #{kpiLevel}</if>
+            <if test="kpiTarget != null  and kpiTarget != ''"> and kpi_target = #{kpiTarget}</if>
+            <if test="targetAmount != null  and targetAmount != ''"> and target_amount = #{targetAmount}</if>
+        </where>
+        order by parent_id
+    </select>
+    
+    <select id="selectProjectKpiMouldById" parameterType="Long" resultMap="ProjectKpiMouldResult">
+        select t.id, t.kpi_name, t.kpi_content, t.kpi_level, t.kpi_target, t.target_amount, t.target_rate, t.parent_id, t.route, t.create_by, t.create_time, t.update_by, t.update_time, t.remark, t.del_flag, p.kpi_name as parent_name
+        from project_kpi_mould t
+        left join project_kpi_mould p on p.id = t.parent_id
+        where t.id = #{id}
+    </select>
+        
+    <insert id="insertProjectKpiMould" parameterType="ProjectKpiMould">
+        insert into project_kpi_mould
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="kpiName != null and kpiName != ''">kpi_name,</if>
+            <if test="kpiContent != null">kpi_content,</if>
+            <if test="kpiLevel != null and kpiLevel != ''">kpi_level,</if>
+            <if test="kpiTarget != null and kpiTarget != ''">kpi_target,</if>
+            <if test="targetAmount != null">target_amount,</if>
+            <if test="targetRate != null">target_rate,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="route != null">route,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="kpiName != null and kpiName != ''">#{kpiName},</if>
+            <if test="kpiContent != null">#{kpiContent},</if>
+            <if test="kpiLevel != null and kpiLevel != ''">#{kpiLevel},</if>
+            <if test="kpiTarget != null and kpiTarget != ''">#{kpiTarget},</if>
+            <if test="targetAmount != null">#{targetAmount},</if>
+            <if test="targetRate != null">#{targetRate},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="route != null">#{route},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProjectKpiMould" parameterType="ProjectKpiMould">
+        update project_kpi_mould
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="kpiName != null and kpiName != ''">kpi_name = #{kpiName},</if>
+            <if test="kpiContent != null">kpi_content = #{kpiContent},</if>
+            <if test="kpiLevel != null and kpiLevel != ''">kpi_level = #{kpiLevel},</if>
+            <if test="kpiTarget != null and kpiTarget != ''">kpi_target = #{kpiTarget},</if>
+            <if test="targetAmount != null">target_amount = #{targetAmount},</if>
+            <if test="targetRate != null">target_rate = #{targetRate},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="route != null">route = #{route},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProjectKpiMouldById" parameterType="Long">
+        delete from project_kpi_mould where id = #{id}
+    </delete>
+
+    <delete id="deleteProjectKpiMouldByIds" parameterType="String">
+        delete from project_kpi_mould where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
