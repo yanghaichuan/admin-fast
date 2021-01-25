@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改项目绩效模板')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-target-edit" th:object="${projectKpiTarget}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">项目ID：</label>
+                <div class="col-sm-8">
+                    <select name="projectId" class="form-control m-b">
+                        <option value="">所有</option>
+                    </select>
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">项目名称：</label>
+                <div class="col-sm-8">
+                    <input name="projectName" th:field="*{projectName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">一级指标ID：</label>
+                <div class="col-sm-8">
+                    <input name="oneLevel" th:field="*{oneLevel}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">一级指标：</label>
+                <div class="col-sm-8">
+                    <input name="oneLevelName" th:field="*{oneLevelName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">二级指标ID：</label>
+                <div class="col-sm-8">
+                    <input name="twoLevel" th:field="*{twoLevel}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">二级指标：</label>
+                <div class="col-sm-8">
+                    <input name="twoLevelName" th:field="*{twoLevelName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">三级指标ID：</label>
+                <div class="col-sm-8">
+                    <input name="threeLevel" th:field="*{threeLevel}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">三级指标：</label>
+                <div class="col-sm-8">
+                    <input name="threeLevelName" th:field="*{threeLevelName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">指标内容：</label>
+                <div class="col-sm-8">
+                    <textarea name="target" class="form-control">[[*{target}]]</textarea>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">完成率：</label>
+                <div class="col-sm-8">
+                    <input name="targetRate" th:field="*{targetRate}" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "budget/target";
+        $("#form-target-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-target-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

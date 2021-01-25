@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.budget.target.mapper.ProjectKpiTargetMapper">
+    
+    <resultMap type="ProjectKpiTarget" id="ProjectKpiTargetResult">
+        <result property="id"    column="id"    />
+        <result property="projectId"    column="project_id"    />
+        <result property="projectName"    column="project_name"    />
+        <result property="oneLevel"    column="one_level"    />
+        <result property="oneLevelName"    column="one_level_name"    />
+        <result property="twoLevel"    column="two_level"    />
+        <result property="twoLevelName"    column="two_level_name"    />
+        <result property="threeLevel"    column="three_level"    />
+        <result property="threeLevelName"    column="three_level_name"    />
+        <result property="target"    column="target"    />
+        <result property="targetRate"    column="target_rate"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectProjectKpiTargetVo">
+        select id, project_id, project_name, one_level, one_level_name, two_level, two_level_name, three_level, three_level_name, target, target_rate, create_by, create_time, update_by, update_time, remark, del_flag from project_kpi_target
+    </sql>
+
+    <select id="selectProjectKpiTargetList" parameterType="ProjectKpiTarget" resultMap="ProjectKpiTargetResult">
+        <include refid="selectProjectKpiTargetVo"/>
+        <where>  
+            <if test="oneLevel != null "> and one_level = #{oneLevel}</if>
+            <if test="twoLevel != null "> and two_level = #{twoLevel}</if>
+            <if test="threeLevel != null "> and three_level = #{threeLevel}</if>
+        </where>
+    </select>
+    
+    <select id="selectProjectKpiTargetById" parameterType="Long" resultMap="ProjectKpiTargetResult">
+        <include refid="selectProjectKpiTargetVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProjectKpiTarget" parameterType="ProjectKpiTarget" useGeneratedKeys="true" keyProperty="id">
+        insert into project_kpi_target
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">project_id,</if>
+            <if test="projectName != null">project_name,</if>
+            <if test="oneLevel != null">one_level,</if>
+            <if test="oneLevelName != null">one_level_name,</if>
+            <if test="twoLevel != null">two_level,</if>
+            <if test="twoLevelName != null">two_level_name,</if>
+            <if test="threeLevel != null">three_level,</if>
+            <if test="threeLevelName != null">three_level_name,</if>
+            <if test="target != null">target,</if>
+            <if test="targetRate != null">target_rate,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">#{projectId},</if>
+            <if test="projectName != null">#{projectName},</if>
+            <if test="oneLevel != null">#{oneLevel},</if>
+            <if test="oneLevelName != null">#{oneLevelName},</if>
+            <if test="twoLevel != null">#{twoLevel},</if>
+            <if test="twoLevelName != null">#{twoLevelName},</if>
+            <if test="threeLevel != null">#{threeLevel},</if>
+            <if test="threeLevelName != null">#{threeLevelName},</if>
+            <if test="target != null">#{target},</if>
+            <if test="targetRate != null">#{targetRate},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProjectKpiTarget" parameterType="ProjectKpiTarget">
+        update project_kpi_target
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="projectName != null">project_name = #{projectName},</if>
+            <if test="oneLevel != null">one_level = #{oneLevel},</if>
+            <if test="oneLevelName != null">one_level_name = #{oneLevelName},</if>
+            <if test="twoLevel != null">two_level = #{twoLevel},</if>
+            <if test="twoLevelName != null">two_level_name = #{twoLevelName},</if>
+            <if test="threeLevel != null">three_level = #{threeLevel},</if>
+            <if test="threeLevelName != null">three_level_name = #{threeLevelName},</if>
+            <if test="target != null">target = #{target},</if>
+            <if test="targetRate != null">target_rate = #{targetRate},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProjectKpiTargetById" parameterType="Long">
+        delete from project_kpi_target where id = #{id}
+    </delete>
+
+    <delete id="deleteProjectKpiTargetByIds" parameterType="String">
+        delete from project_kpi_target where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

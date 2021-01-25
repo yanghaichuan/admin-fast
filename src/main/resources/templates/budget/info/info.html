@@ -70,7 +70,7 @@
 
             <div class="btn-group-sm" id="toolbar" role="group">
                 <a class="btn btn-success" onclick="$.operate.addTab()" shiro:hasPermission="budget:info:add">
-                    <i class="fa fa-plus"></i> 添加
+                    <i class="fa fa-plus"></i> 新增
                 </a>
                 <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" shiro:hasPermission="budget:info:edit">
                     <i class="fa fa-edit"></i> 修改
@@ -78,8 +78,8 @@
                 <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="budget:info:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="budget:info:export">
-                    <i class="fa fa-download"></i> 导出
+                <a class="btn btn-primary" onclick="kpi()" shiro:hasPermission="budget:target:view">
+                    <i class="fa fa-bar-chart"></i> 绩效目标
                 </a>
             </div>
             <div class="col-sm-12 select-table table-striped">
@@ -206,6 +206,11 @@
             };
             $.table.init(options);
         });
+
+        function kpi() {
+            $.modal.open("绩效目标", ctx +'budget/target',1000);
+        }
+
     </script>
 </body>
 </html>
