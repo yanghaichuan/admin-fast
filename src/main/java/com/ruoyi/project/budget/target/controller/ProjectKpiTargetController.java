@@ -1,6 +1,16 @@
 package com.ruoyi.project.budget.target.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.alibaba.fastjson.JSON;
+import com.ruoyi.common.enums.SysDelFlag;
+import com.ruoyi.common.utils.TreeBeanUtils;
+import com.ruoyi.common.utils.TreeUtils;
+import com.ruoyi.framework.web.domain.CxSelect;
+import com.ruoyi.framework.web.domain.Ztree;
+import com.ruoyi.project.budget.mould.domain.ProjectKpiMould;
+import com.ruoyi.project.budget.mould.service.IProjectKpiMouldService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +31,7 @@ import com.ruoyi.framework.web.page.TableDataInfo;
 
 /**
  * 项目绩效模板Controller
- * 
+ *
  * @author yueqiangu
  * @date 2021-01-25
  */
@@ -33,6 +43,9 @@ public class ProjectKpiTargetController extends BaseController
 
     @Autowired
     private IProjectKpiTargetService projectKpiTargetService;
+
+    @Autowired
+    private IProjectKpiMouldService projectKpiMouldService;
 
     @RequiresPermissions("budget:target:view")
     @GetMapping()
@@ -72,8 +85,17 @@ public class ProjectKpiTargetController extends BaseController
      * 新增项目绩效模板
      */
     @GetMapping("/add")
-    public String add()
+    public String add(ModelMap mmap)
     {
+        ProjectKpiMould projectKpiMould = new ProjectKpiMould();
+        projectKpiMould.setDelFlag(SysDelFlag.NORMAL.getCode());
+        List<ProjectKpiMould> projectKpiMouldList = projectKpiMouldService.selectProjectKpiMouldList(projectKpiMould);
+        try {
+            List<ProjectKpiMould> tree = TreeBeanUtils.getTree(projectKpiMouldList, "id");
+            mmap.put("data", JSON.toJSON(tree));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return prefix + "/add";
     }
 

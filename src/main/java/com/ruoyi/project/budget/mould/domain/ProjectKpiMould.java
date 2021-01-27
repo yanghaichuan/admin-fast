@@ -5,9 +5,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.framework.aspectj.lang.annotation.Excel;
 import com.ruoyi.framework.web.domain.TreeEntity;
 
+import java.util.List;
+
 /**
  * 项目绩效目标对象 project_kpi_mould
- * 
+ *
  * @author yueqiangu
  * @date 2021-01-24
  */
@@ -47,6 +49,8 @@ public class ProjectKpiMould extends TreeEntity
 
     /** 删除标志（0代表存在 1代表删除） */
     private String delFlag;
+
+    private List<ProjectKpiMould> children;
 
     public void setId(Long id)
     {
@@ -128,6 +132,14 @@ public class ProjectKpiMould extends TreeEntity
     public String getDelFlag()
     {
         return delFlag;
+    }
+
+    public List<ProjectKpiMould> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<ProjectKpiMould> children) {
+        this.children = children;
     }
 
     @Override
