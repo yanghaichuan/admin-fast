@@ -6,11 +6,11 @@
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-target-add">
-
+        <input name="projectId" id="projectId" type="hidden">
         <div class="form-group">
             <label class="col-sm-3 control-label">项目名称：</label>
             <div class="col-sm-8">
-                <input name="projectName" class="form-control" type="text">
+                <input name="projectName" class="form-control" type="text" id="projectName">
             </div>
         </div>
 
@@ -57,7 +57,10 @@
     });
 
     var data = [[${data}]];
-
+    var projectId = [[${projectId}]];
+    var projectName = [[${projectName}]];
+    $("#projectId").val(projectId);
+    $("#projectName").val(projectName);
     $('#element1').cxSelect({
         selects: ['province', 'city', 'area'],
         jsonValue: "id",

@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.project.budget.target.mapper.ProjectKpiTargetMapper">
-    
+
     <resultMap type="ProjectKpiTarget" id="ProjectKpiTargetResult">
         <result property="id"    column="id"    />
         <result property="projectId"    column="project_id"    />
@@ -29,19 +29,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <select id="selectProjectKpiTargetList" parameterType="ProjectKpiTarget" resultMap="ProjectKpiTargetResult">
-        <include refid="selectProjectKpiTargetVo"/>
-        <where>  
-            <if test="oneLevel != null "> and one_level = #{oneLevel}</if>
-            <if test="twoLevel != null "> and two_level = #{twoLevel}</if>
-            <if test="threeLevel != null "> and three_level = #{threeLevel}</if>
+        SELECT
+            t.id,
+            t.project_id,
+            t.project_name,
+            t.one_level,
+            (SELECT t1.kpi_name from project_kpi_mould t1 where t1.id =t.one_level ) as one_level_name,
+            t.two_level,
+            (SELECT t1.kpi_name from project_kpi_mould t1 where t1.id =t.two_level ) as two_level_name,
+            t.three_level,
+            (SELECT t1.kpi_name from project_kpi_mould t1 where t1.id =t.three_level ) as three_level_name,
+            t.target,
+            t.target_rate,
+            t.create_by,
+            t.create_time,
+            t.update_by,
+            t.update_time,
+            t.remark,
+            t.del_flag
+            FROM
+            project_kpi_target t
+        <where>
+            <if test="oneLevel != null "> and t.one_level = #{oneLevel}</if>
+            <if test="twoLevel != null "> and t.two_level = #{twoLevel}</if>
+            <if test="threeLevel != null "> and t.three_level = #{threeLevel}</if>
+            <if test="projectId != null "> and t.project_id = #{projectId}</if>
         </where>
     </select>
-    
+
     <select id="selectProjectKpiTargetById" parameterType="Long" resultMap="ProjectKpiTargetResult">
         <include refid="selectProjectKpiTargetVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertProjectKpiTarget" parameterType="ProjectKpiTarget" useGeneratedKeys="true" keyProperty="id">
         insert into project_kpi_target
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -110,7 +130,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteProjectKpiTargetByIds" parameterType="String">
-        delete from project_kpi_target where id in 
+        delete from project_kpi_target where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

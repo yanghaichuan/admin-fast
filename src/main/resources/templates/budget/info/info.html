@@ -78,7 +78,7 @@
                 <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="budget:info:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
-                <a class="btn btn-primary" onclick="kpi()" shiro:hasPermission="budget:target:view">
+                <a class="btn btn-primary single disabled" onclick="kpi()" shiro:hasPermission="budget:target:view">
                     <i class="fa fa-bar-chart"></i> 绩效目标
                 </a>
             </div>
@@ -208,7 +208,14 @@
         });
 
         function kpi() {
-            $.modal.open("绩效目标", ctx +'budget/target',1000);
+            var row = $("#bootstrap-table").bootstrapTable('getSelections');
+            if (row.length == 0 || row.length > 1) {
+                $.modal.alertWarning("请至少选择一条记录");
+                return;
+            }
+            var p = row[0];
+
+            $.modal.openTab("绩效目标", ctx +'budget/target?projectId='+p.id+'&projectName='+p.projectName,1000);
         }
 
     </script>

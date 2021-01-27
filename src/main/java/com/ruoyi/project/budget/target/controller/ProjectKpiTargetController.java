@@ -2,6 +2,7 @@ package com.ruoyi.project.budget.target.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.ruoyi.common.enums.SysDelFlag;
@@ -11,15 +12,12 @@ import com.ruoyi.framework.web.domain.CxSelect;
 import com.ruoyi.framework.web.domain.Ztree;
 import com.ruoyi.project.budget.mould.domain.ProjectKpiMould;
 import com.ruoyi.project.budget.mould.service.IProjectKpiMouldService;
+import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.framework.aspectj.lang.annotation.Log;
 import com.ruoyi.framework.aspectj.lang.enums.BusinessType;
 import com.ruoyi.project.budget.target.domain.ProjectKpiTarget;
@@ -49,8 +47,11 @@ public class ProjectKpiTargetController extends BaseController
 
     @RequiresPermissions("budget:target:view")
     @GetMapping()
-    public String target()
+    public String target(@RequestParam(value = "projectId",defaultValue = "")  Long projectId,
+                         @RequestParam(value = "projectName",defaultValue = "") String projectName, ModelMap mmap)
     {
+        mmap.put("projectId",projectId);
+        mmap.put("projectName",projectName);
         return prefix + "/target";
     }
 
@@ -85,7 +86,8 @@ public class ProjectKpiTargetController extends BaseController
      * 新增项目绩效模板
      */
     @GetMapping("/add")
-    public String add(ModelMap mmap)
+    public String add(@RequestParam(value = "projectId",defaultValue = "")  Long projectId,
+                      @RequestParam(value = "projectName",defaultValue = "") String projectName,ModelMap mmap)
     {
         ProjectKpiMould projectKpiMould = new ProjectKpiMould();
         projectKpiMould.setDelFlag(SysDelFlag.NORMAL.getCode());
@@ -93,6 +95,8 @@ public class ProjectKpiTargetController extends BaseController
         try {
             List<ProjectKpiMould> tree = TreeBeanUtils.getTree(projectKpiMouldList, "id");
             mmap.put("data", JSON.toJSON(tree));
+            mmap.put("projectId",projectId);
+            mmap.put("projectName",projectName);
         } catch (Exception e) {
             e.printStackTrace();
         }

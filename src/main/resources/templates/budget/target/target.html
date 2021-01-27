@@ -7,43 +7,43 @@
      <div class="container-div">
         <div class="row">
             <div class="col-sm-12 search-collapse">
-                <form id="formId">
-                    <div class="select-list">
-                        <ul>
-                            <li>
-                                <label>一级指标：</label>
-                                <input type="text" name="oneLevel"/>
-                            </li>
-                            <li>
-                                <label>二级指标：</label>
-                                <input type="text" name="twoLevel"/>
-                            </li>
-                            <li>
-                                <label>三级指标：</label>
-                                <input type="text" name="threeLevel"/>
-                            </li>
-                            <li>
-                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
+<!--                <form id="formId">-->
+<!--                    <div class="select-list">-->
+<!--                        <ul>-->
+<!--                            <li>-->
+<!--                                <label>一级指标：</label>-->
+<!--                                <input type="text" name="oneLevel"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <label>二级指标：</label>-->
+<!--                                <input type="text" name="twoLevel"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <label>三级指标：</label>-->
+<!--                                <input type="text" name="threeLevel"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>-->
+<!--                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </form>-->
             </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="budget:target:add">
+                <a class="btn btn-success" onclick="add()" shiro:hasPermission="budget:target:add">
                     <i class="fa fa-plus"></i> 添加
                 </a>
-                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="budget:target:edit">
-                    <i class="fa fa-edit"></i> 修改
-                </a>
+<!--                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="budget:target:edit">-->
+<!--                    <i class="fa fa-edit"></i> 修改-->
+<!--                </a>-->
                 <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="budget:target:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="budget:target:export">
-                    <i class="fa fa-download"></i> 导出
-                </a>
+<!--                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="budget:target:export">-->
+<!--                    <i class="fa fa-download"></i> 导出-->
+<!--                </a>-->
             </div>
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
@@ -56,9 +56,12 @@
         var removeFlag = [[${@permission.hasPermi('budget:target:remove')}]];
         var prefix = ctx + "budget/target";
 
+        var projectId = [[${projectId}]];
+        var projectName = [[${projectName}]];
+
         $(function() {
             var options = {
-                url: prefix + "/list",
+                url: prefix + "/list?projectId="+projectId,
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
@@ -121,6 +124,11 @@
             };
             $.table.init(options);
         });
+
+        function add() {
+
+            $.modal.open("绩效目标", ctx +'budget/target/add?projectId='+projectId+'&projectName='+projectName);
+        }
     </script>
 </body>
 </html>
