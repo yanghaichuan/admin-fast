@@ -135,4 +135,18 @@ public class ProjectBudgetInfoController extends BaseController
         mmap.put("projectBudgetInfo", projectBudgetInfo);
         return prefix + "/approval";
     }
+
+    /**
+     * 项目提交
+     *
+     *
+     */
+    @RequiresPermissions("budget:info:edit")
+    @Log(title = "项目管理", businessType = BusinessType.UPDATE)
+    @PostMapping("/submit")
+    @ResponseBody
+    public AjaxResult submit(ProjectBudgetInfo projectBudgetInfo)
+    {
+        return toAjax(projectBudgetInfoService.submit(projectBudgetInfo));
+    }
 }

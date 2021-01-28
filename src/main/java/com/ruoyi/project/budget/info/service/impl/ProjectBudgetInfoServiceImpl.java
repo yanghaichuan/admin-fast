@@ -205,6 +205,11 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
         return projectBudgetInfoMapper.updateProjectBudgetInfo(projectBudgetInfo);
     }
 
+    @Override
+    public int submit(ProjectBudgetInfo projectBudgetInfo) {
+        return projectBudgetInfoMapper.updateProjectBudgetInfo(projectBudgetInfo);
+    }
+
     /**
      * 删除项目管理对象
      *

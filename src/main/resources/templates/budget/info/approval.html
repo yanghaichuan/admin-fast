@@ -11,6 +11,7 @@
         <form class="form-horizontal m" id="form-info-edit" th:object="${projectBudgetInfo}">
             <h4 class="form-header h4">项目管理信息</h4>
             <input name="id" th:field="*{id}" type="hidden">
+            <input name="status" th:field="*{status}" type="hidden">
             <input type="hidden" name="attachmentStr" id="attachmentStr">
             <div class="row">
                 <div class="col-sm-6">
@@ -265,9 +266,10 @@
             })
 
             var str = JSON.stringify(attach);
+            $("#status").val('2');
             $("#attachmentStr").val(str);
             if ($.validate.form()) {
-                $.operate.save(prefix + "/edit", $('#form-info-edit').serialize());
+                $.operate.save(prefix + "/submit", $('#form-info-edit').serialize());
             }
         }
 
@@ -493,7 +495,7 @@
                 ,'<td></td>'
                 ,'<td>'
                 ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-                ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+                // ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
                 ,'</td>'
                 ,'</tr>'].join(''));
 
