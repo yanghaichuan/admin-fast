@@ -124,4 +124,15 @@ public class ProjectBudgetInfoController extends BaseController
     {
         return toAjax(projectBudgetInfoService.deleteProjectBudgetInfoByIds(ids));
     }
+
+    /**
+     * 修改项目管理
+     */
+    @GetMapping("/approval/{id}")
+    public String approval(@PathVariable("id") Long id, ModelMap mmap)
+    {
+        ProjectBudgetInfo projectBudgetInfo = projectBudgetInfoService.selectProjectBudgetInfoById(id);
+        mmap.put("projectBudgetInfo", projectBudgetInfo);
+        return prefix + "/approval";
+    }
 }

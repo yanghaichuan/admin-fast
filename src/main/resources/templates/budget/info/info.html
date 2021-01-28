@@ -76,7 +76,7 @@
                     <i class="fa fa-bar-chart"></i> 绩效目标
                 </a>
 
-                <a class="btn btn-info single disabled" onclick="kpi()" shiro:hasPermission="budget:target:view">
+                <a class="btn btn-info single disabled" onclick="submit()" shiro:hasPermission="budget:target:view">
                     <i class="fa fa-external-link-square"></i> 提交审核
                 </a>
 
@@ -215,6 +215,17 @@
             var p = row[0];
 
             $.modal.openTab("绩效目标", ctx +'budget/target?projectId='+p.id+'&projectName='+p.projectName,1000);
+        }
+
+        function submit() {
+            var row = $("#bootstrap-table").bootstrapTable('getSelections');
+            if (row.length == 0 || row.length > 1) {
+                $.modal.alertWarning("请至少选择一条记录");
+                return;
+            }
+            var p = row[0];
+
+            $.modal.openTab("绩效目标", prefix +'/approval/'+p.id);
         }
 
     </script>

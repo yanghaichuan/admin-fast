@@ -6,10 +6,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
 import com.ruoyi.common.enums.ProjectBudgetDetailEnum;
+import com.ruoyi.common.enums.ProjectStatusEnum;
 import com.ruoyi.common.enums.SysDelFlag;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.project.budget.detail.domain.ProjectBudgetDetail;
 import com.ruoyi.project.budget.detail.service.IProjectBudgetDetailService;
+import com.ruoyi.project.budget.target.domain.ProjectKpiTarget;
+import com.ruoyi.project.budget.target.service.IProjectKpiTargetService;
 import com.ruoyi.project.system.attachment.domain.ProjectAttachment;
 import com.ruoyi.project.system.attachment.service.IProjectAttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,9 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
 
     @Autowired
     private IProjectAttachmentService projectAttachmentService;
+
+    @Autowired
+    private IProjectKpiTargetService projectKpiTargetService;
 
     /**
      * 查询项目管理
@@ -77,6 +83,11 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
         projectAttachment.setDelFlag(SysDelFlag.NORMAL.getCode());
         List<ProjectAttachment>  projectAttachmentList =  projectAttachmentService.selectProjectAttachmentList(projectAttachment);
         projectBudgetInfo.setAttachmentList(projectAttachmentList);
+
+        ProjectKpiTarget projectKpiTarget = new ProjectKpiTarget();
+        projectKpiTarget.setProjectId(id);
+        List<ProjectKpiTarget>  projectKpiTargetList = projectKpiTargetService.selectProjectKpiTargetList(projectKpiTarget);
+        projectBudgetInfo.setProjectKpiTargetList(projectKpiTargetList);
         return projectBudgetInfo;
     }
 
@@ -121,6 +132,7 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
     @Override
     public int insertProjectBudgetInfo(ProjectBudgetInfo projectBudgetInfo)
     {
+        projectBudgetInfo.setStatus(ProjectStatusEnum.INFO.getCode());
         projectBudgetInfo.setCreateTime(DateUtils.getNowDate());
         int rows = projectBudgetInfoMapper.insertProjectBudgetInfo(projectBudgetInfo);
         ;

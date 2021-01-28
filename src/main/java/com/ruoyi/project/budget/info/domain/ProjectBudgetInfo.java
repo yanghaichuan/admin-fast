@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ruoyi.project.budget.detail.domain.ProjectBudgetDetail;
+import com.ruoyi.project.budget.target.domain.ProjectKpiTarget;
 import com.ruoyi.project.system.attachment.domain.ProjectAttachment;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -89,6 +90,11 @@ public class ProjectBudgetInfo extends BaseEntity
     private List<ProjectAttachment> attachmentList;
 
     private String attachmentStr;
+
+    /**
+     * 绩效目标
+     */
+    private List<ProjectKpiTarget> projectKpiTargetList;
 
     public void setId(Long id)
     {
@@ -249,6 +255,14 @@ public class ProjectBudgetInfo extends BaseEntity
 
     public void setAttachmentStr(String attachmentStr) {
         this.attachmentStr = attachmentStr;
+    }
+
+    public List<ProjectKpiTarget> getProjectKpiTargetList() {
+        return projectKpiTargetList;
+    }
+
+    public void setProjectKpiTargetList(List<ProjectKpiTarget> projectKpiTargetList) {
+        this.projectKpiTargetList = projectKpiTargetList;
     }
 
     @Override
