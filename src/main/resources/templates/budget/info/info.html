@@ -214,6 +214,11 @@
             }
             var p = row[0];
 
+            if(p.status != '1'){
+                $.modal.alertWarning("已经提交不能再制定绩效目标");
+                return;
+            }
+
             $.modal.openTab("绩效目标", ctx +'budget/target?projectId='+p.id+'&projectName='+p.projectName,1000);
         }
 
@@ -224,6 +229,16 @@
                 return;
             }
             var p = row[0];
+
+            if(p.status != '1'){
+                $.modal.alertWarning("只能提交核定状态数据");
+                return;
+            }
+
+            if(p.targetNum == 0){
+                $.modal.alertWarning("没有指定绩效目标");
+                return;
+            }
 
             $.modal.openTab("绩效目标", prefix +'/approval/'+p.id);
         }

@@ -95,6 +95,10 @@ public class ProjectBudgetInfo extends BaseEntity
      * 绩效目标
      */
     private List<ProjectKpiTarget> projectKpiTargetList;
+    /**
+     * 绩效目标数量
+      */
+    private Integer targetNum;
 
     public void setId(Long id)
     {
@@ -223,6 +227,7 @@ public class ProjectBudgetInfo extends BaseEntity
         return delFlag;
     }
 
+
     public List<ProjectBudgetDetail> getProjectBudgetDetailList()
     {
         return projectBudgetDetailList;
@@ -263,6 +268,14 @@ public class ProjectBudgetInfo extends BaseEntity
 
     public void setProjectKpiTargetList(List<ProjectKpiTarget> projectKpiTargetList) {
         this.projectKpiTargetList = projectKpiTargetList;
+    }
+
+    public Integer getTargetNum() {
+        return targetNum;
+    }
+
+    public void setTargetNum(Integer targetNum) {
+        this.targetNum = targetNum;
     }
 
     @Override

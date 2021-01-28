@@ -118,6 +118,10 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
                     projectBudgetInfo1.setProjectBudgetDetailThreeList(projectBudgetDetailList1);
                 }
             }
+            ProjectKpiTarget projectKpiTarget = new ProjectKpiTarget();
+            projectKpiTarget.setProjectId(projectBudgetInfo1.getId());
+            List<ProjectKpiTarget> projectKpiTargetList = projectKpiTargetService.selectProjectKpiTargetList(projectKpiTarget);
+            projectBudgetInfo1.setTargetNum(projectKpiTargetList.size());
         }
         return projectBudgetInfoList;
     }
