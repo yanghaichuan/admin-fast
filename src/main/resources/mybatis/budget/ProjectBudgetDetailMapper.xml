@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.project.budget.detail.mapper.ProjectBudgetDetailMapper">
-    
+<mapper namespace="com.yueqiangu.project.budget.detail.mapper.ProjectBudgetDetailMapper">
+
     <resultMap type="ProjectBudgetDetail" id="ProjectBudgetDetailResult">
         <result property="id"    column="id"    />
         <result property="projectCode"    column="project_code"    />
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectProjectBudgetDetailList" parameterType="ProjectBudgetDetail" resultMap="ProjectBudgetDetailResult">
         <include refid="selectProjectBudgetDetailVo"/>
-        <where>  
+        <where>
             <if test="projectCode != null  and projectCode != ''"> and project_code = #{projectCode}</if>
             <if test="constitute != null  and constitute != ''"> and constitute = #{constitute}</if>
             <if test="subject != null  and subject != ''"> and subject = #{subject}</if>
@@ -45,12 +45,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="govEconomy != null  and govEconomy != ''"> and gov_economy = #{govEconomy}</if>
         </where>
     </select>
-    
+
     <select id="selectProjectBudgetDetailById" parameterType="Long" resultMap="ProjectBudgetDetailResult">
         <include refid="selectProjectBudgetDetailVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertProjectBudgetDetail" parameterType="ProjectBudgetDetail" useGeneratedKeys="true" keyProperty="id">
         insert into project_budget_detail
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -122,7 +122,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteProjectBudgetDetailByIds" parameterType="String">
-        delete from project_budget_detail where id in 
+        delete from project_budget_detail where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

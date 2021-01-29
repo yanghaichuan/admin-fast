@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.project.budget.mould.mapper.ProjectKpiMouldMapper">
-    
+<mapper namespace="com.yueqiangu.project.budget.mould.mapper.ProjectKpiMouldMapper">
+
     <resultMap type="ProjectKpiMould" id="ProjectKpiMouldResult">
         <result property="id"    column="id"    />
         <result property="kpiName"    column="kpi_name"    />
@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectProjectKpiMouldList" parameterType="ProjectKpiMould" resultMap="ProjectKpiMouldResult">
         <include refid="selectProjectKpiMouldVo"/>
-        <where>  
+        <where>
             <if test="kpiName != null  and kpiName != ''"> and kpi_name like concat('%', #{kpiName}, '%')</if>
             <if test="kpiLevel != null  and kpiLevel != ''"> and kpi_level = #{kpiLevel}</if>
             <if test="kpiTarget != null  and kpiTarget != ''"> and kpi_target = #{kpiTarget}</if>
@@ -37,14 +37,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
         order by parent_id
     </select>
-    
+
     <select id="selectProjectKpiMouldById" parameterType="Long" resultMap="ProjectKpiMouldResult">
         select t.id, t.kpi_name, t.kpi_content, t.kpi_level, t.kpi_target, t.target_amount, t.target_rate, t.parent_id, t.route, t.create_by, t.create_time, t.update_by, t.update_time, t.remark, t.del_flag, p.kpi_name as parent_name
         from project_kpi_mould t
         left join project_kpi_mould p on p.id = t.parent_id
         where t.id = #{id}
     </select>
-        
+
     <insert id="insertProjectKpiMould" parameterType="ProjectKpiMould">
         insert into project_kpi_mould
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -109,7 +109,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteProjectKpiMouldByIds" parameterType="String">
-        delete from project_kpi_mould where id in 
+        delete from project_kpi_mould where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

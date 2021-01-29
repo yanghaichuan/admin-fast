@@ -3,42 +3,41 @@ package ${packageName}.${businessName}.service.impl;
 import java.util.List;
 #if($table.tree)
 import java.util.ArrayList;
-import com.ruoyi.framework.web.domain.Ztree;
+import com.yueqiangu.framework.web.domain.Ztree;
 #end
 #foreach ($column in $columns)
 #if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
-import com.ruoyi.common.utils.DateUtils;
+import com.yueqiangu.common.utils.DateUtils;
 #break
 #end
 #end
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 #if($table.sub)
-import java.util.ArrayList;
-import com.ruoyi.common.utils.StringUtils;
+import com.yueqiangu.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import ${packageName}.${businessName}.domain.${subClassName};
 #end
 import ${packageName}.${businessName}.mapper.${ClassName}Mapper;
 import ${packageName}.${businessName}.domain.${ClassName};
 import ${packageName}.${businessName}.service.I${ClassName}Service;
-import com.ruoyi.common.utils.text.Convert;
+import com.yueqiangu.common.utils.text.Convert;
 
 /**
  * ${functionName}Service业务层处理
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  */
 @Service
-public class ${ClassName}ServiceImpl implements I${ClassName}Service 
+public class ${ClassName}ServiceImpl implements I${ClassName}Service
 {
     @Autowired
     private ${ClassName}Mapper ${className}Mapper;
 
     /**
      * 查询${functionName}
-     * 
+     *
      * @param ${pkColumn.javaField} ${functionName}ID
      * @return ${functionName}
      */
@@ -50,7 +49,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service
 
     /**
      * 查询${functionName}列表
-     * 
+     *
      * @param ${className} ${functionName}
      * @return ${functionName}
      */
@@ -62,7 +61,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service
 
     /**
      * 新增${functionName}
-     * 
+     *
      * @param ${className} ${functionName}
      * @return 结果
      */
@@ -88,7 +87,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service
 
     /**
      * 修改${functionName}
-     * 
+     *
      * @param ${className} ${functionName}
      * @return 结果
      */
@@ -112,7 +111,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service
 
     /**
      * 删除${functionName}对象
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -130,7 +129,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service
 
     /**
      * 删除${functionName}信息
-     * 
+     *
      * @param ${pkColumn.javaField} ${functionName}ID
      * @return 结果
      */
@@ -146,7 +145,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service
 
     /**
      * 查询${functionName}树列表
-     * 
+     *
      * @return 所有${functionName}信息
      */
     @Override
@@ -173,7 +172,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service
 
     /**
      * 新增${subTable.functionName}信息
-     * 
+     *
      * @param ${className} ${functionName}对象
      */
     public void insert${subClassName}(${ClassName} ${className})
