@@ -26,9 +26,10 @@
                             <div class="panel-body">
 
                                 <form class="form-horizontal m" id="form-info-examine" th:object="${projectBudgetInfo}">
-                                    <input name="projectId" th:field="*{id}" type="hidden">
+                                    <input name="id" th:field="*{id}" type="hidden">
                                     <input name="projectName" th:field="*{projectName}" type="hidden">
                                     <input name="status" id="status" th:field="*{status}" type="hidden">
+                                    <input name="generalBudget"  th:field="*{generalBudget}" type="hidden">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label  is-required">审批</label>
                                         <div class="col-sm-9">
@@ -289,11 +290,20 @@
         });
 
         function submitHandler() {
-            if(projectBudgetInfo.status == '2'){
-                $("#status").val('3');
-            }
+          var isPass = $("input[name='projectApprovalLog.isPass']:checked").val();
+          debugger
+          if(isPass=='1'){
+              if(projectBudgetInfo.status == '2'){
+                  $("#status").val('3');
+              }else if(projectBudgetInfo.status == '3'){
+                  $("#status").val('4');
+              }
+          }else if(isPass=='2'){
+              $("#status").val('5');
+          }
+
             if ($.validate.form()) {
-                $.operate.save(prefix + "/submit", $('#form-info-edit').serialize());
+                $.operate.save(prefix + "/submit", $('#form-info-examine').serialize());
             }
         }
 
@@ -506,50 +516,6 @@
             $('form').find('input,textarea,select').not('#opinion').attr('readonly',true);
         });
 
-        function addColumn() {
-            var count = $("#" + table.options.id).bootstrapTable('getData').length;
-            sub.editColumn();
-            $("#" + table.options.id).bootstrapTable('insertRow', {
-                index: count,
-                row: {
-                    index: $.table.serialNumber(count),
-                    constitute: "",
-                    subject: "",
-                    amount: "",
-                    source: "",
-                    type:"1"
-                }
-            });
-        }
-
-        function addColumn1() {
-            var count = $("#bootstrap-table1").bootstrapTable('getData').length;
-
-            $("#bootstrap-table1").bootstrapTable('insertRow', {
-                index: count,
-                row: {
-                    index: $.table.serialNumber(count),
-                    specification: "",
-                    funds: "",
-                    ecmSubjects: "",
-                    govEconomy: "",
-                    type:"2"
-                }
-            });
-        }
-
-        function delColumn1() {
-            var rows=$("#bootstrap-table1").bootstrapTable('getSelections');
-            if (rows.length == 0) {
-                $.modal.alertWarning("请至少选择一条记录");
-                return;
-            }
-            var ids = [];
-            rows.forEach(function (data,index) {
-                ids.push(data.index);
-            })
-            $("#bootstrap-table1").bootstrapTable('remove', { field: 'index', values: ids });
-        }
 
         this.attachmentList.forEach(function (att,i) {
             var tr = $(['<tr id="upload-'+ att.id +'">'

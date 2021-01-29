@@ -213,6 +213,12 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
 
     @Override
     public int submit(ProjectBudgetInfo projectBudgetInfo) {
+        if(projectBudgetInfo.getProjectApprovalLog()!=null &&
+                projectBudgetInfo.getProjectApprovalLog().getIsPass().equals("1")){
+            if(projectBudgetInfo.getStatus()!=null && projectBudgetInfo.getStatus().equals("4")){
+                projectBudgetInfo.setStatus("6");
+            }
+        }
         int i = projectBudgetInfoMapper.updateProjectBudgetInfo(projectBudgetInfo);
         if(i>0 && projectBudgetInfo.getProjectApprovalLog() !=null ){
             ProjectApprovalLog projectApprovalLog = projectBudgetInfo.getProjectApprovalLog();

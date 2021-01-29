@@ -273,7 +273,7 @@
             })
 
             var str = JSON.stringify(attach);
-            $("#status").val('2');
+            $("#status").val('3');
             $("#attachmentStr").val(str);
             if ($.validate.form()) {
                 $.operate.save(prefix + "/submit", $('#form-info-edit').serialize());

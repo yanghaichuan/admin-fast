@@ -200,7 +200,7 @@
                     align: 'center',
                     formatter: function(value, row, index) {
                         var actions = [];
-                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }
@@ -254,8 +254,10 @@
             }
             var p = row[0];
 
-            if(p.status != '2'){
-                $.modal.alertWarning("只能提交申报状态数据");
+            if(p.status == '3' || p.status == '4'){
+
+            }else{
+                $.modal.alertWarning("只能操作待审数据");
                 return;
             }
 
@@ -267,6 +269,20 @@
             $.modal.openTab("项目审核", prefix +'/examine/'+p.id);
         }
 
+        function edit(id) {
+            var row = $("#bootstrap-table").bootstrapTable('getSelections');
+            if (row.length == 0 || row.length > 1) {
+                $.modal.alertWarning("请至少选择一条记录");
+                return;
+            }
+            var p = row[0];
+
+            if(p.status != '1'){
+                $.modal.alertWarning("只能修改核定项目");
+                return;
+            }
+            $.modal.openTab("修改" + table.options.modalName, $.operate.editUrl(id));
+        }
 
     </script>
 </body>
