@@ -10,8 +10,8 @@ import com.ruoyi.framework.web.domain.BaseEntity;
 
 /**
  * 字典数据表 sys_dict_data
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class DictData extends BaseEntity
 {

@@ -14,8 +14,8 @@ import com.ruoyi.project.system.user.domain.User;
 
 /**
  * 注册验证
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 public class RegisterController extends BaseController

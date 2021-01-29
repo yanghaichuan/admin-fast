@@ -9,8 +9,8 @@ import com.ruoyi.framework.web.domain.BaseEntity;
 
 /**
  * 菜单权限表 sys_menu
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class Menu extends BaseEntity
 {

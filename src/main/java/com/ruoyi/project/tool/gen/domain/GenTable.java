@@ -10,8 +10,8 @@ import com.ruoyi.framework.web.domain.BaseEntity;
 
 /**
  * 业务表 gen_table
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class GenTable extends BaseEntity
 {
@@ -88,7 +88,7 @@ public class GenTable extends BaseEntity
 
     /** 树名称字段 */
     private String treeName;
-    
+
     /** 上级菜单ID字段 */
     private String parentMenuId;
 

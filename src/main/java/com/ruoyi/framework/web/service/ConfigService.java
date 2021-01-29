@@ -6,8 +6,8 @@ import com.ruoyi.project.system.config.service.IConfigService;
 
 /**
  * RuoYi首创 html调用 thymeleaf 实现参数管理
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Service("config")
 public class ConfigService
@@ -17,7 +17,7 @@ public class ConfigService
 
     /**
      * 根据键名查询参数配置信息
-     * 
+     *
      * @param configKey 参数键名
      * @return 参数键值
      */

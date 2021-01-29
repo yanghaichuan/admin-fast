@@ -26,8 +26,8 @@ import com.ruoyi.project.monitor.job.util.CronUtils;
 
 /**
  * 调度任务信息操作处理
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/monitor/job")

@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 /**
  * Ztree树结构实体类
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class Ztree implements Serializable
 {

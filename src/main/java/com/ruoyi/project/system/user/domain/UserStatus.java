@@ -2,8 +2,8 @@ package com.ruoyi.project.system.user.domain;
 
 /**
  * 用户状态
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  *
  */
 public enum UserStatus

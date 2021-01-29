@@ -20,8 +20,8 @@ import com.ruoyi.project.system.dict.utils.DictUtils;
 
 /**
  * 字典 业务层处理
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Service
 public class DictTypeServiceImpl implements IDictTypeService
@@ -48,7 +48,7 @@ public class DictTypeServiceImpl implements IDictTypeService
 
     /**
      * 根据条件分页查询字典类型
-     * 
+     *
      * @param dictType 字典类型信息
      * @return 字典类型集合信息
      */
@@ -60,7 +60,7 @@ public class DictTypeServiceImpl implements IDictTypeService
 
     /**
      * 根据所有字典类型
-     * 
+     *
      * @return 字典类型集合信息
      */
     @Override
@@ -71,7 +71,7 @@ public class DictTypeServiceImpl implements IDictTypeService
 
     /**
      * 根据字典类型查询字典数据
-     * 
+     *
      * @param dictType 字典类型
      * @return 字典数据集合信息
      */
@@ -94,7 +94,7 @@ public class DictTypeServiceImpl implements IDictTypeService
 
     /**
      * 根据字典类型ID查询信息
-     * 
+     *
      * @param dictId 字典类型ID
      * @return 字典类型
      */
@@ -106,7 +106,7 @@ public class DictTypeServiceImpl implements IDictTypeService
 
     /**
      * 根据字典类型查询信息
-     * 
+     *
      * @param dictType 字典类型
      * @return 字典类型
      */
@@ -118,7 +118,7 @@ public class DictTypeServiceImpl implements IDictTypeService
 
     /**
      * 批量删除字典类型
-     * 
+     *
      * @param ids 需要删除的数据
      * @return 结果
      */
@@ -153,7 +153,7 @@ public class DictTypeServiceImpl implements IDictTypeService
 
     /**
      * 新增保存字典类型信息
-     * 
+     *
      * @param dictType 字典类型信息
      * @return 结果
      */
@@ -171,7 +171,7 @@ public class DictTypeServiceImpl implements IDictTypeService
 
     /**
      * 修改保存字典类型信息
-     * 
+     *
      * @param dictType 字典类型信息
      * @return 结果
      */
@@ -192,7 +192,7 @@ public class DictTypeServiceImpl implements IDictTypeService
 
     /**
      * 校验字典类型称是否唯一
-     * 
+     *
      * @param dict 字典类型
      * @return 结果
      */
@@ -210,7 +210,7 @@ public class DictTypeServiceImpl implements IDictTypeService
 
     /**
      * 查询字典类型树
-     * 
+     *
      * @param dictType 字典类型
      * @return 所有字典类型
      */

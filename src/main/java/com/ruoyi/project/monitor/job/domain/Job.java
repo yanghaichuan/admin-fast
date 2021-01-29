@@ -14,8 +14,8 @@ import com.ruoyi.project.monitor.job.util.CronUtils;
 
 /**
  * 定时任务调度信息 sys_job
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class Job extends BaseEntity implements Serializable
 {

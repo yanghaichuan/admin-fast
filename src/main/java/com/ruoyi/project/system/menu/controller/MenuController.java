@@ -24,8 +24,8 @@ import com.ruoyi.project.system.role.domain.Role;
 
 /**
  * 菜单信息
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/system/menu")

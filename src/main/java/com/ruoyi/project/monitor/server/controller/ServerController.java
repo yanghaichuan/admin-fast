@@ -10,8 +10,8 @@ import com.ruoyi.project.monitor.server.domain.Server;
 
 /**
  * 服务器监控
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/monitor/server")

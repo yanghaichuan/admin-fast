@@ -9,8 +9,8 @@ import com.ruoyi.project.monitor.online.domain.OnlineSession;
 
 /**
  * 同步Session数据到Db
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class SyncOnlineSessionFilter extends PathMatchingFilter
 {

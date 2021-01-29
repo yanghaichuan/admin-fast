@@ -24,8 +24,8 @@ import com.ruoyi.project.system.role.domain.Role;
 
 /**
  * 部门信息
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/system/dept")
@@ -150,7 +150,7 @@ public class DeptController extends BaseController
 
     /**
      * 选择部门树
-     * 
+     *
      * @param deptId 部门ID
      * @param excludeId 排除ID
      */

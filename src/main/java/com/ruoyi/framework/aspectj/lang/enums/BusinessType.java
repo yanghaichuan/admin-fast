@@ -2,8 +2,8 @@ package com.ruoyi.framework.aspectj.lang.enums;
 
 /**
  * 业务操作类型
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  *
  */
 public enum BusinessType
@@ -52,7 +52,7 @@ public enum BusinessType
      * 生成代码
      */
     GENCODE,
-    
+
     /**
      * 清空数据
      */

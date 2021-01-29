@@ -26,8 +26,8 @@ import com.ruoyi.project.demo.domain.UserOperateModel;
 
 /**
  * 操作控制
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/demo/operate")
@@ -256,7 +256,7 @@ public class DemoOperateController extends BaseController
 
     /**
      * 导入用户数据
-     * 
+     *
      * @param userList 用户数据列表
      * @param isUpdateSupport 是否更新支持，如果已存在，则进行更新数据
      * @return 结果

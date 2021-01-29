@@ -32,8 +32,8 @@ import com.ruoyi.project.tool.gen.service.IGenTableService;
 
 /**
  * 代码生成 操作处理
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/tool/gen")
@@ -196,7 +196,7 @@ public class GenController extends BaseController
         byte[] data = genTableService.downloadCode(tableName);
         genCode(response, data);
     }
-    
+
     /**
      * 生成代码（自定义路径）
      */

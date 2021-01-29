@@ -17,8 +17,8 @@ import com.ruoyi.framework.web.domain.CxSelect;
 
 /**
  * 表单相关
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/demo/form")
@@ -259,7 +259,7 @@ public class DemoFormController
 
     /**
      * 局部刷新-添加任务
-     * 
+     *
      * @param fragment 页面中的模板名称
      * @param taskName 任务名称
      */

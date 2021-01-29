@@ -12,8 +12,8 @@ import com.ruoyi.common.utils.StringUtils;
 
 /**
  * RuoYi首创 js调用 thymeleaf 实现按钮权限可见性
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Service("permission")
 public class PermissionService
@@ -29,7 +29,7 @@ public class PermissionService
 
     /**
      * 验证用户是否具备某权限，无权限返回hidden用于前端隐藏（如需返回Boolean使用isPermitted）
-     * 
+     *
      * @param permission 权限字符串
      * @return 用户是否具备某权限
      */
@@ -62,7 +62,7 @@ public class PermissionService
 
     /**
      * 验证用户是否具备某角色，无权限返回hidden用于隐藏（如需返回Boolean使用isRole）
-     * 
+     *
      * @param role 角色字符串
      * @return 用户是否具备某角色
      */
@@ -73,7 +73,7 @@ public class PermissionService
 
     /**
      * 验证用户是否不具备某角色，与hasRole逻辑相反。无权限返回hidden用于隐藏（如需返回Boolean使用isLacksRole）
-     * 
+     *
      * @param role 角色字符串
      * @return 用户是否不具备某角色
      */
@@ -106,7 +106,7 @@ public class PermissionService
 
     /**
      * 判断用户是否拥有某个权限
-     * 
+     *
      * @param permission 权限字符串
      * @return 用户是否具备某权限
      */
@@ -169,7 +169,7 @@ public class PermissionService
 
     /**
      * 判断用户是否拥有某个角色
-     * 
+     *
      * @param role 角色字符串
      * @return 用户是否具备某角色
      */

@@ -27,8 +27,8 @@ import com.ruoyi.project.system.user.service.IUserService;
 
 /**
  * 角色信息
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/system/role")

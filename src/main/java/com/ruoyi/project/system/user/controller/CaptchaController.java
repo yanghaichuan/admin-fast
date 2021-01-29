@@ -18,8 +18,8 @@ import com.ruoyi.framework.web.controller.BaseController;
 
 /**
  * 图片验证码（支持算术形式）
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/captcha")

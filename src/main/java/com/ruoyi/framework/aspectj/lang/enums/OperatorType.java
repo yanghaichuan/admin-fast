@@ -2,8 +2,8 @@ package com.ruoyi.framework.aspectj.lang.enums;
 
 /**
  * 操作人类别
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  *
  */
 public enum OperatorType

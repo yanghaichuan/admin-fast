@@ -21,8 +21,8 @@ import com.ruoyi.framework.web.page.TableSupport;
 
 /**
  * 表格相关
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/demo/table")
@@ -240,7 +240,7 @@ public class DemoTableController extends BaseController
     {
         return prefix + "/subdata";
     }
-    
+
     /**
      * 表格自动刷新
      */
@@ -249,7 +249,7 @@ public class DemoTableController extends BaseController
     {
         return prefix + "/refresh";
     }
-    
+
     /**
      * 表格打印配置
      */

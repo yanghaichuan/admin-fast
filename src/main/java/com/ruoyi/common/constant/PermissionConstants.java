@@ -2,8 +2,8 @@ package com.ruoyi.common.constant;
 
 /**
  * 权限通用常量
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class PermissionConstants
 {
@@ -15,7 +15,7 @@ public class PermissionConstants
 
     /** 删除权限 */
     public static final String REMOVE_PERMISSION = "remove";
-    
+
     /** 导出权限 */
     public static final String EXPORT_PERMISSION = "export";
 

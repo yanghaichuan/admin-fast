@@ -9,8 +9,8 @@ import com.ruoyi.project.monitor.logininfor.mapper.LogininforMapper;
 
 /**
  * 系统访问日志情况信息 服务层处理
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Service
 public class LogininforServiceImpl implements ILogininforService
@@ -20,7 +20,7 @@ public class LogininforServiceImpl implements ILogininforService
 
     /**
      * 新增系统登录日志
-     * 
+     *
      * @param logininfor 访问日志对象
      */
     @Override
@@ -31,7 +31,7 @@ public class LogininforServiceImpl implements ILogininforService
 
     /**
      * 查询系统登录日志集合
-     * 
+     *
      * @param logininfor 访问日志对象
      * @return 登录记录集合
      */
@@ -43,7 +43,7 @@ public class LogininforServiceImpl implements ILogininforService
 
     /**
      * 批量删除系统登录日志
-     * 
+     *
      * @param ids 需要删除的数据
      * @return
      */
@@ -52,7 +52,7 @@ public class LogininforServiceImpl implements ILogininforService
     {
         return logininforMapper.deleteLogininforByIds(Convert.toStrArray(ids));
     }
-    
+
     /**
      * 清空系统登录日志
      */

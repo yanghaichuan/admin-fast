@@ -18,8 +18,8 @@ import com.ruoyi.project.system.user.domain.User;
 
 /**
  * 退出过滤器
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class LogoutFilter extends org.apache.shiro.web.filter.authc.LogoutFilter
 {

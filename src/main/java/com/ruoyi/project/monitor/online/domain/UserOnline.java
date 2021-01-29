@@ -8,13 +8,13 @@ import com.ruoyi.project.monitor.online.domain.OnlineSession.OnlineStatus;
 
 /**
  * 当前在线会话 sys_user_online
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class UserOnline extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
-    
+
     /** 用户会话id */
     private String sessionId;
 

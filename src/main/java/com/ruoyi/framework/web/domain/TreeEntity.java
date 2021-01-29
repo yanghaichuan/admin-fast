@@ -2,8 +2,8 @@ package com.ruoyi.framework.web.domain;
 
 /**
  * Tree基类
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class TreeEntity extends BaseEntity
 {

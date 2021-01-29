@@ -2,8 +2,8 @@ package com.ruoyi.project.monitor.server.domain;
 
 /**
  * 系统文件相关信息
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class SysFile
 {

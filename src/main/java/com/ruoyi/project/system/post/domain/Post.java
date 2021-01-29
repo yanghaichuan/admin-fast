@@ -9,8 +9,8 @@ import com.ruoyi.framework.web.domain.BaseEntity;
 
 /**
  * 岗位表 sys_post
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class Post extends BaseEntity
 {

@@ -9,8 +9,8 @@ import com.ruoyi.framework.config.RuoYiConfig;
 
 /**
  * 获取地址类
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class AddressUtils
 {

@@ -16,8 +16,8 @@ import com.ruoyi.project.system.user.service.IUserService;
 
 /**
  * 注册校验方法
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Component
 public class RegisterService

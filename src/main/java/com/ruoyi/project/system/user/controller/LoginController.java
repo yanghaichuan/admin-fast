@@ -17,8 +17,8 @@ import com.ruoyi.framework.web.domain.AjaxResult;
 
 /**
  * 登录验证
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 public class LoginController extends BaseController

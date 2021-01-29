@@ -23,8 +23,8 @@ import com.ruoyi.project.system.post.service.IPostService;
 
 /**
  * 岗位信息操作处理
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/system/post")

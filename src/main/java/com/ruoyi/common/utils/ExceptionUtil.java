@@ -8,7 +8,7 @@ import com.ruoyi.common.utils.StringUtils;
 /**
  * 错误信息处理类。
  *
- * @author ruoyi
+ * @author yueqiangu
  */
 public class ExceptionUtil
 {

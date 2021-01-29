@@ -11,8 +11,8 @@ import com.ruoyi.project.system.notice.service.INoticeService;
 
 /**
  * 公告 服务层实现
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  * @date 2018-06-25
  */
 @Service
@@ -23,7 +23,7 @@ public class NoticeServiceImpl implements INoticeService
 
     /**
      * 查询公告信息
-     * 
+     *
      * @param noticeId 公告ID
      * @return 公告信息
      */
@@ -35,7 +35,7 @@ public class NoticeServiceImpl implements INoticeService
 
     /**
      * 查询公告列表
-     * 
+     *
      * @param notice 公告信息
      * @return 公告集合
      */
@@ -47,7 +47,7 @@ public class NoticeServiceImpl implements INoticeService
 
     /**
      * 新增公告
-     * 
+     *
      * @param notice 公告信息
      * @return 结果
      */
@@ -60,7 +60,7 @@ public class NoticeServiceImpl implements INoticeService
 
     /**
      * 修改公告
-     * 
+     *
      * @param notice 公告信息
      * @return 结果
      */
@@ -73,7 +73,7 @@ public class NoticeServiceImpl implements INoticeService
 
     /**
      * 删除公告对象
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */

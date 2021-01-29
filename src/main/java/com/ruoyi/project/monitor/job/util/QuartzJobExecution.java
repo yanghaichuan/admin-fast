@@ -5,8 +5,8 @@ import com.ruoyi.project.monitor.job.domain.Job;
 
 /**
  * 定时任务处理（允许并发执行）
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  *
  */
 public class QuartzJobExecution extends AbstractQuartzJob

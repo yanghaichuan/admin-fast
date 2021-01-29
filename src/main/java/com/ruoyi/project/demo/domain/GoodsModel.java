@@ -6,8 +6,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 商品测试信息
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class GoodsModel
 {
@@ -25,7 +25,7 @@ public class GoodsModel
      * 商品价格
      */
     private Double price;
-    
+
     /**
      * 商品日期
      */

@@ -8,8 +8,8 @@ import com.ruoyi.framework.web.controller.BaseController;
 
 /**
  * druid 监控
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/monitor/data")

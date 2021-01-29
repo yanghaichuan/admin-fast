@@ -12,8 +12,8 @@ import com.ruoyi.common.utils.StringUtils;
 
 /**
  * spring工具类 方便在非spring管理环境中获取bean
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Component
 public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationContextAware
@@ -113,7 +113,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationC
 
     /**
      * 获取aop代理对象
-     * 
+     *
      * @param invoker
      * @return
      */

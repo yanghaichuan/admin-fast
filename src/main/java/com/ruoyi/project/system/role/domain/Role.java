@@ -9,8 +9,8 @@ import com.ruoyi.framework.web.domain.BaseEntity;
 
 /**
  * 角色表 sys_role
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class Role extends BaseEntity
 {

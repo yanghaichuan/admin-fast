@@ -21,8 +21,8 @@ import com.ruoyi.project.monitor.operlog.service.IOperLogService;
 
 /**
  * 操作日志记录
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/monitor/operlog")
@@ -76,7 +76,7 @@ public class OperlogController extends BaseController
         mmap.put("operLog", operLogService.selectOperLogById(operId));
         return prefix + "/detail";
     }
-    
+
     @Log(title = "操作日志", businessType = BusinessType.CLEAN)
     @RequiresPermissions("monitor:operlog:remove")
     @PostMapping("/clean")

@@ -38,8 +38,8 @@ import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 
 /**
  * 权限配置加载
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Configuration
 public class ShiroConfig
@@ -83,7 +83,7 @@ public class ShiroConfig
     // 设置Cookie的过期时间，秒为单位
     @Value("${shiro.cookie.maxAge}")
     private int maxAge;
-    
+
     // 设置cipherKey密钥
     @Value("${shiro.cookie.cipherKey}")
     private String cipherKey;

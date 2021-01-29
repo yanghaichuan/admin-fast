@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Cookie工具类
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class CookieUtils
 {
     /**
      * 设置 Cookie（生成时间为1天）
-     * 
+     *
      * @param name 名称
      * @param value 值
      */
@@ -27,7 +27,7 @@ public class CookieUtils
 
     /**
      * 设置 Cookie
-     * 
+     *
      * @param name 名称
      * @param value 值
      * @param maxAge 生存时间（单位秒）
@@ -40,7 +40,7 @@ public class CookieUtils
 
     /**
      * 设置 Cookie
-     * 
+     *
      * @param name 名称
      * @param value 值
      * @param maxAge 生存时间（单位秒）
@@ -53,7 +53,7 @@ public class CookieUtils
 
     /**
      * 设置 Cookie
-     * 
+     *
      * @param name 名称
      * @param value 值
      * @param maxAge 生存时间（单位秒）
@@ -77,7 +77,7 @@ public class CookieUtils
 
     /**
      * 获得指定Cookie的值
-     * 
+     *
      * @param name 名称
      * @return 值
      */
@@ -88,7 +88,7 @@ public class CookieUtils
 
     /**
      * 获得指定Cookie的值，并删除。
-     * 
+     *
      * @param name 名称
      * @return 值
      */
@@ -99,7 +99,7 @@ public class CookieUtils
 
     /**
      * 获得指定Cookie的值
-     * 
+     *
      * @param request 请求对象
      * @param response 响应对象
      * @param name 名字

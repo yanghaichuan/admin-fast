@@ -18,8 +18,8 @@ import oshi.util.Util;
 
 /**
  * 服务器相关信息
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class Server
 {
@@ -204,7 +204,7 @@ public class Server
 
     /**
      * 字节转换
-     * 
+     *
      * @param size 字节大小
      * @return 转换后值
      */

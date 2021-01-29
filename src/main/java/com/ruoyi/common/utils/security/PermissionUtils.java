@@ -6,8 +6,8 @@ import com.ruoyi.common.utils.MessageUtils;
 
 /**
  * permission 工具类
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class PermissionUtils
 {
@@ -43,7 +43,7 @@ public class PermissionUtils
 
     /**
      * 权限错误消息提醒
-     * 
+     *
      * @param permissionsStr 错误信息
      * @return 提示信息
      */

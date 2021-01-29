@@ -2,8 +2,8 @@ package com.ruoyi.common.constant;
 
 /**
  * 通用常量信息
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class Constants
 {
@@ -66,7 +66,7 @@ public class Constants
      * 排序的方向 "desc" 或者 "asc".
      */
     public static final String IS_ASC = "isAsc";
-    
+
     /**
      * 系统用户授权缓存
      */

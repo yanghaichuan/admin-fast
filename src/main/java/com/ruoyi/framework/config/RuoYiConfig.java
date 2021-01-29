@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * 读取项目相关配置
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Component
 @ConfigurationProperties(prefix = "ruoyi")
@@ -29,7 +29,7 @@ public class RuoYiConfig
 
     /** 获取地址开关 */
     private static boolean addressEnabled;
-    
+
     public String getName()
     {
         return name;

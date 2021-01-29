@@ -17,8 +17,8 @@ import com.ruoyi.project.system.role.domain.Role;
 
 /**
  * 用户对象 sys_user
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class User extends BaseEntity
 {

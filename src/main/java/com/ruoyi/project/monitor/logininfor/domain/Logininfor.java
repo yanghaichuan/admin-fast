@@ -9,8 +9,8 @@ import java.util.Date;
 
 /**
  * 系统访问记录表 sys_logininfor
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class Logininfor extends BaseEntity
 {

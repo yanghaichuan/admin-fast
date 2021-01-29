@@ -20,8 +20,8 @@ import com.ruoyi.project.system.notice.service.INoticeService;
 
 /**
  * 公告 信息操作处理
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/system/notice")

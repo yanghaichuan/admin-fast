@@ -26,15 +26,15 @@ import com.ruoyi.project.system.user.domain.User;
 
 /**
  * 操作日志记录处理
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Aspect
 @Component
 public class LogAspect
 {
     private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
-    
+
     /** 排除敏感属性字段 */
     public static final String[] EXCLUDE_PROPERTIES = { "password", "oldPassword", "newPassword", "confirmPassword" };
 
@@ -57,7 +57,7 @@ public class LogAspect
 
     /**
      * 拦截异常操作
-     * 
+     *
      * @param joinPoint 切点
      * @param e 异常
      */
@@ -128,7 +128,7 @@ public class LogAspect
 
     /**
      * 获取注解中对方法的描述信息 用于Controller层注解
-     * 
+     *
      * @param log 日志
      * @param operLog 操作日志
      * @throws Exception
@@ -151,7 +151,7 @@ public class LogAspect
 
     /**
      * 获取请求的参数，放到log中
-     * 
+     *
      * @param operLog
      * @param request
      */

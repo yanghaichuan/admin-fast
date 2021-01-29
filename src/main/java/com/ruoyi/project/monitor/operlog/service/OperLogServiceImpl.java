@@ -9,8 +9,8 @@ import com.ruoyi.project.monitor.operlog.mapper.OperLogMapper;
 
 /**
  * 操作日志 服务层处理
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Service
 public class OperLogServiceImpl implements IOperLogService
@@ -20,7 +20,7 @@ public class OperLogServiceImpl implements IOperLogService
 
     /**
      * 新增操作日志
-     * 
+     *
      * @param operLog 操作日志对象
      */
     @Override
@@ -31,7 +31,7 @@ public class OperLogServiceImpl implements IOperLogService
 
     /**
      * 查询系统操作日志集合
-     * 
+     *
      * @param operLog 操作日志对象
      * @return 操作日志集合
      */
@@ -43,7 +43,7 @@ public class OperLogServiceImpl implements IOperLogService
 
     /**
      * 批量删除系统操作日志
-     * 
+     *
      * @param ids 需要删除的数据
      * @return
      */
@@ -55,7 +55,7 @@ public class OperLogServiceImpl implements IOperLogService
 
     /**
      * 查询操作日志详细
-     * 
+     *
      * @param operId 操作ID
      * @return 操作日志对象
      */
@@ -64,7 +64,7 @@ public class OperLogServiceImpl implements IOperLogService
     {
         return operLogMapper.selectOperLogById(operId);
     }
-    
+
     /**
      * 清空操作日志
      */

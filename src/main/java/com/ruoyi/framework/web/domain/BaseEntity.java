@@ -8,8 +8,8 @@ import com.google.common.collect.Maps;
 
 /**
  * Entity基类
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class BaseEntity implements Serializable
 {

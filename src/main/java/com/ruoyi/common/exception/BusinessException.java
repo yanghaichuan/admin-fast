@@ -2,8 +2,8 @@ package com.ruoyi.common.exception;
 
 /**
  * 业务异常
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class BusinessException extends RuntimeException
 {

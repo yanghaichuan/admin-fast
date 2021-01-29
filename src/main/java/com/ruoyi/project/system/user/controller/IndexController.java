@@ -28,8 +28,8 @@ import com.ruoyi.project.system.user.domain.User;
 
 /**
  * 首页 业务处理
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 public class IndexController extends BaseController
@@ -68,7 +68,7 @@ public class IndexController extends BaseController
         String menuStyle = configService.selectConfigByKey("sys.index.menuStyle");
         // 移动端，默认使左侧导航菜单，否则取默认配置
         String indexStyle = ServletUtils.checkAgentIsMobile(ServletUtils.getRequest().getHeader("User-Agent")) ? "index" : menuStyle;
-        
+
         // 优先Cookie配置导航菜单
         Cookie[] cookies = ServletUtils.getRequest().getCookies();
         for (Cookie cookie : cookies)
@@ -131,14 +131,14 @@ public class IndexController extends BaseController
         mmap.put("version", ruoYiConfig.getVersion());
         return "main";
     }
-    
+
     // 检查初始密码是否提醒修改
     public boolean initPasswordIsModify(Date pwdUpdateDate)
     {
         Integer initPasswordModify = Convert.toInt(configService.selectConfigByKey("sys.account.initPasswordModify"));
         return initPasswordModify !=null && initPasswordModify == 1 && pwdUpdateDate == null;
     }
-    
+
     // 检查密码是否过期
     public boolean passwordIsExpiration(Date pwdUpdateDate)
     {

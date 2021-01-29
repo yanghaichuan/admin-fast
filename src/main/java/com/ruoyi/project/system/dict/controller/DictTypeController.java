@@ -24,8 +24,8 @@ import com.ruoyi.project.system.dict.service.IDictTypeService;
 
 /**
  * 数据字典信息
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Controller
 @RequestMapping("/system/dict")
@@ -124,7 +124,7 @@ public class DictTypeController extends BaseController
     {
         return toAjax(dictTypeService.deleteDictTypeByIds(ids));
     }
-    
+
     /**
      * 清空缓存
      */

@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 线程相关工具类.
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class Threads
 {
@@ -62,7 +62,7 @@ public class Threads
             }
         }
     }
-    
+
     /**
      * 打印线程异常信息
      */

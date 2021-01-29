@@ -17,7 +17,7 @@ import com.ruoyi.framework.config.RuoYiConfig;
 /**
  * 图片处理工具类
  *
- * @author ruoyi
+ * @author yueqiangu
  */
 public class ImageUtils
 {
@@ -58,7 +58,7 @@ public class ImageUtils
 
     /**
      * 读取文件为字节数据
-     * 
+     *
      * @param key 地址
      * @return 字节数据
      */

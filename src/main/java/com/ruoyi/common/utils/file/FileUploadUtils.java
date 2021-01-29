@@ -15,8 +15,8 @@ import com.ruoyi.framework.config.RuoYiConfig;
 
 /**
  * 文件上传工具类
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 public class FileUploadUtils
 {
@@ -219,7 +219,7 @@ public class FileUploadUtils
 
     /**
      * 获取文件名的后缀
-     * 
+     *
      * @param file 表单文件
      * @return 后缀名
      */

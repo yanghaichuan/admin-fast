@@ -16,8 +16,8 @@ import com.ruoyi.project.monitor.job.domain.Job;
 
 /**
  * 定时任务工具类
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  *
  */
 public class ScheduleUtils

@@ -23,8 +23,8 @@ import com.ruoyi.project.system.user.service.IUserService;
 
 /**
  * 登录校验方法
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Component
 public class LoginService
@@ -71,7 +71,7 @@ public class LoginService
         // 查询用户信息
         User user = userService.selectUserByLoginName(username);
 
-        /** 
+        /**
         if (user == null && maybeMobilePhoneNumber(username))
         {
             user = userService.selectUserByPhoneNumber(username);
@@ -88,13 +88,13 @@ public class LoginService
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.not.exists")));
             throw new UserNotExistsException();
         }
-        
+
         if (UserStatus.DELETED.getCode().equals(user.getDelFlag()))
         {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.delete")));
             throw new UserDeleteException();
         }
-        
+
         if (UserStatus.DISABLE.getCode().equals(user.getStatus()))
         {
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.blocked", user.getRemark())));

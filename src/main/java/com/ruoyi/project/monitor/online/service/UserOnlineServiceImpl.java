@@ -18,8 +18,8 @@ import com.ruoyi.project.monitor.online.mapper.UserOnlineMapper;
 
 /**
  * 在线用户 服务层处理
- * 
- * @author ruoyi
+ *
+ * @author yueqiangu
  */
 @Service
 public class UserOnlineServiceImpl implements IUserOnlineService
@@ -35,7 +35,7 @@ public class UserOnlineServiceImpl implements IUserOnlineService
 
     /**
      * 通过会话序号查询信息
-     * 
+     *
      * @param sessionId 会话ID
      * @return 在线用户信息
      */
@@ -47,7 +47,7 @@ public class UserOnlineServiceImpl implements IUserOnlineService
 
     /**
      * 通过会话序号删除信息
-     * 
+     *
      * @param sessionId 会话ID
      * @return 在线用户信息
      */
@@ -63,7 +63,7 @@ public class UserOnlineServiceImpl implements IUserOnlineService
 
     /**
      * 通过会话序号删除信息
-     * 
+     *
      * @param sessions 会话ID集合
      * @return 在线用户信息
      */
@@ -82,7 +82,7 @@ public class UserOnlineServiceImpl implements IUserOnlineService
 
     /**
      * 保存会话信息
-     * 
+     *
      * @param online 会话信息
      */
     @Override
@@ -93,7 +93,7 @@ public class UserOnlineServiceImpl implements IUserOnlineService
 
     /**
      * 查询会话集合
-     * 
+     *
      * @param pageUtilEntity 分页参数
      */
     @Override
@@ -104,7 +104,7 @@ public class UserOnlineServiceImpl implements IUserOnlineService
 
     /**
      * 强退用户
-     * 
+     *
      * @param sessionId 会话ID
      */
     @Override
@@ -121,7 +121,7 @@ public class UserOnlineServiceImpl implements IUserOnlineService
 
     /**
      * 清理用户缓存
-     * 
+     *
      * @param loginName 登录名称
      * @param sessionId 会话ID
      */
@@ -139,7 +139,7 @@ public class UserOnlineServiceImpl implements IUserOnlineService
 
     /**
      * 查询会话集合
-     * 
+     *
      * @param online 会话信息
      */
     @Override
