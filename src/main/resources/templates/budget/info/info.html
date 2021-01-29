@@ -76,10 +76,13 @@
                     <i class="fa fa-bar-chart"></i> 绩效目标
                 </a>
 
-                <a class="btn btn-info single disabled" onclick="submit()" shiro:hasPermission="budget:target:view">
-                    <i class="fa fa-external-link-square"></i> 提交审核
+                <a class="btn btn-info single disabled" onclick="submit()" shiro:hasPermission="budget:info:submit">
+                    <i class="fa fa-external-link-square"></i> 提交
                 </a>
 
+                <a class="btn btn-success single disabled" onclick="examine()" shiro:hasPermission="budget:info:examine">
+                    <i class="fa fa-y-combinator"></i> 审核
+                </a>
             </div>
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
@@ -240,8 +243,30 @@
                 return;
             }
 
-            $.modal.openTab("绩效目标", prefix +'/approval/'+p.id);
+            $.modal.openTab("项目提审", prefix +'/approval/'+p.id);
         }
+
+        function examine() {
+            var row = $("#bootstrap-table").bootstrapTable('getSelections');
+            if (row.length == 0 || row.length > 1) {
+                $.modal.alertWarning("请至少选择一条记录");
+                return;
+            }
+            var p = row[0];
+
+            if(p.status != '2'){
+                $.modal.alertWarning("只能提交申报状态数据");
+                return;
+            }
+
+            if(p.targetNum == 0){
+                $.modal.alertWarning("没有指定绩效目标");
+                return;
+            }
+
+            $.modal.openTab("项目审核", prefix +'/examine/'+p.id);
+        }
+
 
     </script>
 </body>

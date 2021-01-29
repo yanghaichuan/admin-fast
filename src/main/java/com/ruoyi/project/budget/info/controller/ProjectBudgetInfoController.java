@@ -141,12 +141,24 @@ public class ProjectBudgetInfoController extends BaseController
      *
      *
      */
-    @RequiresPermissions("budget:info:edit")
+    @RequiresPermissions("budget:info:submit")
     @Log(title = "项目管理", businessType = BusinessType.UPDATE)
     @PostMapping("/submit")
     @ResponseBody
     public AjaxResult submit(ProjectBudgetInfo projectBudgetInfo)
     {
         return toAjax(projectBudgetInfoService.submit(projectBudgetInfo));
+    }
+
+
+    /**
+     * 审核
+     */
+    @GetMapping("/examine/{id}")
+    public String examine(@PathVariable("id") Long id, ModelMap mmap)
+    {
+        ProjectBudgetInfo projectBudgetInfo = projectBudgetInfoService.selectProjectBudgetInfoById(id);
+        mmap.put("projectBudgetInfo", projectBudgetInfo);
+        return prefix + "/examine";
     }
 }

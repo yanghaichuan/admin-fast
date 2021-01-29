@@ -14,18 +14,43 @@
 
                 <div class="tabs-left">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#tab-8"> 项目填报</a>
+                        <li class="active"><a data-toggle="tab" href="#tab-7"> 项目审批</a>
+                        </li>
+                        <li class=""><a data-toggle="tab" href="#tab-8"> 项目填报</a>
                         </li>
                         <li class=""><a data-toggle="tab" href="#tab-9"> 项目绩效</a>
                         </li>
                     </ul>
                     <div class="tab-content ">
-                        <div id="tab-8" class="tab-pane active">
+                        <div id="tab-7" class="tab-pane  active">
+                            <div class="panel-body">
+
+                                <form class="form-horizontal m" id="form-info-examine" th:object="${projectBudgetInfo}">
+                                    <input name="projectId" th:field="*{id}" type="hidden">
+                                    <input name="projectName" th:field="*{projectName}" type="hidden">
+                                    <input name="status" id="status" th:field="*{status}" type="hidden">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label  is-required">审批</label>
+                                        <div class="col-sm-9">
+                                            <label class="radio-box">
+                                                <input type="radio" checked="" value="1" id="optionsRadios1" name="projectApprovalLog.isPass">通过</label>
+                                            <label class="radio-box">
+                                                <input type="radio" value="2" id="optionsRadios2" name="projectApprovalLog.isPass">不通过</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" >
+                                        <label class="col-sm-3 control-label  is-required">意见</label>
+                                        <div class="col-sm-9">
+                                            <textarea type="text" id="opinion" name="projectApprovalLog.opinion" rows="3" class="form-control" placeholder="请输入意见"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="tab-8" class="tab-pane">
                             <div class="panel-body">
                                 <form class="form-horizontal m" id="form-info-edit" th:object="${projectBudgetInfo}">
-                                    <input name="id" th:field="*{id}" type="hidden">
-                                    <input name="status" th:field="*{status}" type="hidden">
-                                    <input type="hidden" name="attachmentStr" id="attachmentStr">
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
@@ -242,7 +267,7 @@
 
     <div class="row">
         <div class="col-sm-offset-5 col-sm-10">
-            <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>提交审核</button>&nbsp;
+            <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>提交</button>&nbsp;
             <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
         </div>
     </div>
@@ -259,22 +284,14 @@
         var projectBudgetInfo = [[${projectBudgetInfo}]];
         var attachmentList = projectBudgetInfo.attachmentList;
 
-        $("#form-info-edit").validate({
+        $("#form-info-examine").validate({
             focusCleanup: true
         });
 
         function submitHandler() {
-            var attach =[];
-            attachmentList.forEach(function (value, index) {
-                if(value.delFlag == 0){
-                    delete value.id;
-                    attach.push(value);
-                }
-            })
-
-            var str = JSON.stringify(attach);
-            $("#status").val('2');
-            $("#attachmentStr").val(str);
+            if(projectBudgetInfo.status == '2'){
+                $("#status").val('3');
+            }
             if ($.validate.form()) {
                 $.operate.save(prefix + "/submit", $('#form-info-edit').serialize());
             }
@@ -486,7 +503,7 @@
 
             });
 
-            $('form').find('input,textarea,select').attr('readonly',true);
+            $('form').find('input,textarea,select').not('#opinion').attr('readonly',true);
         });
 
         function addColumn() {

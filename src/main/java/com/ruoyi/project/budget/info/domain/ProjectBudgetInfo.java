@@ -99,6 +99,10 @@ public class ProjectBudgetInfo extends BaseEntity
      * 绩效目标数量
       */
     private Integer targetNum;
+    /**
+     * 审核信息
+      */
+    private ProjectApprovalLog  projectApprovalLog;
 
     public void setId(Long id)
     {
@@ -276,6 +280,14 @@ public class ProjectBudgetInfo extends BaseEntity
 
     public void setTargetNum(Integer targetNum) {
         this.targetNum = targetNum;
+    }
+
+    public ProjectApprovalLog getProjectApprovalLog() {
+        return projectApprovalLog;
+    }
+
+    public void setProjectApprovalLog(ProjectApprovalLog projectApprovalLog) {
+        this.projectApprovalLog = projectApprovalLog;
     }
 
     @Override

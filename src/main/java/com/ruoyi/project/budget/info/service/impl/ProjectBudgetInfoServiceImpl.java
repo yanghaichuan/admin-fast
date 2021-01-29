@@ -9,8 +9,11 @@ import com.ruoyi.common.enums.ProjectBudgetDetailEnum;
 import com.ruoyi.common.enums.ProjectStatusEnum;
 import com.ruoyi.common.enums.SysDelFlag;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.common.utils.security.ShiroUtils;
 import com.ruoyi.project.budget.detail.domain.ProjectBudgetDetail;
 import com.ruoyi.project.budget.detail.service.IProjectBudgetDetailService;
+import com.ruoyi.project.budget.info.domain.ProjectApprovalLog;
+import com.ruoyi.project.budget.info.service.IProjectApprovalLogService;
 import com.ruoyi.project.budget.target.domain.ProjectKpiTarget;
 import com.ruoyi.project.budget.target.service.IProjectKpiTargetService;
 import com.ruoyi.project.system.attachment.domain.ProjectAttachment;
@@ -48,6 +51,9 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
 
     @Autowired
     private IProjectKpiTargetService projectKpiTargetService;
+
+    @Autowired
+    private IProjectApprovalLogService projectApprovalLogService;
 
     /**
      * 查询项目管理
@@ -207,7 +213,18 @@ public class ProjectBudgetInfoServiceImpl implements IProjectBudgetInfoService
 
     @Override
     public int submit(ProjectBudgetInfo projectBudgetInfo) {
-        return projectBudgetInfoMapper.updateProjectBudgetInfo(projectBudgetInfo);
+        int i = projectBudgetInfoMapper.updateProjectBudgetInfo(projectBudgetInfo);
+        if(i>0 && projectBudgetInfo.getProjectApprovalLog() !=null ){
+            ProjectApprovalLog projectApprovalLog = projectBudgetInfo.getProjectApprovalLog();
+            projectApprovalLog.setUserId(ShiroUtils.getUserId());
+            projectApprovalLog.setUserName(ShiroUtils.getLoginName());
+            projectApprovalLog.setStatus(projectBudgetInfo.getStatus());
+            projectApprovalLog.setPorjectId(projectBudgetInfo.getId().toString());
+            projectApprovalLog.setProjectName(projectBudgetInfo.getProjectName());
+            projectApprovalLogService.insertProjectApprovalLog(projectApprovalLog);
+        }
+
+        return i;
     }
 
     /**
