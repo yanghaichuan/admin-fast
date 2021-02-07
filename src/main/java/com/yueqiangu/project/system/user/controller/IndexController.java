@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
+import com.yueqiangu.project.system.notice.domain.Notice;
+import com.yueqiangu.project.system.notice.service.INoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -45,6 +48,9 @@ public class IndexController extends BaseController
 
     @Autowired
     private RuoYiConfig ruoYiConfig;
+
+    @Autowired
+    private INoticeService noticeService;
 
     // 系统首页
     @GetMapping("/index")
@@ -128,6 +134,11 @@ public class IndexController extends BaseController
     @GetMapping("/system/main")
     public String main(ModelMap mmap)
     {
+        List<Notice> noticeList = noticeService.selectNoticeList(new Notice());
+        if(!noticeList.isEmpty() && noticeList.size()>5){
+            noticeList = noticeList.subList(0,5);
+        }
+        mmap.put("noticeList",noticeList);
         mmap.put("version", ruoYiConfig.getVersion());
         return "main";
     }
