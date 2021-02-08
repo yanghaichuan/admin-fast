@@ -69,7 +69,7 @@ public class ProjectBudgetInfo extends BaseEntity
 
     /** 总预算 */
     @Excel(name = "总预算")
-    private BigDecimal generalBudget;
+    private String generalBudget;
 
     /** 状态通过 */
     @Excel(name = "状态通过")
@@ -203,12 +203,12 @@ public class ProjectBudgetInfo extends BaseEntity
     {
         return isBudget;
     }
-    public void setGeneralBudget(BigDecimal generalBudget)
+    public void setGeneralBudget(String generalBudget)
     {
         this.generalBudget = generalBudget;
     }
 
-    public BigDecimal getGeneralBudget()
+    public String getGeneralBudget()
     {
         return generalBudget;
     }

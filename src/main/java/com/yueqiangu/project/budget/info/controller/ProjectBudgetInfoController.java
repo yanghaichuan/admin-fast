@@ -42,6 +42,13 @@ public class ProjectBudgetInfoController extends BaseController
         return prefix + "/info";
     }
 
+    @RequiresPermissions("budget:info:view")
+    @GetMapping("/examList")
+    public String examList()
+    {
+        return prefix + "/examList";
+    }
+
     /**
      * 查询项目管理列表
      */
