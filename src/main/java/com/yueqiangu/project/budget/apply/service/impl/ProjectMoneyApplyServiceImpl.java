@@ -82,6 +82,10 @@ public class ProjectMoneyApplyServiceImpl implements IProjectMoneyApplyService
     @Override
     public int updateProjectMoneyApply(ProjectMoneyApply projectMoneyApply)
     {
+        projectMoneyApply.setUpdateBy(ShiroUtils.getLoginName());
+        projectMoneyApply.setUpdateTime(DateUtils.getNowDate());
+        projectMoneyApply.setReviewer(ShiroUtils.getLoginName());
+        projectMoneyApply.setReviewerTime(DateUtils.getNowDate());
         return projectMoneyApplyMapper.updateProjectMoneyApply(projectMoneyApply);
     }
 
