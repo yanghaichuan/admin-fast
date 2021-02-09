@@ -34,7 +34,7 @@
             </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="money:apply:edit">
+                <a class="btn btn-primary single disabled" onclick="apply()" shiro:hasPermission="money:apply:edit">
                     <i class="fa fa-edit"></i> 审核
                 </a>
             </div>
@@ -102,6 +102,22 @@
             };
             $.table.init(options);
         });
+
+        //预算审核
+        function apply() {
+            var row = $("#bootstrap-table").bootstrapTable('getSelections');
+            if (row.length == 0 || row.length > 1) {
+                $.modal.alertWarning("请至少选择一条记录");
+                return;
+            }
+            var p = row[0];
+
+            if(p.status !='1'){
+                $.modal.alertWarning("只能操作申请的数据");
+                return;
+            }
+            $.modal.open("预算申请", prefix + "/edit/"+p.id);
+        }
     </script>
 </body>
 </html>
