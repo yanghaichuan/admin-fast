@@ -48,9 +48,14 @@
                     <i class="fa fa-external-link-square"></i> 提交
                 </a>
 
-                <a class="btn btn-warning single disabled" onclick="examine()" shiro:hasPermission="budget:info:examine">
-                    <i class="fa fa-y-combinator"></i> 资金申报
+                <a class="btn btn-success single disabled" onclick="examine()" shiro:hasPermission="budget:info:examine">
+                    <i class="fa fa-plus-square-o"></i> 项目审核
                 </a>
+
+                <a class="btn  btn-warning single disabled" onclick="apply()" shiro:hasPermission="money:apply:add">
+                    <i class="fa fa-y-combinator"></i> 预算申请
+                </a>
+
             </div>
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
@@ -176,7 +181,7 @@
             };
             $.table.init(options);
         });
-
+        //目标制定
         function kpi() {
             var row = $("#bootstrap-table").bootstrapTable('getSelections');
             if (row.length == 0 || row.length > 1) {
@@ -192,7 +197,22 @@
 
             $.modal.openTab("绩效目标", ctx +'budget/target?projectId='+p.id+'&projectName='+p.projectName,1000);
         }
+        //修改
+        function edit(id) {
+            var row = $("#bootstrap-table").bootstrapTable('getSelections');
+            if (row.length == 0 || row.length > 1) {
+                $.modal.alertWarning("请至少选择一条记录");
+                return;
+            }
+            var p = row[0];
 
+            if(p.status != '1'){
+                $.modal.alertWarning("只能修改核定项目");
+                return;
+            }
+            $.modal.openTab("修改" + table.options.modalName, $.operate.editUrl(id));
+        }
+        //提交
         function submit() {
             var row = $("#bootstrap-table").bootstrapTable('getSelections');
             if (row.length == 0 || row.length > 1) {
@@ -213,7 +233,7 @@
 
             $.modal.openTab("项目提审", prefix +'/approval/'+p.id);
         }
-
+        //审核
         function examine() {
             var row = $("#bootstrap-table").bootstrapTable('getSelections');
             if (row.length == 0 || row.length > 1) {
@@ -236,8 +256,8 @@
 
             $.modal.openTab("项目审核", prefix +'/examine/'+p.id);
         }
-
-        function edit(id) {
+        //预算申请
+        function apply() {
             var row = $("#bootstrap-table").bootstrapTable('getSelections');
             if (row.length == 0 || row.length > 1) {
                 $.modal.alertWarning("请至少选择一条记录");
@@ -245,13 +265,12 @@
             }
             var p = row[0];
 
-            if(p.status != '1'){
-                $.modal.alertWarning("只能修改核定项目");
+            if(p.status !='6'){
+                $.modal.alertWarning("只能操作审核完成的数据");
                 return;
             }
-            $.modal.openTab("修改" + table.options.modalName, $.operate.editUrl(id));
+            $.modal.open("预算申请", ctx +'money/apply/add/'+p.id);
         }
-
     </script>
 </body>
 </html>

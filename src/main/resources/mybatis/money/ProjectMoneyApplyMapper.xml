@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yueqiangu.project.budget.apply.mapper.ProjectMoneyApplyMapper">
+    
+    <resultMap type="ProjectMoneyApply" id="ProjectMoneyApplyResult">
+        <result property="id"    column="id"    />
+        <result property="projectId"    column="project_id"    />
+        <result property="projectName"    column="project_name"    />
+        <result property="money"    column="money"    />
+        <result property="note"    column="note"    />
+        <result property="status"    column="status"    />
+        <result property="reviewer"    column="reviewer"    />
+        <result property="reviewerTime"    column="reviewer_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectProjectMoneyApplyVo">
+        select id, project_id, project_name, money, note, status, reviewer, reviewer_time, del_flag, create_by, create_time from project_money_apply
+    </sql>
+
+    <select id="selectProjectMoneyApplyList" parameterType="ProjectMoneyApply" resultMap="ProjectMoneyApplyResult">
+        <include refid="selectProjectMoneyApplyVo"/>
+        <where>  
+            <if test="projectId != null "> and project_id = #{projectId}</if>
+            <if test="projectName != null  and projectName != ''"> and project_name like concat('%', #{projectName}, '%')</if>
+            <if test="money != null  and money != ''"> and money = #{money}</if>
+            <if test="note != null  and note != ''"> and note = #{note}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="reviewer != null  and reviewer != ''"> and reviewer = #{reviewer}</if>
+            <if test="reviewerTime != null "> and reviewer_time = #{reviewerTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectProjectMoneyApplyById" parameterType="Long" resultMap="ProjectMoneyApplyResult">
+        <include refid="selectProjectMoneyApplyVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProjectMoneyApply" parameterType="ProjectMoneyApply" useGeneratedKeys="true" keyProperty="id">
+        insert into project_money_apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">project_id,</if>
+            <if test="projectName != null">project_name,</if>
+            <if test="money != null">money,</if>
+            <if test="note != null">note,</if>
+            <if test="status != null">status,</if>
+            <if test="reviewer != null">reviewer,</if>
+            <if test="reviewerTime != null">reviewer_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">#{projectId},</if>
+            <if test="projectName != null">#{projectName},</if>
+            <if test="money != null">#{money},</if>
+            <if test="note != null">#{note},</if>
+            <if test="status != null">#{status},</if>
+            <if test="reviewer != null">#{reviewer},</if>
+            <if test="reviewerTime != null">#{reviewerTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProjectMoneyApply" parameterType="ProjectMoneyApply">
+        update project_money_apply
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="projectName != null">project_name = #{projectName},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="note != null">note = #{note},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="reviewer != null">reviewer = #{reviewer},</if>
+            <if test="reviewerTime != null">reviewer_time = #{reviewerTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProjectMoneyApplyById" parameterType="Long">
+        delete from project_money_apply where id = #{id}
+    </delete>
+
+    <delete id="deleteProjectMoneyApplyByIds" parameterType="String">
+        delete from project_money_apply where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
