@@ -66,4 +66,10 @@ public interface IProjectKpiMouldService
      * @return 所有项目绩效目标信息
      */
     public List<Ztree> selectProjectKpiMouldTree();
+    /**
+     * 多层级展示
+     * @param projectKpiMould
+     * @return
+     */
+    public List<ProjectKpiMould> selectMouldList(ProjectKpiMould projectKpiMould);
 }

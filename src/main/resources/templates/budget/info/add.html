@@ -172,10 +172,10 @@
                         <div id="tab-2" class="tab-pane">
                             <div class="panel-body">
                                 <div class="col-sm-12">
-                                    <button type="button" class="btn btn-white btn-sm" onclick="addColumn1()"><i
-                                            class="fa fa-plus"> 增加</i></button>
-                                    <button type="button" class="btn btn-white btn-sm" onclick="delColumn1()"><i
-                                            class="fa fa-minus"> 删除</i></button>
+<!--                                    <button type="button" class="btn btn-white btn-sm" onclick="addColumn1()"><i-->
+<!--                                            class="fa fa-plus"> 增加</i></button>-->
+<!--                                    <button type="button" class="btn btn-white btn-sm" onclick="delColumn1()"><i-->
+<!--                                            class="fa fa-minus"> 删除</i></button>-->
                                     <div class="col-sm-12 select-table table-striped">
                                         <table id="bootstrap-table1"></table>
                                     </div>
@@ -408,49 +408,34 @@
         $.table.init(options);
 
         $('#bootstrap-table1').bootstrapTable({
-            columns: [{
-                checkbox: true
-            }, {
-                field: 'specification',
-                align: 'center',
-                title: '规格类型',
-                formatter: function (value, row, index) {
-                    var name = $.common.sprintf("projectBudgetDetailThreeList[%s].specification", index);
-                    return $.common.dictToSelect(specificationDatas, value, name);
-                }
-            },
+            dataType: "json",
+            method: 'post',
+            contentType: "application/x-www-form-urlencoded",
+            cache: false,
+            url:"/kpi/mould/selectMouldList?kpiLevel=three_level",
+            columns: [
                 {
-                    field: 'funds',
+                    field: 'id',
                     align: 'center',
-                    title: '金额类别',
-                    formatter: function (value, row, index) {
-                        var name = $.common.sprintf("projectBudgetDetailThreeList[%s].funds", index);
-                        return $.common.dictToSelect(fundsDatas, value, name);
-                    }
-                },
-                {
-                    field: 'ecmSubjects',
-                    align: 'center',
-                    title: '经济科目',
-                    formatter: function (value, row, index) {
-                        var name = $.common.sprintf("projectBudgetDetailThreeList[%s].ecmSubjects", index);
-                        return $.common.dictToSelect(ecmSubjectsDatas, value, name);
-                    }
-                },
-                {
-                    field: 'govEconomy',
-                    align: 'center',
-                    title: '政府经济科目',
-                    formatter: function (value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='projectBudgetDetailThreeList[%s].govEconomy' value='%s'>", index, value);
-                        return html;
-                    }
-                },{
-                    field: 'type',
-                    align: 'center',
-                    title: '类型 ',
+                    title: 'ID ',
                     visible: false
-                }]
+                },
+                {
+                    field: 'kpiFirstName',
+                    align: 'center',
+                    title: '一级指标'
+                },
+                {
+                    field: 'kpiSecondName',
+                    align: 'center',
+                    title: '二级指标 '
+                },
+                {
+                    field: 'kpiName',
+                    align: 'center',
+                    title: '三级级指标 '
+                }
+            ]
 
     });
 
@@ -479,34 +464,34 @@
         });
     }
 
-    function addColumn1() {
-        var count = $("#bootstrap-table1").bootstrapTable('getData').length;
-
-        $("#bootstrap-table1").bootstrapTable('insertRow', {
-            index: count,
-            row: {
-                index: $.table.serialNumber(count),
-                specification: "",
-                funds: "",
-                ecmSubjects: "",
-                govEconomy: "",
-                type:"2"
-            }
-        });
-    }
-
-    function delColumn1() {
-        var rows=$("#bootstrap-table1").bootstrapTable('getSelections');
-        if (rows.length == 0) {
-            $.modal.alertWarning("请至少选择一条记录");
-            return;
-        }
-        var ids = [];
-        rows.forEach(function (data,index) {
-            ids.push(data.index);
-        })
-        $("#bootstrap-table1").bootstrapTable('remove', { field: 'index', values: ids });
-    }
+    // function addColumn1() {
+    //     var count = $("#bootstrap-table1").bootstrapTable('getData').length;
+    //
+    //     $("#bootstrap-table1").bootstrapTable('insertRow', {
+    //         index: count,
+    //         row: {
+    //             index: $.table.serialNumber(count),
+    //             specification: "",
+    //             funds: "",
+    //             ecmSubjects: "",
+    //             govEconomy: "",
+    //             type:"2"
+    //         }
+    //     });
+    // }
+    //
+    // function delColumn1() {
+    //     var rows=$("#bootstrap-table1").bootstrapTable('getSelections');
+    //     if (rows.length == 0) {
+    //         $.modal.alertWarning("请至少选择一条记录");
+    //         return;
+    //     }
+    //     var ids = [];
+    //     rows.forEach(function (data,index) {
+    //         ids.push(data.index);
+    //     })
+    //     $("#bootstrap-table1").bootstrapTable('remove', { field: 'index', values: ids });
+    // }
 
 
     layui.use('upload', function(){

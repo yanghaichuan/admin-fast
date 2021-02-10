@@ -28,6 +28,13 @@ public interface ProjectKpiMouldMapper
     public List<ProjectKpiMould> selectProjectKpiMouldList(ProjectKpiMould projectKpiMould);
 
     /**
+     * 多层级展示
+     * @param projectKpiMould
+     * @return
+     */
+    public List<ProjectKpiMould> selectMouldList(ProjectKpiMould projectKpiMould);
+
+    /**
      * 新增项目绩效目标
      *
      * @param projectKpiMould 项目绩效目标

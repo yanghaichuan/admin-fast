@@ -401,50 +401,34 @@
             $.table.init(options);
 
             $('#bootstrap-table1').bootstrapTable({
-                columns: [{
-                    checkbox: true
-                }, {
-                    field: 'specification',
-                    align: 'center',
-                    title: '规格类型',
-                    formatter: function (value, row, index) {
-                        var name = $.common.sprintf("projectBudgetDetailThreeList[%s].specification", index);
-                        return $.common.dictToSelect(specificationDatas, value, name);
-                    }
-                },
+                dataType: "json",
+                method: 'post',
+                contentType: "application/x-www-form-urlencoded",
+                cache: false,
+                url:"/kpi/mould/selectMouldList?kpiLevel=three_level",
+                columns: [
                     {
-                        field: 'funds',
+                        field: 'id',
                         align: 'center',
-                        title: '金额类别',
-                        formatter: function (value, row, index) {
-                            var name = $.common.sprintf("projectBudgetDetailThreeList[%s].funds", index);
-                            return $.common.dictToSelect(fundsDatas, value, name);
-                        }
-                    },
-                    {
-                        field: 'ecmSubjects',
-                        align: 'center',
-                        title: '经济科目',
-                        formatter: function (value, row, index) {
-                            var name = $.common.sprintf("projectBudgetDetailThreeList[%s].ecmSubjects", index);
-                            return $.common.dictToSelect(ecmSubjectsDatas, value, name);
-                        }
-                    },
-                    {
-                        field: 'govEconomy',
-                        align: 'center',
-                        title: '政府经济科目',
-                        formatter: function (value, row, index) {
-                            var html = $.common.sprintf("<input class='form-control' type='text' name='projectBudgetDetailThreeList[%s].govEconomy' value='%s'>", index, value);
-                            return html;
-                        }
-                    },{
-                        field: 'type',
-                        align: 'center',
-                        title: '类型 ',
+                        title: 'ID ',
                         visible: false
-                    }],
-                data:projectBudgetInfo.projectBudgetDetailThreeList
+                    },
+                    {
+                        field: 'kpiFirstName',
+                        align: 'center',
+                        title: '一级指标'
+                    },
+                    {
+                        field: 'kpiSecondName',
+                        align: 'center',
+                        title: '二级指标 '
+                    },
+                    {
+                        field: 'kpiName',
+                        align: 'center',
+                        title: '三级级指标 '
+                    }
+                ]
 
             });
 

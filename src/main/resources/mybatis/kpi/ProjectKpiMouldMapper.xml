@@ -38,6 +38,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by parent_id
     </select>
 
+
+    <select id="selectMouldList" parameterType="ProjectKpiMould" resultMap="ProjectKpiMouldResult">
+        SELECT
+            t.id,
+            t.kpi_name,
+            t.parent_id,
+            ( SELECT t1.kpi_name FROM project_kpi_mould t1 WHERE t1.id = t.parent_id ) AS kpiSecondName,
+            (
+            SELECT
+                ( SELECT t2.kpi_name FROM project_kpi_mould t2 WHERE t2.id = t1.parent_id )
+            FROM
+                project_kpi_mould t1
+            WHERE
+                t1.id = t.parent_id
+            ) AS kpiFirstName
+        FROM
+            project_kpi_mould t
+        <where>
+            <if test="kpiName != null  and kpiName != ''"> and t.kpi_name like concat('%', #{kpiName}, '%')</if>
+            <if test="kpiLevel != null  and kpiLevel != ''"> and t.kpi_level = #{kpiLevel}</if>
+        </where>
+    </select>
+
     <select id="selectProjectKpiMouldById" parameterType="Long" resultMap="ProjectKpiMouldResult">
         select t.id, t.kpi_name, t.kpi_content, t.kpi_level, t.kpi_target, t.target_amount, t.target_rate, t.parent_id, t.route, t.create_by, t.create_time, t.update_by, t.update_time, t.remark, t.del_flag, p.kpi_name as parent_name
         from project_kpi_mould t

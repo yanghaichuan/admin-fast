@@ -118,4 +118,9 @@ public class ProjectKpiMouldServiceImpl implements IProjectKpiMouldService
         }
         return ztrees;
     }
+
+    @Override
+    public List<ProjectKpiMould> selectMouldList(ProjectKpiMould projectKpiMould) {
+        return projectKpiMouldMapper.selectMouldList(projectKpiMould);
+    }
 }

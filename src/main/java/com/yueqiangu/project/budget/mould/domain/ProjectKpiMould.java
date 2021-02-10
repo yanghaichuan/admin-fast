@@ -51,6 +51,14 @@ public class ProjectKpiMould extends TreeEntity
     private String delFlag;
 
     private List<ProjectKpiMould> children;
+    /**
+     * 二级
+     */
+    private String kpiSecondName;
+    /**
+     * 一级
+     */
+    private String kpiFirstName;
 
     public void setId(Long id)
     {
@@ -140,6 +148,26 @@ public class ProjectKpiMould extends TreeEntity
 
     public void setChildren(List<ProjectKpiMould> children) {
         this.children = children;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getKpiSecondName() {
+        return kpiSecondName;
+    }
+
+    public void setKpiSecondName(String kpiSecondName) {
+        this.kpiSecondName = kpiSecondName;
+    }
+
+    public String getKpiFirstName() {
+        return kpiFirstName;
+    }
+
+    public void setKpiFirstName(String kpiFirstName) {
+        this.kpiFirstName = kpiFirstName;
     }
 
     @Override

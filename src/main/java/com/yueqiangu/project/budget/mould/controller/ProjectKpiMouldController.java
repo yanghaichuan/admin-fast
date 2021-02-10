@@ -151,4 +151,17 @@ public class ProjectKpiMouldController extends BaseController
         List<Ztree> ztrees = projectKpiMouldService.selectProjectKpiMouldTree();
         return ztrees;
     }
+
+
+    /**
+     * 多层级展示
+     */
+    @PostMapping("/selectMouldList")
+    @ResponseBody
+    public List<ProjectKpiMould> selectMouldList(ProjectKpiMould projectKpiMould)
+    {
+        List<ProjectKpiMould> list = projectKpiMouldService.selectMouldList(projectKpiMould);
+        return list;
+    }
+
 }
