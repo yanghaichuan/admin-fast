@@ -57,6 +57,14 @@ public class ProjectKpiTarget extends BaseEntity
     @Excel(name = "完成率")
     private String targetRate;
 
+    /** 自评得分 */
+    @Excel(name = "自评得分")
+    private String selfScore;
+
+    /** 得分 */
+    @Excel(name = "得分")
+    private String score;
+
     /** 删除标志（0代表存在 1代表删除） */
     private String delFlag;
 
@@ -153,6 +161,22 @@ public class ProjectKpiTarget extends BaseEntity
     public void setTargetRate(String targetRate)
     {
         this.targetRate = targetRate;
+    }
+
+    public String getSelfScore() {
+        return selfScore;
+    }
+
+    public void setSelfScore(String selfScore) {
+        this.selfScore = selfScore;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 
     public String getTargetRate()

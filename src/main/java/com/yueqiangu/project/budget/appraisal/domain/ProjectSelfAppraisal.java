@@ -90,6 +90,11 @@ public class ProjectSelfAppraisal extends BaseEntity
     @Excel(name = "年度目标")
     private String yearTarget;
 
+    /**
+     * 目标信息
+     */
+    private String targetStr;
+
     /** 删除标志（0代表存在 1代表删除） */
     private String delFlag;
 
@@ -253,6 +258,15 @@ public class ProjectSelfAppraisal extends BaseEntity
     {
         return yearTarget;
     }
+
+    public String getTargetStr() {
+        return targetStr;
+    }
+
+    public void setTargetStr(String targetStr) {
+        this.targetStr = targetStr;
+    }
+
     public void setDelFlag(String delFlag)
     {
         this.delFlag = delFlag;

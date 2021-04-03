@@ -22,10 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
         <result property="remark"    column="remark"    />
         <result property="delFlag"    column="del_flag"    />
+
+        <result property="selfScore"    column="self_score"    />
+        <result property="score"    column="score"    />
     </resultMap>
 
     <sql id="selectProjectKpiTargetVo">
-        select id, project_id, project_name, one_level, one_level_name, two_level, two_level_name, three_level, three_level_name, target, target_rate, create_by, create_time, update_by, update_time, remark, del_flag from project_kpi_target
+        select id, project_id, project_name,self_score, score,one_level, one_level_name, two_level, two_level_name, three_level, three_level_name, target, target_rate, create_by, create_time, update_by, update_time, remark, del_flag from project_kpi_target
     </sql>
 
     <select id="selectProjectKpiTargetList" parameterType="ProjectKpiTarget" resultMap="ProjectKpiTargetResult">
@@ -46,6 +49,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             t.update_by,
             t.update_time,
             t.remark,
+            t.self_score,
+            t.score,
             t.del_flag
             FROM
             project_kpi_target t
@@ -81,6 +86,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time,</if>
             <if test="remark != null">remark,</if>
             <if test="delFlag != null">del_flag,</if>
+
+            <if test="selfScore != null">self_score,</if>
+            <if test="score != null">score,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="projectId != null">#{projectId},</if>
@@ -99,6 +107,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null">#{remark},</if>
             <if test="delFlag != null">#{delFlag},</if>
+            <if test="selfScore != null">#{selfScore},</if>
+            <if test="score != null">#{score},</if>
          </trim>
     </insert>
 
@@ -121,6 +131,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="selfScore != null">self_score = #{selfScore},</if>
+            <if test="score != null">score=#{score},</if>
         </trim>
         where id = #{id}
     </update>

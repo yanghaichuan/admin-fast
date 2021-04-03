@@ -9,6 +9,7 @@
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-appraisal-add">
             <input type="hidden" name="projectName" id="projectName">
+            <input type="hidden" name="targetStr" id="targetStr">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -147,7 +148,11 @@
             focusCleanup: true
         });
 
+
         function submitHandler() {
+          var data = $('#bootstrap-table1').bootstrapTable('getData');
+          var str = JSON.stringify( data );
+          $("#targetStr").val( str);
             if ($.validate.form()) {
                 $.operate.save(prefix + "/add", $('#form-appraisal-add').serialize());
             }
@@ -176,7 +181,7 @@
                 data = [];
             }
             initTable(data);
-
+            $('#bootstrap-table1').bootstrapTable('load',data);
             $("#trd").css("padding-top","50px")
         }
 
@@ -184,6 +189,7 @@
             $('#bootstrap-table1').bootstrapTable({
                 data:data,
                 cache: false,
+                editable:true,//开启编辑模式
                 columns: [
                     {
                         field: 'id',
@@ -215,10 +221,40 @@
                         field: 'target',
                         align: 'center',
                         title: '评分规则 '
+                    },
+                    {
+                        field: 'selfScore',
+                        align: 'center',
+                        title: '自评 '
+                    },
+                    {
+                        field: 'remark',
+                        title: '备注 '
                     }
-                ]
-
+                ],
+                onClickCell: function(field, value, row, $element) {
+                    $element.attr('contenteditable', true);
+                    $element.blur(function() {
+                        var index = $element.parent().data('index');
+                        var tdValue = $element.html();
+                        var regs=/^(-?\d+)(\.\d+)?$/;
+                        if(field == 'selfScore'){
+                            if(!(/(^[0-9]*[1-9][0-9]*$)/.test(tdValue)) && !regs.test(tdValue)){
+                                tdValue='0';
+                            }
+                        }
+                        saveData(index, field, tdValue);
+                    })
+                }
             });
+        }
+
+        function saveData(index, field, value) {
+            $('#bootstrap-table1').bootstrapTable('updateCell', {
+                index: index,       //行索引
+                field: field,       //列名
+                value: value        //cell值
+            })
         }
 
         /* 用户管理-新增-选择部门树 */

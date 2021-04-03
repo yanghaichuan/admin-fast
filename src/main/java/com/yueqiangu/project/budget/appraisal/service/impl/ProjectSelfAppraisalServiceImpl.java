@@ -1,7 +1,13 @@
 package com.yueqiangu.project.budget.appraisal.service.impl;
 
 import java.util.List;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.yueqiangu.common.utils.DateUtils;
+import com.yueqiangu.common.utils.StringUtils;
+import com.yueqiangu.project.budget.target.domain.ProjectKpiTarget;
+import com.yueqiangu.project.budget.target.service.IProjectKpiTargetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.yueqiangu.project.budget.appraisal.mapper.ProjectSelfAppraisalMapper;
@@ -20,6 +26,8 @@ public class ProjectSelfAppraisalServiceImpl implements IProjectSelfAppraisalSer
 {
     @Autowired
     private ProjectSelfAppraisalMapper projectSelfAppraisalMapper;
+    @Autowired
+    private IProjectKpiTargetService projectKpiTargetService;
 
     /**
      * 查询绩效自评
@@ -55,6 +63,12 @@ public class ProjectSelfAppraisalServiceImpl implements IProjectSelfAppraisalSer
     public int insertProjectSelfAppraisal(ProjectSelfAppraisal projectSelfAppraisal)
     {
         projectSelfAppraisal.setCreateTime(DateUtils.getNowDate());
+        if(StringUtils.isNotEmpty(projectSelfAppraisal.getTargetStr())){
+            List<ProjectKpiTarget> projectKpiTargetList = JSONArray.parseArray(projectSelfAppraisal.getTargetStr(),ProjectKpiTarget.class);
+            for(ProjectKpiTarget target : projectKpiTargetList){
+                projectKpiTargetService.updateProjectKpiTarget(target);
+            }
+        }
         return projectSelfAppraisalMapper.insertProjectSelfAppraisal(projectSelfAppraisal);
     }
 
