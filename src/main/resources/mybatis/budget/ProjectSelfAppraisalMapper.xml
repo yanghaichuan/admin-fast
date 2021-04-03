@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yueqiangu.project.budget.appraisal.mapper.ProjectSelfAppraisalMapper">
+
+    <resultMap type="ProjectSelfAppraisal" id="ProjectSelfAppraisalResult">
+        <result property="id"    column="id"    />
+        <result property="projectId"    column="project_id"    />
+        <result property="projectName"    column="project_name"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="childDept"    column="child_dept"    />
+        <result property="budgetYear"    column="budget_year"    />
+        <result property="budgetBefore"    column="budget_before"    />
+        <result property="selfResult"    column="self_result"    />
+        <result property="selfTime"    column="self_time"    />
+        <result property="isOften"    column="is_often"    />
+        <result property="grade"    column="grade"    />
+        <result property="achievement"    column="achievement"    />
+        <result property="problem"    column="problem"    />
+        <result property="improvement"    column="improvement"    />
+
+        <result property="budgetImplement"    column="budget_implement"    />
+        <result property="implementRate"    column="implement_rate"    />
+
+        <result property="yearTarget"    column="year_target"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectProjectSelfAppraisalVo">
+        select id, project_id, project_name, dept_id, dept_name, child_dept, budget_year, budget_before, self_result, self_time, is_often, grade, achievement, problem, improvement,budget_implement,implement_rate, year_target, del_flag, create_by, create_time, update_by, update_time, remark from project_self_appraisal
+    </sql>
+
+    <select id="selectProjectSelfAppraisalList" parameterType="ProjectSelfAppraisal" resultMap="ProjectSelfAppraisalResult">
+        <include refid="selectProjectSelfAppraisalVo"/>
+        <where>
+            <if test="projectId != null "> and project_id = #{projectId}</if>
+            <if test="projectName != null  and projectName != ''"> and project_name like concat('%', #{projectName}, '%')</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="deptName != null  and deptName != ''"> and dept_name like concat('%', #{deptName}, '%')</if>
+            <if test="childDept != null  and childDept != ''"> and child_dept = #{childDept}</if>
+            <if test="budgetYear != null  and budgetYear != ''"> and budget_year = #{budgetYear}</if>
+            <if test="budgetBefore != null  and budgetBefore != ''"> and budget_before = #{budgetBefore}</if>
+            <if test="selfResult != null  and selfResult != ''"> and self_result = #{selfResult}</if>
+            <if test="selfTime != null "> and self_time = #{selfTime}</if>
+            <if test="isOften != null  and isOften != ''"> and is_often = #{isOften}</if>
+            <if test="grade != null  and grade != ''"> and grade = #{grade}</if>
+            <if test="achievement != null  and achievement != ''"> and achievement = #{achievement}</if>
+            <if test="problem != null  and problem != ''"> and problem = #{problem}</if>
+            <if test="improvement != null  and improvement != ''"> and improvement = #{improvement}</if>
+
+            <if test="budgetImplement != null  and budgetImplement != ''"> and budget_implement = #{budgetImplement}</if>
+            <if test="implementRate != null  and implementRate != ''"> and implement_rate = #{implementRate}</if>
+
+            <if test="yearTarget != null  and yearTarget != ''"> and year_target = #{yearTarget}</if>
+        </where>
+    </select>
+
+    <select id="selectProjectSelfAppraisalById" parameterType="Long" resultMap="ProjectSelfAppraisalResult">
+        <include refid="selectProjectSelfAppraisalVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertProjectSelfAppraisal" parameterType="ProjectSelfAppraisal" useGeneratedKeys="true" keyProperty="id">
+        insert into project_self_appraisal
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">project_id,</if>
+            <if test="projectName != null">project_name,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="deptName != null">dept_name,</if>
+            <if test="childDept != null">child_dept,</if>
+            <if test="budgetYear != null">budget_year,</if>
+            <if test="budgetBefore != null">budget_before,</if>
+            <if test="selfResult != null">self_result,</if>
+            <if test="selfTime != null">self_time,</if>
+            <if test="isOften != null">is_often,</if>
+            <if test="grade != null">grade,</if>
+            <if test="achievement != null">achievement,</if>
+            <if test="problem != null">problem,</if>
+            <if test="improvement != null">improvement,</if>
+            <if test="budgetImplement != null ">budget_implement,</if>
+            <if test="implementRate != null ">implement_rate,</if>
+            <if test="yearTarget != null">year_target,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">#{projectId},</if>
+            <if test="projectName != null">#{projectName},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="deptName != null">#{deptName},</if>
+            <if test="childDept != null">#{childDept},</if>
+            <if test="budgetYear != null">#{budgetYear},</if>
+            <if test="budgetBefore != null">#{budgetBefore},</if>
+            <if test="selfResult != null">#{selfResult},</if>
+            <if test="selfTime != null">#{selfTime},</if>
+            <if test="isOften != null">#{isOften},</if>
+            <if test="grade != null">#{grade},</if>
+            <if test="achievement != null">#{achievement},</if>
+            <if test="budgetImplement != null "> #{budgetImplement},</if>
+            <if test="implementRate != null "> #{implementRate},</if>
+            <if test="problem != null">#{problem},</if>
+            <if test="improvement != null">#{improvement},</if>
+            <if test="yearTarget != null">#{yearTarget},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProjectSelfAppraisal" parameterType="ProjectSelfAppraisal">
+        update project_self_appraisal
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="projectName != null">project_name = #{projectName},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="deptName != null">dept_name = #{deptName},</if>
+            <if test="childDept != null">child_dept = #{childDept},</if>
+            <if test="budgetYear != null">budget_year = #{budgetYear},</if>
+            <if test="budgetBefore != null">budget_before = #{budgetBefore},</if>
+            <if test="selfResult != null">self_result = #{selfResult},</if>
+            <if test="selfTime != null">self_time = #{selfTime},</if>
+            <if test="isOften != null">is_often = #{isOften},</if>
+            <if test="grade != null">grade = #{grade},</if>
+            <if test="achievement != null">achievement = #{achievement},</if>
+            <if test="budgetImplement != null "> budget_implement = #{budgetImplement},</if>
+            <if test="implementRate != null ">implement_rate = #{implementRate},</if>
+            <if test="problem != null">problem = #{problem},</if>
+            <if test="improvement != null">improvement = #{improvement},</if>
+            <if test="yearTarget != null">year_target = #{yearTarget},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProjectSelfAppraisalById" parameterType="Long">
+        delete from project_self_appraisal where id = #{id}
+    </delete>
+
+    <delete id="deleteProjectSelfAppraisalByIds" parameterType="String">
+        delete from project_self_appraisal where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

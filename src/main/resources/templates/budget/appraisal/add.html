@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增绩效自评')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-appraisal-add">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label is-required">项目名称：</label>
+                        <div class="col-sm-8">
+<!--                            <input name="projectName" class="form-control" type="text">-->
+                            <select name="projectId" id="projectId" class="form-control" th:onchange="getTableData()">
+                                <option value="">选择项目</option>
+                                <option th:each="p,userStat:${projects}" th:value="${p.id}" th:text="${p.projectName}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label is-required">预算单位：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input name="deptName" onclick="selectDeptTree()" id="treeName" type="text" placeholder="请选择归属部门" class="form-control">
+                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">执行科室：</label>
+                        <div class="col-sm-8">
+                            <input name="childDept" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">当年预算(元)：</label>
+                        <div class="col-sm-8">
+                            <input name="budgetYear" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">前年预算(元)：</label>
+                        <div class="col-sm-8">
+                            <input name="budgetBefore" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">自评结果：</label>
+                        <div class="col-sm-8">
+                            <input name="selfResult" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">预算执行数：</label>
+                        <div class="col-sm-8">
+                            <input name="budgetImplement" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">预算执行率：</label>
+                        <div class="col-sm-8">
+                            <input name="implementRate" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">自评时间：</label>
+                        <div class="col-sm-8">
+                            <div class="input-group date">
+                                <input name="selfTime" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">是否经常项目：</label>
+                        <div class="col-sm-8">
+                            <div class="radio-box" th:each="dict : ${@dict.getType('is_often')}">
+                                <input type="radio" th:id="${'isOften_' + dict.dictCode}" name="isOften"
+                                       th:value="${dict.dictValue}" th:checked="${dict.default}">
+                                <label th:for="${'isOften_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="col-sm-12">
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table1"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script th:inline="javascript">
+        var prefix = ctx + "budget/appraisal"
+        $("#form-appraisal-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-appraisal-add').serialize());
+            }
+        }
+
+        $("input[name='selfTime']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+
+        function getTableData(){
+            var id = $("#projectId option:selected").val();
+            var data = [];
+            var projects = [[${projects}]];
+            debugger
+            for (var i = 0; i < projects.length; i++) {
+                if(id == projects[i].id){
+                    data = projects[i].projectKpiTargetList;
+                }
+            }
+
+            initTable(data);
+        }
+
+        function initTable(data) {
+            $('#bootstrap-table1').bootstrapTable({
+                data:data,
+                cache: false,
+                columns: [
+                    {
+                        field: 'id',
+                        align: 'center',
+                        title: 'ID ',
+                        visible: false
+                    },
+                    {
+                        field: 'oneLevelName',
+                        align: 'center',
+                        title: '一级指标'
+                    },
+                    {
+                        field: 'twoLevelName',
+                        align: 'center',
+                        title: '二级指标 '
+                    },
+                    {
+                        field: 'threeLevelName',
+                        align: 'center',
+                        title: '三级级指标 '
+                    },
+                    {
+                        field: 'targetRate',
+                        align: 'center',
+                        title: '权重 '
+                    },
+                    {
+                        field: 'target',
+                        align: 'center',
+                        title: '评分规则 '
+                    }
+                ]
+
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改绩效自评')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-appraisal-edit" th:object="${projectSelfAppraisal}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">项目ID：</label>
+                <div class="col-sm-8">
+                    <input name="projectId" th:field="*{projectId}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">项目名称：</label>
+                <div class="col-sm-8">
+                    <input name="projectName" th:field="*{projectName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">预算单位ID：</label>
+                <div class="col-sm-8">
+                    <input name="deptId" th:field="*{deptId}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">预算单位：</label>
+                <div class="col-sm-8">
+                    <input name="deptName" th:field="*{deptName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">执行科室：</label>
+                <div class="col-sm-8">
+                    <input name="childDept" th:field="*{childDept}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">当年预算：</label>
+                <div class="col-sm-8">
+                    <input name="budgetYear" th:field="*{budgetYear}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">前年预算：</label>
+                <div class="col-sm-8">
+                    <input name="budgetBefore" th:field="*{budgetBefore}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">自评结果：</label>
+                <div class="col-sm-8">
+                    <input name="selfResult" th:field="*{selfResult}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">自评时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="selfTime" th:value="${#dates.format(projectSelfAppraisal.selfTime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">是否经常项目：</label>
+                <div class="col-sm-8">
+                    <input name="isOften" th:field="*{isOften}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">绩效等级：</label>
+                <div class="col-sm-8">
+                    <input name="grade" th:field="*{grade}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">主要绩效：</label>
+                <div class="col-sm-8">
+                    <textarea name="achievement" class="form-control">[[*{achievement}]]</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">主要问题：</label>
+                <div class="col-sm-8">
+                    <textarea name="problem" class="form-control">[[*{problem}]]</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">改进措施：</label>
+                <div class="col-sm-8">
+                    <textarea name="improvement" class="form-control">[[*{improvement}]]</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">年度目标：</label>
+                <div class="col-sm-8">
+                    <textarea name="yearTarget" class="form-control">[[*{yearTarget}]]</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">备注：</label>
+                <div class="col-sm-8">
+                    <textarea name="remark" class="form-control">[[*{remark}]]</textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script th:inline="javascript">
+        var prefix = ctx + "budget/appraisal";
+        $("#form-appraisal-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-appraisal-edit').serialize());
+            }
+        }
+
+        $("input[name='selfTime']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script>
+</body>
+</html>

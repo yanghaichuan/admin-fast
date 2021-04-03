@@ -139,7 +139,7 @@ swagger:
 # 代码生成
 gen:
   # 作者
-  author: ruoyi
+  author: yueqiangu
   # 默认生成包路径 system 需改成自己的模块名称 如 system monitor tool
   packageName: com.yueqiangu.project.system
   # 自动去除表前缀，默认是true
