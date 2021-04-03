@@ -3,10 +3,12 @@
 <head>
     <th:block th:include="include :: header('新增绩效自评')" />
     <th:block th:include="include :: datetimepicker-css" />
+    <th:block th:include="include :: select2-css" />
 </head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-appraisal-add">
+            <input type="hidden" name="projectName" id="projectName">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -46,7 +48,7 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label">当年预算(元)：</label>
                         <div class="col-sm-8">
-                            <input name="budgetYear" class="form-control" type="text">
+                            <input name="budgetYear" id="budgetYear" class="form-control" type="text">
                         </div>
                     </div>
                 </div>
@@ -126,8 +128,19 @@
             </div>
         </div>
     </div>
+
+    <div class="row" style="padding-top: 5%"></div>
+    <div class="row"  id="trd">
+        <div class="col-sm-offset-5 col-sm-10">
+            <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存
+            </button>&nbsp;
+            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭
+            </button>
+        </div>
+    </div>
     <th:block th:include="include :: footer" />
     <th:block th:include="include :: datetimepicker-js" />
+    <th:block th:include="include :: select2-js" />
     <script th:inline="javascript">
         var prefix = ctx + "budget/appraisal"
         $("#form-appraisal-add").validate({
@@ -150,14 +163,21 @@
             var id = $("#projectId option:selected").val();
             var data = [];
             var projects = [[${projects}]];
-            debugger
             for (var i = 0; i < projects.length; i++) {
                 if(id == projects[i].id){
                     data = projects[i].projectKpiTargetList;
+                    $("#projectName").val(projects[i].projectName);
+                    $("#budgetYear").val(projects[i].generalBudget);
+
                 }
             }
 
+            if(!id){
+                data = [];
+            }
             initTable(data);
+
+            $("#trd").css("padding-top","50px")
         }
 
         function initTable(data) {
@@ -199,6 +219,28 @@
                 ]
 
             });
+        }
+
+        /* 用户管理-新增-选择部门树 */
+        function selectDeptTree() {
+            var treeId = $("#treeId").val();
+            var deptId = $.common.isEmpty(treeId) ? "100" : $("#treeId").val();
+            var url = ctx + "system/dept/selectDeptTree/" + deptId;
+            var options = {
+                title: '选择部门',
+                width: "380",
+                url: url,
+                callBack: doSubmit
+            };
+            $.modal.openOptions(options);
+        }
+
+        function doSubmit(index, layero){
+            var tree = layero.find("iframe")[0].contentWindow.$._tree;
+            var body = layer.getChildFrame('body', index);
+            $("#treeId").val(body.find('#treeId').val());
+            $("#treeName").val(body.find('#treeName').val());
+            layer.close(index);
         }
     </script>
 </body>

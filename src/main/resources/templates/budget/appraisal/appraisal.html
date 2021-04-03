@@ -60,7 +60,7 @@
 
         var grades = [[${@dict.getType('achievement_grade')}]];
 
-        var status = [[${@dict.getType('is_often')}]];
+        var is_often = [[${@dict.getType('is_often')}]];
 
         var prefix = ctx + "budget/appraisal";
 
@@ -122,7 +122,7 @@
                     field: 'isOften',
                     title: '是否经常项目',
                     formatter: function(value, row, index) {
-                        return $.table.selectDictLabel(status, value);
+                        return $.table.selectDictLabel(is_often, value);
                     }
                 },
                 {
@@ -132,34 +132,34 @@
                         return $.table.selectDictLabel(grades, value);
                     }
                 },
-                {
-                    field: 'achievement',
-                    title: '主要绩效' ,
-                    formatter: function(value, row, index) {
-                        return $.table.tooltip(value);
-                    }
-                },
-                {
-                    field: 'problem',
-                    title: '主要问题' ,
-                    formatter: function(value, row, index) {
-                        return $.table.tooltip(value);
-                    }
-                },
-                {
-                    field: 'improvement',
-                    title: '改进措施' ,
-                    formatter: function(value, row, index) {
-                        return $.table.tooltip(value);
-                    }
-                },
-                {
-                    field: 'yearTarget',
-                    title: '年度目标' ,
-                    formatter: function(value, row, index) {
-                        return $.table.tooltip(value);
-                    }
-                },
+                // {
+                //     field: 'achievement',
+                //     title: '主要绩效' ,
+                //     formatter: function(value, row, index) {
+                //         return $.table.tooltip(value);
+                //     }
+                // },
+                // {
+                //     field: 'problem',
+                //     title: '主要问题' ,
+                //     formatter: function(value, row, index) {
+                //         return $.table.tooltip(value);
+                //     }
+                // },
+                // {
+                //     field: 'improvement',
+                //     title: '改进措施' ,
+                //     formatter: function(value, row, index) {
+                //         return $.table.tooltip(value);
+                //     }
+                // },
+                // {
+                //     field: 'yearTarget',
+                //     title: '年度目标' ,
+                //     formatter: function(value, row, index) {
+                //         return $.table.tooltip(value);
+                //     }
+                // },
 
                 {
                     title: '操作',
