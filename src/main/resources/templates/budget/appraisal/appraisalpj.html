@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('绩效自评列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>项目名称：</label>
+                                <input type="text" name="projectName"/>
+                            </li>
+                            <li>
+                                <label>预算单位：</label>
+                                <input type="text" name="deptName"/>
+                            </li>
+                            <li>
+                                <label>绩效等级：</label>
+                                <select name="grade" th:with="type=${@dict.getType('achievement_grade')}">
+                                    <option value="">所有</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" shiro:hasPermission="budget:appraisal:evaluate">
+                    <i class="fa fa-bar-chart"></i> 绩效评价
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('budget:appraisal:evaluate')}]];
+        var removeFlag = [[${@permission.hasPermi('budget:appraisal:remove')}]];
+
+        var grades = [[${@dict.getType('achievement_grade')}]];
+
+        var is_often = [[${@dict.getType('is_often')}]];
+
+        var prefix = ctx + "budget/appraisal";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/evaluate/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "绩效自评",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'id',
+                    title: 'ID',
+                    visible: false
+                },
+                {
+                    field: 'projectId',
+                    title: '项目ID',
+                    visible: false
+                },
+                {
+                    field: 'projectName',
+                    title: '项目名称'
+                },
+                {
+                    field: 'deptId',
+                    title: '预算单位ID',
+                    visible: false
+                },
+                {
+                    field: 'deptName',
+                    title: '预算单位'
+                },
+                {
+                    field: 'childDept',
+                    title: '执行科室'
+                },
+                {
+                    field: 'budgetYear',
+                    title: '当年预算'
+                },
+                {
+                    field: 'budgetBefore',
+                    title: '前年预算'
+                },
+                {
+                    field: 'selfResult',
+                    title: '自评结果'
+                },
+                {
+                    field: 'selfTime',
+                    title: '自评时间'
+                },
+                {
+                    field: 'isOften',
+                    title: '是否经常项目',
+                    formatter: function(value, row, index) {
+                        return $.table.selectDictLabel(is_often, value);
+                    }
+                },
+                {
+                    field: 'grade',
+                    title: '绩效等级',
+                    formatter: function(value, row, index) {
+                        return $.table.selectDictLabel(grades, value);
+                    }
+                },
+                // {
+                //     field: 'achievement',
+                //     title: '主要绩效' ,
+                //     formatter: function(value, row, index) {
+                //         return $.table.tooltip(value);
+                //     }
+                // },
+                // {
+                //     field: 'problem',
+                //     title: '主要问题' ,
+                //     formatter: function(value, row, index) {
+                //         return $.table.tooltip(value);
+                //     }
+                // },
+                // {
+                //     field: 'improvement',
+                //     title: '改进措施' ,
+                //     formatter: function(value, row, index) {
+                //         return $.table.tooltip(value);
+                //     }
+                // },
+                // {
+                //     field: 'yearTarget',
+                //     title: '年度目标' ,
+                //     formatter: function(value, row, index) {
+                //         return $.table.tooltip(value);
+                //     }
+                // },
+                ]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

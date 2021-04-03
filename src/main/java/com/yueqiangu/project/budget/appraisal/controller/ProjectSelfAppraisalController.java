@@ -53,6 +53,13 @@ public class ProjectSelfAppraisalController extends BaseController
         return prefix + "/appraisal";
     }
 
+    @RequiresPermissions("budget:appraisal:viewpj")
+    @GetMapping("/pj")
+    public String appraisalpj()
+    {
+        return prefix + "/appraisalpj";
+    }
+
     /**
      * 查询绩效自评列表
      */
@@ -117,22 +124,42 @@ public class ProjectSelfAppraisalController extends BaseController
      * 修改绩效自评
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         ProjectSelfAppraisal projectSelfAppraisal = projectSelfAppraisalService.selectProjectSelfAppraisalById(id);
         mmap.put("projectSelfAppraisal", projectSelfAppraisal);
         ProjectBudgetInfo projectBudgetInfo = new ProjectBudgetInfo();
         projectBudgetInfo.setDelFlag("0");
         projectBudgetInfo.setStatus("6");
-        List<ProjectBudgetInfo> projects =  projectBudgetInfoService.selectProjectBudgetInfoList(projectBudgetInfo);
-        for(ProjectBudgetInfo projectBudgetInfo1:projects){
+        List<ProjectBudgetInfo> projects = projectBudgetInfoService.selectProjectBudgetInfoList(projectBudgetInfo);
+        for (ProjectBudgetInfo projectBudgetInfo1 : projects) {
             ProjectKpiTarget projectKpiTarget = new ProjectKpiTarget();
             projectKpiTarget.setProjectId(projectBudgetInfo1.getId());
             List<ProjectKpiTarget> projectKpiTargetList = projectKpiTargetService.selectProjectKpiTargetList(projectKpiTarget);
             projectBudgetInfo1.setProjectKpiTargetList(projectKpiTargetList);
         }
-        mmap.put("projects",projects);
+        mmap.put("projects", projects);
         return prefix + "/edit";
+    }
+
+    /**
+     * 修改绩效自评
+     */
+    @GetMapping("/evaluate/{id}")
+    public String evaluate(@PathVariable("id") Long id, ModelMap mmap) {
+        ProjectSelfAppraisal projectSelfAppraisal = projectSelfAppraisalService.selectProjectSelfAppraisalById(id);
+        mmap.put("projectSelfAppraisal", projectSelfAppraisal);
+        ProjectBudgetInfo projectBudgetInfo = new ProjectBudgetInfo();
+        projectBudgetInfo.setDelFlag("0");
+        projectBudgetInfo.setStatus("6");
+        List<ProjectBudgetInfo> projects = projectBudgetInfoService.selectProjectBudgetInfoList(projectBudgetInfo);
+        for (ProjectBudgetInfo projectBudgetInfo1 : projects) {
+            ProjectKpiTarget projectKpiTarget = new ProjectKpiTarget();
+            projectKpiTarget.setProjectId(projectBudgetInfo1.getId());
+            List<ProjectKpiTarget> projectKpiTargetList = projectKpiTargetService.selectProjectKpiTargetList(projectKpiTarget);
+            projectBudgetInfo1.setProjectKpiTargetList(projectKpiTargetList);
+        }
+        mmap.put("projects", projects);
+        return prefix + "/evaluate";
     }
 
     /**
@@ -143,6 +170,18 @@ public class ProjectSelfAppraisalController extends BaseController
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(ProjectSelfAppraisal projectSelfAppraisal)
+    {
+        return toAjax(projectSelfAppraisalService.updateProjectSelfAppraisal(projectSelfAppraisal));
+    }
+
+    /**
+     * 修改保存绩效自评
+     */
+    @RequiresPermissions("budget:appraisal:evaluate")
+    @Log(title = "绩效评价", businessType = BusinessType.UPDATE)
+    @PostMapping("/evaluate")
+    @ResponseBody
+    public AjaxResult evaluate(ProjectSelfAppraisal projectSelfAppraisal)
     {
         return toAjax(projectSelfAppraisalService.updateProjectSelfAppraisal(projectSelfAppraisal));
     }
