@@ -70,6 +70,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="isBudget != null  and isBudget != ''"> and is_budget = #{isBudget}</if>
             <if test="generalBudget != null "> and general_budget = #{generalBudget}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
+
+            <if test="self != null  and self != ''"> and id not in (select project_id from project_self_appraisal t where  t.del_flag ='0')</if>
         </where>
     </select>
 

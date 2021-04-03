@@ -103,6 +103,10 @@ public class ProjectBudgetInfo extends BaseEntity
      * 审核信息
       */
     private ProjectApprovalLog  projectApprovalLog;
+    /**
+     * 是否自评过
+     */
+    private String self;
 
     public void setId(Long id)
     {
@@ -288,6 +292,14 @@ public class ProjectBudgetInfo extends BaseEntity
 
     public void setProjectApprovalLog(ProjectApprovalLog projectApprovalLog) {
         this.projectApprovalLog = projectApprovalLog;
+    }
+
+    public String getSelf() {
+        return self;
+    }
+
+    public void setSelf(String self) {
+        this.self = self;
     }
 
     @Override

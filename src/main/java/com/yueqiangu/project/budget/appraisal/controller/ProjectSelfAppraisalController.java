@@ -89,6 +89,7 @@ public class ProjectSelfAppraisalController extends BaseController
         ProjectBudgetInfo projectBudgetInfo = new ProjectBudgetInfo();
         projectBudgetInfo.setDelFlag("0");
         projectBudgetInfo.setStatus("6");
+        projectBudgetInfo.setSelf("0");
         List<ProjectBudgetInfo> projects =  projectBudgetInfoService.selectProjectBudgetInfoList(projectBudgetInfo);
         for(ProjectBudgetInfo projectBudgetInfo1:projects){
             ProjectKpiTarget projectKpiTarget = new ProjectKpiTarget();
@@ -120,6 +121,17 @@ public class ProjectSelfAppraisalController extends BaseController
     {
         ProjectSelfAppraisal projectSelfAppraisal = projectSelfAppraisalService.selectProjectSelfAppraisalById(id);
         mmap.put("projectSelfAppraisal", projectSelfAppraisal);
+        ProjectBudgetInfo projectBudgetInfo = new ProjectBudgetInfo();
+        projectBudgetInfo.setDelFlag("0");
+        projectBudgetInfo.setStatus("6");
+        List<ProjectBudgetInfo> projects =  projectBudgetInfoService.selectProjectBudgetInfoList(projectBudgetInfo);
+        for(ProjectBudgetInfo projectBudgetInfo1:projects){
+            ProjectKpiTarget projectKpiTarget = new ProjectKpiTarget();
+            projectKpiTarget.setProjectId(projectBudgetInfo1.getId());
+            List<ProjectKpiTarget> projectKpiTargetList = projectKpiTargetService.selectProjectKpiTargetList(projectKpiTarget);
+            projectBudgetInfo1.setProjectKpiTargetList(projectKpiTargetList);
+        }
+        mmap.put("projects",projects);
         return prefix + "/edit";
     }
 

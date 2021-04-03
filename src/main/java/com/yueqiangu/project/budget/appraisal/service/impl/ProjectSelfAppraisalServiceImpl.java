@@ -82,6 +82,12 @@ public class ProjectSelfAppraisalServiceImpl implements IProjectSelfAppraisalSer
     public int updateProjectSelfAppraisal(ProjectSelfAppraisal projectSelfAppraisal)
     {
         projectSelfAppraisal.setUpdateTime(DateUtils.getNowDate());
+        if(StringUtils.isNotEmpty(projectSelfAppraisal.getTargetStr())){
+            List<ProjectKpiTarget> projectKpiTargetList = JSONArray.parseArray(projectSelfAppraisal.getTargetStr(),ProjectKpiTarget.class);
+            for(ProjectKpiTarget target : projectKpiTargetList){
+                projectKpiTargetService.updateProjectKpiTarget(target);
+            }
+        }
         return projectSelfAppraisalMapper.updateProjectSelfAppraisal(projectSelfAppraisal);
     }
 
