@@ -109,6 +109,18 @@ public class ProjectBudgetInfoController extends BaseController
     }
 
     /**
+     * 项目预览
+     */
+    @GetMapping("/preview/{id}")
+    public String preview(@PathVariable("id") Long id, ModelMap mmap)
+    {
+        ProjectBudgetInfo projectBudgetInfo = projectBudgetInfoService.selectProjectBudgetInfoById(id);
+        mmap.put("projectBudgetInfo", projectBudgetInfo);
+        return prefix + "/preview";
+    }
+
+
+    /**
      * 修改保存项目管理
      */
     @RequiresPermissions("budget:info:edit")

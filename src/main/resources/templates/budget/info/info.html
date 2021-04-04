@@ -12,11 +12,11 @@
                         <ul>
                             <li>
                                 <label>项目编码：</label>
-                                <input type="text" name="projectCode"/>
+                                <input type="text" name="projectCode" />
                             </li>
                             <li>
                                 <label>项目名称：</label>
-                                <input type="text" name="projectName"/>
+                                <input type="text" name="projectName" />
                             </li>
                             <li>
                                 <label>项目状态：</label>
@@ -54,6 +54,9 @@
                     <i class="fa fa-y-combinator"></i> 预算申请
                 </a>
 
+                <a class="btn btn-default" onclick="view()" >
+                    <i class="fa fa-eye"></i> 预览
+                </a>
             </div>
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
@@ -178,6 +181,8 @@
                 }]
             };
             $.table.init(options);
+            $('input').css('disabled',true);
+            $('select').css('disabled',true);
         });
         //目标制定
         function kpi() {
@@ -268,6 +273,15 @@
                 return;
             }
             $.modal.open("预算申请", ctx +'money/apply/add/'+p.id);
+        }
+        //预览
+        function view() {
+            var row = $("#bootstrap-table").bootstrapTable('getSelections');
+            if (row.length == 0 || row.length > 1) {
+                $.modal.alertWarning("请至少选择一条记录");
+                return;
+            }
+            $.modal.openTab("项目预览", prefix +'/preview/'+row[0].id);
         }
     </script>
 </body>
