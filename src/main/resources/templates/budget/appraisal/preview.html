@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('绩效自评预览')" />
+    <th:block th:include="include :: datetimepicker-css" />
+    <th:block th:include="include :: select2-css" />
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-appraisal-edit" th:object="${projectSelfAppraisal}">
+        <input type="hidden" name="projectName" id="projectName">
+        <input type="hidden" name="targetStr" id="targetStr">
+        <input type="hidden" name="id"  th:field="*{id}" >
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">项目名称：</label>
+                    <div class="col-sm-8">
+                        <select name="projectId" id="projectId" th:field="*{projectId}" class="form-control" th:onchange="getTableData()">
+                            <option value="">选择项目</option>
+                            <option th:each="p,userStat:${projects}" th:value="${p.id}" th:text="${p.projectName}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">预算单位：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input name="deptName" onclick="selectDeptTree()" th:field="*{deptName}" id="treeName" type="text" placeholder="请选择归属部门" class="form-control">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">执行科室：</label>
+                    <div class="col-sm-8">
+                        <input name="childDept" class="form-control" th:field="*{childDept}" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">当年预算(元)：</label>
+                    <div class="col-sm-8">
+                        <input name="budgetYear" id="budgetYear"  th:field="*{budgetYear}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">前年预算(元)：</label>
+                    <div class="col-sm-8">
+                        <input name="budgetBefore" class="form-control"  th:field="*{budgetBefore}" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">自评结果：</label>
+                    <div class="col-sm-8">
+                        <input name="selfResult" class="form-control"  th:field="*{selfResult}"  type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">预算执行数：</label>
+                    <div class="col-sm-8">
+                        <input name="budgetImplement" class="form-control"  th:field="*{budgetImplement}"  type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">预算执行率：</label>
+                    <div class="col-sm-8">
+                        <input name="implementRate" class="form-control"  th:field="*{implementRate}" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">自评时间：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group date">
+                            <input name="selfTime"  th:value="${#dates.format(projectSelfAppraisal.selfTime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">是否经常项目：</label>
+                    <div class="col-sm-8">
+                        <div class="radio-box" th:each="dict : ${@dict.getType('is_often')}">
+                            <input type="radio" th:id="${'isOften_' + dict.dictCode}" th:field="*{isOften}"  name="isOften"
+                                   th:value="${dict.dictValue}" th:checked="${dict.default}">
+                            <label th:for="${'isOften_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="col-sm-12">
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table1"></table>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="padding-top: 5%"></div>
+<div class="row"  id="trd">
+    <div class="col-sm-offset-5 col-sm-10">
+        <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭
+        </button>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: datetimepicker-js" />
+<th:block th:include="include :: select2-js" />
+<script th:inline="javascript">
+    var prefix = ctx + "budget/appraisal"
+    $("#form-appraisal-edit").validate({
+        focusCleanup: true
+    });
+    $(function () {
+        getTableData();
+    })
+
+    function submitHandler() {
+        var data = $('#bootstrap-table1').bootstrapTable('getData');
+        var str = JSON.stringify( data );
+        $("#targetStr").val( str);
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-appraisal-edit').serialize());
+        }
+    }
+
+    $("input[name='selfTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    function getTableData(){
+        var id = $("#projectId option:selected").val();
+        var data = [];
+        var projects = [[${projects}]];
+        for (var i = 0; i < projects.length; i++) {
+            if(id == projects[i].id){
+                data = projects[i].projectKpiTargetList;
+                $("#projectName").val(projects[i].projectName);
+                $("#budgetYear").val(projects[i].generalBudget);
+
+            }
+        }
+
+        if(!id){
+            data = [];
+        }
+        initTable(data);
+        $('#bootstrap-table1').bootstrapTable('load',data);
+        $("#trd").css("padding-top","50px")
+    }
+
+    function initTable(data) {
+        $('#bootstrap-table1').bootstrapTable({
+            data:data,
+            cache: false,
+            editable:true,//开启编辑模式
+            columns: [
+                {
+                    field: 'id',
+                    align: 'center',
+                    title: 'ID ',
+                    visible: false
+                },
+                {
+                    field: 'oneLevelName',
+                    align: 'center',
+                    title: '一级指标'
+                },
+                {
+                    field: 'twoLevelName',
+                    align: 'center',
+                    title: '二级指标 '
+                },
+                {
+                    field: 'threeLevelName',
+                    align: 'center',
+                    title: '三级级指标 '
+                },
+                {
+                    field: 'targetRate',
+                    align: 'center',
+                    title: '权重 '
+                },
+                {
+                    field: 'target',
+                    align: 'center',
+                    title: '评分规则 '
+                },
+                {
+                    field: 'selfScore',
+                    align: 'center',
+                    title: '自评 '
+                },
+                {
+                    field: 'remark',
+                    title: '备注 '
+                }
+            ],
+            onClickCell: function(field, value, row, $element) {
+                $element.attr('contenteditable', true);
+                $element.blur(function() {
+                    var index = $element.parent().data('index');
+                    var tdValue = $element.html();
+                    var regs=/^(-?\d+)(\.\d+)?$/;
+                    if(field == 'selfScore'){
+                        if(!(/(^[0-9]*[1-9][0-9]*$)/.test(tdValue)) && !regs.test(tdValue)){
+                            tdValue='0';
+                        }
+                    }
+                    saveData(index, field, tdValue);
+                })
+            }
+        });
+    }
+
+    function saveData(index, field, value) {
+        $('#bootstrap-table1').bootstrapTable('updateCell', {
+            index: index,       //行索引
+            field: field,       //列名
+            value: value        //cell值
+        })
+    }
+
+    /* 用户管理-新增-选择部门树 */
+    function selectDeptTree() {
+        var treeId = $("#treeId").val();
+        var deptId = $.common.isEmpty(treeId) ? "100" : $("#treeId").val();
+        var url = ctx + "system/dept/selectDeptTree/" + deptId;
+        var options = {
+            title: '选择部门',
+            width: "380",
+            url: url,
+            callBack: doSubmit
+        };
+        $.modal.openOptions(options);
+    }
+
+    function doSubmit(index, layero){
+        var tree = layero.find("iframe")[0].contentWindow.$._tree;
+        var body = layer.getChildFrame('body', index);
+        $("#treeId").val(body.find('#treeId').val());
+        $("#treeName").val(body.find('#treeName').val());
+        layer.close(index);
+    }
+</script>
+</body>
+</html>

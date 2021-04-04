@@ -142,6 +142,49 @@ public class ProjectSelfAppraisalController extends BaseController
     }
 
     /**
+     *绩效自评预览
+     */
+    @GetMapping("/preview/{id}")
+    public String preview(@PathVariable("id") Long id, ModelMap mmap) {
+        ProjectSelfAppraisal projectSelfAppraisal = projectSelfAppraisalService.selectProjectSelfAppraisalById(id);
+        mmap.put("projectSelfAppraisal", projectSelfAppraisal);
+        ProjectBudgetInfo projectBudgetInfo = new ProjectBudgetInfo();
+        projectBudgetInfo.setDelFlag("0");
+        projectBudgetInfo.setStatus("6");
+        List<ProjectBudgetInfo> projects = projectBudgetInfoService.selectProjectBudgetInfoList(projectBudgetInfo);
+        for (ProjectBudgetInfo projectBudgetInfo1 : projects) {
+            ProjectKpiTarget projectKpiTarget = new ProjectKpiTarget();
+            projectKpiTarget.setProjectId(projectBudgetInfo1.getId());
+            List<ProjectKpiTarget> projectKpiTargetList = projectKpiTargetService.selectProjectKpiTargetList(projectKpiTarget);
+            projectBudgetInfo1.setProjectKpiTargetList(projectKpiTargetList);
+        }
+        mmap.put("projects", projects);
+        return prefix + "/preview";
+    }
+
+
+    /**
+     *绩效自评预览
+     */
+    @GetMapping("/previewPj/{id}")
+    public String previewPj(@PathVariable("id") Long id, ModelMap mmap) {
+        ProjectSelfAppraisal projectSelfAppraisal = projectSelfAppraisalService.selectProjectSelfAppraisalById(id);
+        mmap.put("projectSelfAppraisal", projectSelfAppraisal);
+        ProjectBudgetInfo projectBudgetInfo = new ProjectBudgetInfo();
+        projectBudgetInfo.setDelFlag("0");
+        projectBudgetInfo.setStatus("6");
+        List<ProjectBudgetInfo> projects = projectBudgetInfoService.selectProjectBudgetInfoList(projectBudgetInfo);
+        for (ProjectBudgetInfo projectBudgetInfo1 : projects) {
+            ProjectKpiTarget projectKpiTarget = new ProjectKpiTarget();
+            projectKpiTarget.setProjectId(projectBudgetInfo1.getId());
+            List<ProjectKpiTarget> projectKpiTargetList = projectKpiTargetService.selectProjectKpiTargetList(projectKpiTarget);
+            projectBudgetInfo1.setProjectKpiTargetList(projectKpiTargetList);
+        }
+        mmap.put("projects", projects);
+        return prefix + "/previewPj";
+    }
+
+    /**
      * 修改绩效自评
      */
     @GetMapping("/evaluate/{id}")

@@ -38,6 +38,9 @@
                 <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" shiro:hasPermission="budget:appraisal:evaluate">
                     <i class="fa fa-bar-chart"></i> 绩效评价
                 </a>
+                <a class="btn btn-default" onclick="view()" >
+                    <i class="fa fa-eye"></i> 预览
+                </a>
             </div>
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
@@ -155,6 +158,15 @@
             };
             $.table.init(options);
         });
+
+        function view() {
+            var row = $("#bootstrap-table").bootstrapTable('getSelections');
+            if (row.length == 0 || row.length > 1) {
+                $.modal.alertWarning("请至少选择一条记录");
+                return;
+            }
+            $.modal.openTab("绩效评价预览", prefix +'/previewPj/'+row[0].id);
+        }
     </script>
 </body>
 </html>
