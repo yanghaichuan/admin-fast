@@ -54,6 +54,10 @@
                     <i class="fa fa-y-combinator"></i> 预算申请
                 </a>
 
+                <a class="btn  btn-primary single disabled" onclick="chart()">
+                    <i class="fa fa fa-bar-chart"></i> 统计分析
+                </a>
+
                 <a class="btn btn-default" onclick="view()" >
                     <i class="fa fa-eye"></i> 预览
                 </a>
@@ -282,6 +286,16 @@
                 return;
             }
             $.modal.openTab("项目预览", prefix +'/preview/'+row[0].id);
+        }
+
+        //图表
+        function chart() {
+            var row = $("#bootstrap-table").bootstrapTable('getSelections');
+            if (row.length == 0 || row.length > 1) {
+                $.modal.alertWarning("请至少选择一条记录");
+                return;
+            }
+            $.modal.openTab("项目统计图表", prefix +'/chart/'+row[0].id);
         }
     </script>
 </body>

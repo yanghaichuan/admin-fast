@@ -1,6 +1,13 @@
 package com.yueqiangu.project.budget.info.controller;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.yueqiangu.common.utils.DateUtils;
+import com.yueqiangu.project.budget.apply.domain.ProjectMoneyApply;
+import com.yueqiangu.project.budget.apply.service.IProjectMoneyApplyService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +40,10 @@ public class ProjectBudgetInfoController extends BaseController
 
     @Autowired
     private IProjectBudgetInfoService projectBudgetInfoService;
+
+
+    @Autowired
+    private IProjectMoneyApplyService projectMoneyApplyService;
 
 
     @RequiresPermissions("budget:info:view")
@@ -117,6 +128,34 @@ public class ProjectBudgetInfoController extends BaseController
         ProjectBudgetInfo projectBudgetInfo = projectBudgetInfoService.selectProjectBudgetInfoById(id);
         mmap.put("projectBudgetInfo", projectBudgetInfo);
         return prefix + "/preview";
+    }
+
+    /**
+     * 项目预览
+     */
+    @GetMapping("/chart/{id}")
+    public String chart(@PathVariable("id") Long id, ModelMap mmap)
+    {
+        ProjectBudgetInfo projectBudgetInfo = projectBudgetInfoService.selectProjectBudgetInfoById(id);
+        mmap.put("projectBudgetInfo", projectBudgetInfo);
+        ProjectMoneyApply projectMoneyApply = new ProjectMoneyApply();
+        projectMoneyApply.setProjectId(id);
+        List<ProjectMoneyApply> projectMoneyApplyList =  projectMoneyApplyService.selectProjectMoneyApplyList(projectMoneyApply);
+        List<Double> cashList = new ArrayList<>();
+        List<String> dateList = new ArrayList<>();
+        for(ProjectMoneyApply projectMoneyApply1 :projectMoneyApplyList){
+            double d1 = 0;
+            try {
+                d1 = new DecimalFormat().parse(projectMoneyApply1.getMoney()).doubleValue();
+                cashList.add(d1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            dateList.add(DateUtils.parseDateToStr("yyyy-MM-dd",projectMoneyApply1.getCreateTime()));
+        }
+        mmap.put("cashList",cashList);
+        mmap.put("dateList",dateList);
+        return prefix + "/chart";
     }
 
 
